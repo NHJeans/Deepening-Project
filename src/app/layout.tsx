@@ -20,7 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <div className="container max-w-custom bg-customYellow h-dvh mx-auto">
+            {children}
+          </div>
+        </QueryProvider>
       </body>
     </html>
   );
