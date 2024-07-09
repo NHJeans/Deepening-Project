@@ -1,5 +1,5 @@
 import React from "react";
-import ButtonSm from "../Button/ButtonSm";
+import SmallButton from "../Button/SmallButton";
 import HeaderSection from "./HeaderSection";
 
 const ClubsHeader = () => {
@@ -9,8 +9,8 @@ const ClubsHeader = () => {
       <div className="ml-4">
         <strong>닉네임</strong>
         <div className="space-x-2">
-          <ButtonSm>정보수정</ButtonSm>
-          <ButtonSm>로그아웃</ButtonSm>
+          <SmallButton>정보수정</SmallButton>
+          <SmallButton>로그아웃</SmallButton>
         </div>
       </div>
     </HeaderSection>
