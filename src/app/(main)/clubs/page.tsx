@@ -1,7 +1,12 @@
+import ClubsHeader from "@/components/Header/ClubsHeader";
 import React from "react";
 
-const page = () => {
-  return <div>page</div>;
+const ClubListPage = () => {
+  return (
+    <div>
+      <ClubsHeader />
+    </div>
+  );
 };
 
-export default page;
+export default ClubListPage;
