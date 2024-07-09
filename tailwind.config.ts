@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         customYellow: "#FEFFD7",
+        customGreen: "#95EB42",
       },
       maxWidth: {
         custom: "420px",
