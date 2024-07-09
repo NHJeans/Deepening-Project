@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import QueryProvider from "@/provider/QureyProvider";
-
 import "./globals.css";
 
 interface RootLayoutProps {}
@@ -21,9 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <QueryProvider>
-          <div className="container mx-auto h-dvh max-w-custom bg-customYellow">{children}</div>
-        </QueryProvider>
+        <div className="container mx-auto h-dvh max-w-custom bg-customYellow">{children}</div>
       </body>
     </html>
   );
