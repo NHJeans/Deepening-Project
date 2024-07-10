@@ -7,6 +7,7 @@ const ClubListPage = () => {
   return (
     <div>
       <ClubsHeader />
+      <p>sorry</p>
     </div>
   );
 };
