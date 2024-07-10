@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
-import gridImg from "../../../../../public/icons/grid-filled.png";
-import listImg from "../../../../../public/icons/list-lined.png";
+import gridImg from "../../../../../../../public/icons/grid-filled.png";
+import listImg from "../../../../../../../public/icons/list-lined.png";
 
 interface ClubDetailPageHeaderProps {
   id: string;

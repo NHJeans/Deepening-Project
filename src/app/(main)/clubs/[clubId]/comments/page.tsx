@@ -3,12 +3,11 @@
 import HeaderSection from "@/components/Header/HeaderSection";
 import { Comment } from "@/types/comment.type";
 import { useEffect, useState } from "react";
+import ClubDetailPageHeader from "./_components/ClubDetailPageHeader";
+import CommentGridItem from "./_components/CommentGridItem";
+import CommentListItem from "./_components/CommentListItem";
 
-import ClubDetailPageHeader from "../_components/ClubDetailPageHeader";
-import CommentGridItem from "../_components/CommentGridItem";
-import CommentListItem from "../_components/CommentListItem";
-
-const ClubDetailPage = ({ params: { id } }: { params: { id: string } }) => {
+const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) => {
   const [commentList, setCommentList] = useState<Comment[]>([]);
   const [positions, setPositions] = useState<{ [key: string]: { x: number; y: number } }>({});
   const [dragging, setDragging] = useState<{ id: string; isDragging: boolean } | null>(null);
@@ -18,7 +17,7 @@ const ClubDetailPage = ({ params: { id } }: { params: { id: string } }) => {
 
   useEffect(() => {
     const fetchCommentData = async () => {
-      const response = await fetch("http://localhost:3000/api/clubs");
+      const response = await fetch(`http://localhost:3000/api/clubs/${clubId}/comments`);
       const data: Comment[] = await response.json();
       setCommentList(data);
 
@@ -26,7 +25,7 @@ const ClubDetailPage = ({ params: { id } }: { params: { id: string } }) => {
         (acc, comment, index) => {
           const row = Math.floor(index / 2);
           const col = index % 2;
-          acc[comment.id] = { x: col * 170 + 50, y: row * 200 };
+          acc[comment.id] = { x: col * 170 + 50, y: row * 180 + 20 };
           return acc;
         },
         {} as { [key: string]: { x: number; y: number } },
@@ -36,7 +35,7 @@ const ClubDetailPage = ({ params: { id } }: { params: { id: string } }) => {
     };
 
     fetchCommentData();
-  }, []);
+  }, [clubId]);
 
   // 드래그 시작시 호출
   const handleMouseDown = (e: React.MouseEvent, id: string) => {
@@ -83,14 +82,14 @@ const ClubDetailPage = ({ params: { id } }: { params: { id: string } }) => {
     }
   };
 
-  const handleMoveDetail = (id: string) => {
-    alert(`클릭: ${id}`);
+  const handleMoveDetail = (clubId: string) => {
+    alert(`클릭: ${clubId}`);
   };
 
   return (
     <section className="relative h-full w-full" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
       <HeaderSection>
-        <ClubDetailPageHeader id={id} setViewMode={setViewMode} />
+        <ClubDetailPageHeader id={clubId} setViewMode={setViewMode} />
       </HeaderSection>
       <section className="relative h-[75%] overflow-y-auto">
         {viewMode === "grid"
