@@ -1,10 +1,13 @@
 interface ButtonSmProps {
   children: React.ReactNode;
+  onClick?: () => void;
 }
 
-const ButtonSm = ({ children }: ButtonSmProps) => {
+import React from "react";
+
+const ButtonSm: React.FC<ButtonSmProps> = ({ children, onClick }) => {
   return (
-    <button className="bg-customGreen rounded-lg text-white text-xs px-2 py-[2.5px] ">
+    <button onClick={onClick} className="bg-customGreen rounded-lg text-white text-xs px-2 py-[2.5px]">
       {children}
     </button>
   );

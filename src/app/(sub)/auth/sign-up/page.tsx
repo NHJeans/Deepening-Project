@@ -11,42 +11,43 @@ const SignUpPage = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [emailError, setEmailError] = useState<string | null>(null);
-  const [nicknameError, setNicknameError] = useState<string | null>(null);
   const [signUpError, setSignUpError] = useState<string | null>(null);
 
-  const checkEmailExists = async () => {
-    setEmailError(null);
+  const checkEmailExists = async (email: string) => {
     const { data, error } = await supabase.from("Users").select("id").eq("email", email).single();
 
     if (data) {
-      setEmailError("이미 사용 중인 이메일입니다.");
-    } else if (error && error.code !== "PGRST116") {
-      // PGRST116: No matching rows
-      setEmailError(error.message);
+      return true;
     }
+
+    return false;
   };
 
-  const checkNicknameExists = async () => {
-    setNicknameError(null);
-    const { data, error } = await supabase.from("Users").select("id").eq("nickname", nickname).single();
-
-    if (data) {
-      setNicknameError("이미 사용 중인 닉네임입니다.");
-    } else if (error && error.code !== "PGRST116") {
-      // PGRST116: No matching rows
-      setNicknameError(error.message);
+  const handleEmailCheck = async () => {
+    setEmailError(null);
+    const emailExists = await checkEmailExists(email);
+    if (emailExists) {
+      setEmailError("이미 사용 중인 이메일입니다.");
+    } else {
+      alert("사용 가능한 이메일입니다.");
     }
   };
 
   const handleSignUp = async () => {
     setSignUpError(null);
+    setEmailError(null);
 
     if (password !== passwordConfirm) {
       setSignUpError("비밀번호가 일치하지 않습니다.");
       return;
     }
 
-    // Supabase auth에 사용자 생성
+    const emailExists = await checkEmailExists(email);
+    if (emailExists) {
+      setEmailError("이미 사용 중인 이메일입니다.");
+      return;
+    }
+
     const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
@@ -63,14 +64,19 @@ const SignUpPage = () => {
       return;
     }
 
-    const { error: insertError } = await supabase.from("Users").insert({ id: userId, email, nickname });
+    const { error: insertError } = await supabase.from("Users").insert({
+      id: userId,
+      email,
+      nickname,
+      profile_img: null,
+    });
 
     if (insertError) {
       setSignUpError(insertError.message);
       return;
     }
 
-    router.push("/auth/login");
+    router.push("/clubs");
   };
 
   return (
@@ -88,24 +94,18 @@ const SignUpPage = () => {
           onChange={(e) => setEmail(e.target.value)}
           className="flex-1 p-2 border rounded"
         />
-        <button onClick={checkEmailExists} className="ml-2 bg-customGreen text-white px-4 py-2 rounded">
+        <button onClick={handleEmailCheck} className="ml-2 bg-customGreen text-white px-4 py-2 rounded">
           중복확인
         </button>
       </div>
       {emailError && <p className="text-red-500 mb-2">{emailError}</p>}
-      <div className="flex items-center mb-2 w-full">
-        <input
-          type="text"
-          placeholder="닉네임"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          className="flex-1 p-2 border rounded"
-        />
-        <button onClick={checkNicknameExists} className="ml-2 bg-customGreen text-white px-4 py-2 rounded">
-          중복확인
-        </button>
-      </div>
-      {nicknameError && <p className="text-red-500 mb-2">{nicknameError}</p>}
+      <input
+        type="text"
+        placeholder="닉네임"
+        value={nickname}
+        onChange={(e) => setNickname(e.target.value)}
+        className="mb-2 p-2 border rounded w-full"
+      />
       <input
         type="password"
         placeholder="비밀번호"
