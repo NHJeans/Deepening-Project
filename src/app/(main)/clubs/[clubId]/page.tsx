@@ -2,18 +2,19 @@
 
 import HeaderSection from "@/components/Header/HeaderSection";
 import { Comment } from "@/types/comment.type";
-import { selectPlantImg } from "@/utils/selectPlantImg";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import gridImg from "../../../../../public/icons/grid-filled.png";
-import listImg from "../../../../../public/icons/list-lined.png";
 
-const ClubDetailPage = ({ params }: { params: { id: string } }) => {
+import ClubDetailPageHeader from "../_components/ClubDetailPageHeader";
+import CommentGridItem from "../_components/CommentGridItem";
+import CommentListItem from "../_components/CommentListItem";
+
+const ClubDetailPage = ({ params: { id } }: { params: { id: string } }) => {
   const [commentList, setCommentList] = useState<Comment[]>([]);
   const [positions, setPositions] = useState<{ [key: string]: { x: number; y: number } }>({});
   const [dragging, setDragging] = useState<{ id: string; isDragging: boolean } | null>(null);
   const [initialMousePosition, setInitialMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [initialStickerPosition, setInitialStickerPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [viewMode, setViewMode] = useState<string>("grid");
 
   useEffect(() => {
     const fetchCommentData = async () => {
@@ -25,7 +26,7 @@ const ClubDetailPage = ({ params }: { params: { id: string } }) => {
         (acc, comment, index) => {
           const row = Math.floor(index / 2);
           const col = index % 2;
-          acc[comment.id] = { x: col * 170 + 50, y: row * 200 + 20 };
+          acc[comment.id] = { x: col * 170 + 50, y: row * 200 };
           return acc;
         },
         {} as { [key: string]: { x: number; y: number } },
@@ -37,29 +38,37 @@ const ClubDetailPage = ({ params }: { params: { id: string } }) => {
     fetchCommentData();
   }, []);
 
+  // 드래그 시작시 호출
   const handleMouseDown = (e: React.MouseEvent, id: string) => {
     setDragging({ id, isDragging: false });
     setInitialMousePosition({ x: e.clientX, y: e.clientY });
     setInitialStickerPosition({ x: positions[id].x, y: positions[id].y });
   };
 
+  // 드래그 끝날 때 호출
   const handleMouseUp = () => {
+    // 실제 드래그 작업이 진행된 경우
     if (dragging && dragging.isDragging) {
       setDragging(null);
       return;
     }
+
+    // 드래그 작업은 진행되지 않으나, 클릭된 경우 => onClick 효과
     if (dragging) {
       handleMoveDetail(dragging.id);
     }
+
     setDragging(null);
   };
 
+  // 마우스 이동시 호출
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!dragging) return;
 
     const deltaX = e.clientX - initialMousePosition.x;
     const deltaY = e.clientY - initialMousePosition.y;
 
+    // 일정 값 이상 이동하면 드래그를 한 것으로 간주
     if (!dragging.isDragging && (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5)) {
       setDragging({ ...dragging, isDragging: true });
     }
@@ -81,37 +90,20 @@ const ClubDetailPage = ({ params }: { params: { id: string } }) => {
   return (
     <section className="relative h-full w-full" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
       <HeaderSection>
-        <h1>clubDetailPage2</h1>
-        <div className="flex gap-1">
-          <div className="w-6 h-6 rounded bg-customGreen cursor-pointer hover:brightness-90 active:opacity-85">
-            <Image src={gridImg} alt="grid" />
-          </div>
-          <button
-            className="w-6 h-6 rounded bg-customGreen cursor-pointer hover:brightness-95 active:opacity-85"
-            type="button"
-          >
-            <Image src={listImg} alt="list" />
-          </button>
-        </div>
+        <ClubDetailPageHeader id={id} setViewMode={setViewMode} />
       </HeaderSection>
-      <div className="relative h-[74%] p-2 overflow-y-auto">
-        {commentList.map((comment) => (
-          <div
-            key={comment.id}
-            className="absolute flex flex-col items-center justify-center rounded-lg cursor-pointer"
-            onMouseDown={(e) => handleMouseDown(e, comment.id.toString())}
-            style={{
-              left: `${positions[comment.id]?.x}px`,
-              top: `${positions[comment.id]?.y}px`,
-              width: "130px",
-              height: "170px",
-            }}
-          >
-            <Image src={selectPlantImg(comment.category)} alt={comment.category} width={100} height={100} priority />
-            <h3 className="absolute bottom-0 text-sm text-center w-full">{`${comment.nickname}님의 ${comment.category}`}</h3>
-          </div>
-        ))}
-      </div>
+      <section className="relative h-[75%] overflow-y-auto">
+        {viewMode === "grid"
+          ? commentList.map((comment) => (
+              <CommentGridItem
+                key={comment.id}
+                comment={comment}
+                position={positions[comment.id]}
+                handleMouseDown={handleMouseDown}
+              />
+            ))
+          : commentList.map((comment) => <CommentListItem key={comment.id} comment={comment} />)}
+      </section>
       <div className="flex h-[10%] items-center justify-center">
         <button className="cursor-pointer rounded bg-customGreen px-24 py-2 font-semibold text-white hover:opacity-90">
           공유하기
