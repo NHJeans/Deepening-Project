@@ -16,7 +16,7 @@ export default function ClubsList() {
           <div key={club.id} className="bg-white p-4 rounded-lg shadow-md">
             <div className="relative w-full h-32">
               <Image
-                src={club.thumbnail || "/DefaultCardImage.png"}
+                src={club.thumbnail || "/Default-Card-Image.png"}
                 alt={club.title}
                 layout="fill"
                 objectFit="cover"
