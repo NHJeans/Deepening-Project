@@ -1,8 +1,7 @@
+import QueryProvider from "@/provider/QureyProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
-interface RootLayoutProps {}
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="container mx-auto h-dvh max-w-custom bg-customYellow">{children}</div>
+        <QueryProvider>
+          <div className="container max-w-custom bg-customYellow h-dvh mx-auto">{children}</div>
+        </QueryProvider>
       </body>
     </html>
   );

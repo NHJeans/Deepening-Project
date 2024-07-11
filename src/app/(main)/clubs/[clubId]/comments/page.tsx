@@ -25,7 +25,7 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
         (acc, comment, index) => {
           const row = Math.floor(index / 2);
           const col = index % 2;
-          acc[comment.id] = { x: col * 170 + 50, y: row * 180 + 20 };
+          acc[comment.id] = { x: col * 170 + 40, y: row * 180 + 20 };
           return acc;
         },
         {} as { [key: string]: { x: number; y: number } },
@@ -83,11 +83,12 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
   };
 
   const handleMoveDetail = (clubId: string) => {
+    // alert -> 추후 디테일로 변경 예정
     alert(`클릭: ${clubId}`);
   };
 
   return (
-    <section className="relative h-full w-full" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
+    <section className="relative h-full w-full " onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
       <HeaderSection>
         <ClubDetailPageHeader id={clubId} setViewMode={setViewMode} />
       </HeaderSection>
@@ -101,7 +102,9 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
                 handleMouseDown={handleMouseDown}
               />
             ))
-          : commentList.map((comment) => <CommentListItem key={comment.id} comment={comment} />)}
+          : commentList.map((comment) => (
+              <CommentListItem key={comment.id} comment={comment} handleMoveDetail={handleMoveDetail} />
+            ))}
       </section>
       <div className="flex h-[10%] items-center justify-center">
         <button className="cursor-pointer rounded bg-customGreen px-24 py-2 font-semibold text-white hover:opacity-90">
