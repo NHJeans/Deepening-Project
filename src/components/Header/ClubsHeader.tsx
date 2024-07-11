@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/utils/supabase/client";
-import SmallButton from "../Button/SmallButton";
-import HeaderSection from "./HeaderSection";
 import { useUserProfile } from "@/store/queries/useUserProfileQueries";
+import { supabase } from "@/utils/supabase/client";
 import Image from "next/image";
-import SkeletonHeader from "./SkeletonHeader";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import SmallButton from "../Button/SmallButton";
 import EditNickname from "./EditNickname";
+import HeaderSection from "./HeaderSection";
+import SkeletonHeader from "./SkeletonHeader";
 
 const ClubsHeader = () => {
   const { data, isLoading, error } = useUserProfile();
