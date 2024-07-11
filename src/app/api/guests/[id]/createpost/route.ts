@@ -14,7 +14,8 @@ export async function POST(request: Request) {
   const { data, error } = await supabase
     .from("Comments")
     .insert([{ content, category, bg_image, club_id, nickname }])
-    .select();
+    .select()
+    .single();
 
   if (error) {
     throw new Error(error.message);

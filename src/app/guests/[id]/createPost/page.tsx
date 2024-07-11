@@ -3,9 +3,11 @@
 import { Club } from "@/types/club.type";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
-import CategoryButtons from "../../_components/categoryButtons";
-import ColorButtons from "../../_components/colorButtons";
+import CategoryButtons from "../../_components/categoryButton";
+import ColorButtons from "../../_components/colorButton";
+import CustomButton from "../../_components/submitButton";
 
 const CreatePostPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
@@ -14,6 +16,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
   const colorRef = useRef<string>("white");
   const categoryRef = useRef<string>("응원글");
   const nicknameRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const {
     data: clubData,
@@ -88,9 +91,30 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
       });
 
       if (response.ok) {
-        alert("글이 성공적으로 작성되었습니다!");
+        const { data } = await response.json();
+        console.log("🚀 ~ handleSubmit ~ data:", data);
+
+        console.log("🚀 ~ handleSubmit ~  if (response.ok) :", response);
+
         // if (contentRef.current) contentRef.current.value = "";
-        // return NextResponse.redirect(new URL('/api/guests/${id}/', request.url));
+        // router.push({
+        //   pathname: "/guests/${id}/postDetail/[postId]",
+        //   query: { postId: id },
+        // });
+
+        // router.push(`/postDetail?&clubId=${id}`);
+        // router.push(`/guests/${id}/postDetail`);
+        // const post_id = data.post_id;
+        // const data = await response.json();
+        // console.log(data);
+        // const postId = data[0].id;
+
+        // if (!post_id) {
+        //   throw new Error("포스트 ID가 반환되지 않았습니다.");
+        // }
+
+        alert("글이 성공적으로 작성되었습니다!");
+        router.push(`/guests/${id}/postDetail/${data.id}`);
       } else {
         alert("글 작성 중 오류가 발생했습니다.");
       }
@@ -101,7 +125,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <section className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="font-extrabold self-start">{club ? `${club.title}님의 모임` : "모임"}</h1>
       <div className="my-4 flex items-start ">
         <input
@@ -129,12 +153,10 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
           <ColorButtons handleColorChange={handleColorChange} />
         </div>
         <div className="flex justify-end">
-          <button type="submit" className="px-4 py-1 bg-customGreen text-white rounded-md shadow-md ">
-            작성
-          </button>
+          <CustomButton type="submit">작성</CustomButton>
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 
