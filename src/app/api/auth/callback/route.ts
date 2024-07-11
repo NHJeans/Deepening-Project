@@ -5,7 +5,7 @@ import { createServerClient } from "@supabase/ssr";
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = "/auth/kakao-redirect"; // 성공 시 리디렉션할 경로
+  const next = "/auth/socialNickname"; // 닉네임 입력 페이지로 리디렉션
 
   if (code) {
     const cookieStore = cookies();
@@ -26,7 +26,6 @@ export async function GET(request: Request) {
         },
       },
     );
-
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
       return NextResponse.redirect(`${origin}${next}`);

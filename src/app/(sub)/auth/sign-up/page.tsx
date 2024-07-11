@@ -3,34 +3,48 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/utils/supabase/client";
+import Image from "next/image";
+import Link from "next/link";
+import { useUserStore } from "@/store";
 
 const SignUpPage = () => {
   const router = useRouter();
+  const setUser = useUserStore((state) => state.setUser);
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [emailError, setEmailError] = useState<string | null>(null);
   const [signUpError, setSignUpError] = useState<string | null>(null);
+  const [emailChecked, setEmailChecked] = useState<boolean | null>(null);
 
   const checkEmailExists = async (email: string) => {
     const { data, error } = await supabase.from("Users").select("id").eq("email", email).single();
+    return !!data;
+  };
 
-    if (data) {
-      return true;
-    }
-
-    return false;
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   const handleEmailCheck = async () => {
     setEmailError(null);
+    setEmailChecked(null);
+
+    if (!isValidEmail(email)) {
+      setEmailError("이메일 형식으로 입력해주세요.");
+      setEmailChecked(false);
+      return;
+    }
+
     const emailExists = await checkEmailExists(email);
     if (emailExists) {
       setEmailError("이미 사용 중인 이메일입니다.");
-    } else {
-      alert("사용 가능한 이메일입니다.");
+      setEmailChecked(false);
+      return;
     }
+    setEmailChecked(true);
   };
 
   const handleSignUp = async () => {
@@ -76,16 +90,23 @@ const SignUpPage = () => {
       return;
     }
 
-    router.push("/clubs");
+    setUser({
+      id: userId,
+      email,
+      nickname,
+      profile_img: null,
+    });
+
+    router.push("/auth/login");
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-customYellow">
       <button onClick={() => router.back()} className="self-start m-4">
-        <img src="/back.png" alt="Back" className="w-6 h-6" />
+        <Image src="/back.png" alt="Back" width={24} height={24} />
       </button>
-      <img src="/logo.png" alt="Logo" className="mb-8 w-24 h-24" />
-      <h1 className="text-4xl font-bold mb-8">어땠어?</h1>
+      <Image src="/logo.png" alt="Logo" width={96} height={96} className="mb-8" />
+      <h1 className="text-4xl font-semibold mb-8">어땠어?</h1>
       <div className="flex items-center mb-2 w-full">
         <input
           type="email"
@@ -94,11 +115,12 @@ const SignUpPage = () => {
           onChange={(e) => setEmail(e.target.value)}
           className="flex-1 p-2 border rounded"
         />
-        <button onClick={handleEmailCheck} className="ml-2 bg-customGreen text-white px-4 py-2 rounded">
+        <button onClick={handleEmailCheck} className="ml-2 bg-customGreen text-white px-4 py-2 rounded font-semibold">
           중복확인
         </button>
       </div>
-      {emailError && <p className="text-red-500 mb-2">{emailError}</p>}
+      {emailChecked === false && emailError && <p className="text-red-500 mb-2">{emailError}</p>}
+      {emailChecked === true && <p className="text-green-500 mb-2">사용 가능한 이메일입니다.</p>}
       <input
         type="text"
         placeholder="닉네임"
@@ -124,9 +146,9 @@ const SignUpPage = () => {
       <button onClick={handleSignUp} className="bg-customGreen text-white px-4 py-2 rounded mb-4">
         회원가입
       </button>
-      <button onClick={() => router.push("/auth/login")} className="text-lightgrey-500">
+      <Link href="/auth/login" className="text-lightgrey-500">
         이미 회원이신가요?
-      </button>
+      </Link>
     </div>
   );
 };

@@ -3,38 +3,47 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/utils/supabase/client";
+import Image from "next/image";
+import { useUserStore } from "@/store";
 
 const LoginPage = () => {
   const router = useRouter();
+  const setUser = useUserStore((state) => state.setUser);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async () => {
     setError(null);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
-      setError(error.message);
-    } else {
-      router.push("/clubs");
+      if (error.message.includes("Invalid login credentials")) {
+        setError("로그인 정보가 일치하지 않습니다.");
+      } else {
+        setError(error.message);
+      }
+      return;
     }
-  };
 
-  const handleKakaoLogin = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "kakao",
-    });
-    if (error) {
-      setError(error.message);
+    const user = data.user;
+    if (user) {
+      setUser({
+        id: user.id,
+        email: user.email ?? "",
+        nickname: "",
+        profile_img: user.user_metadata.avatar_url ?? null,
+      });
+
+      router.push("/clubs");
     }
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-customYellow">
       <button onClick={() => router.back()} className="self-start m-4">
-        <img src="/back.png" alt="Back" className="w-6 h-6" />
+        <Image src="/back.png" alt="Back" width={24} height={24} />
       </button>
-      <img src="/logo.png" alt="Logo" width={150} height={150} className="mb-8" />
+      <Image src="/logo.png" alt="Logo" width={150} height={150} className="mb-8" />
       <input
         type="email"
         placeholder="이메일"
