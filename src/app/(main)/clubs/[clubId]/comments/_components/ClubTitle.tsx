@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { supabase } from "@/utils/supabase/client";
-import { notFound } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 
 interface ClubTitleProps {
   clubId: string;
@@ -14,16 +13,15 @@ interface ClubData {
 
 const ClubTitle = ({ clubId }: ClubTitleProps) => {
   const [clubData, setClubData] = useState<ClubData>();
+  const supabase = createClient();
 
   useEffect(() => {
     const fetchClubData = async () => {
       try {
         const { data, error } = await supabase.from("Clubs").select("*").eq("id", clubId).single();
-        const clubTitle = { thumbnail: data?.thumbnail, title: data?.title };
-        setClubData(clubTitle);
-      } catch (error) {
-        notFound();
-      }
+        const clubsData = { thumbnail: data?.thumbnail, title: data?.title };
+        setClubData(clubsData);
+      } catch (error) {}
     };
 
     fetchClubData();
