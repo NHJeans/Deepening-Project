@@ -18,9 +18,7 @@ type Club = {
 };
 
 const PostDetailPage = ({ params }: { params: { id: string; post_id: string } }) => {
-  // const { post_id } = params;
   const { id, post_id } = params;
-  console.log("🚀 ~ PostDetailPage ~ id:", post_id);
 
   const queryOptions: UseQueryOptions<any, Error, any, [string, string]>[] = [
     {
@@ -67,9 +65,6 @@ const PostDetailPage = ({ params }: { params: { id: string; post_id: string } })
   if (!post || !club) {
     return <div>게시글이나 모임 정보가 없습니다.</div>;
   }
-
-  console.log("🚀 ~ PostDetailPage ~ post:", post);
-  console.log("🚀 ~ PostDetailPage ~ club:", club);
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen pb-20">

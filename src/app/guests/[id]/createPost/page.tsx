@@ -92,9 +92,6 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
 
       if (response.ok) {
         const { data } = await response.json();
-        console.log("🚀 ~ handleSubmit ~ data:", data);
-
-        console.log("🚀 ~ handleSubmit ~  if (response.ok) :", response);
 
         alert("글이 성공적으로 작성되었습니다!");
         router.push(`/guests/${id}/postDetail/${data.id}`);
