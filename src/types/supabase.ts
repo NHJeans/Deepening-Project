@@ -43,6 +43,7 @@ export type Database = {
           content: string;
           created_at: string;
           id: number;
+          nickname: string;
         };
         Insert: {
           bg_image?: string | null;
@@ -51,6 +52,7 @@ export type Database = {
           content: string;
           created_at?: string;
           id?: number;
+          nickname?: string;
         };
         Update: {
           bg_image?: string | null;
@@ -59,6 +61,7 @@ export type Database = {
           content?: string;
           created_at?: string;
           id?: number;
+          nickname?: string;
         };
         Relationships: [
           {

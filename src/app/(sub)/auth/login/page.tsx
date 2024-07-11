@@ -16,7 +16,7 @@ const LoginPage = () => {
   const handleLogin = async () => {
     setError(null);
 
-    const response = await fetch("/api/login", {
+    const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ const LoginPage = () => {
 
     const user = result.user;
     if (user) {
-      const userResponse = await fetch("/api/get-user", {
+      const userResponse = await fetch("/api/auth/get-user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

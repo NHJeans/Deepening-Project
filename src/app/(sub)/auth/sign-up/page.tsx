@@ -30,7 +30,7 @@ const SignUpPage = () => {
       return;
     }
 
-    const response = await fetch("/api/email-check", {
+    const response = await fetch("/api/auth/email-check", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const SignUpPage = () => {
       return;
     }
 
-    const response = await fetch("/api/sign-up", {
+    const response = await fetch("/api/auth/sign-up", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

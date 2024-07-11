@@ -3,10 +3,11 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { supabase } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 
 const AuthSelectionPage = () => {
   const router = useRouter();
+  const supabase = createClient();
 
   const handleLogin = async (method: string) => {
     if (method === "kakao") {
@@ -38,19 +39,19 @@ const AuthSelectionPage = () => {
           <div className="w-12 h-12 flex items-center justify-center mb-2">
             <Image src="/email.png" alt="Email" width={48} height={48} />
           </div>
-          <span>email</span>
+          <span>Email</span>
         </button>
         <button onClick={() => handleLogin("google")} className="flex flex-col items-center">
           <div className="w-12 h-12 flex items-center justify-center mb-2">
-            <Image src="/googlelogo.png" alt="Google" width={48} height={48} />
+            <Image src="/logos/google-logo.png" alt="Google" width={48} height={48} />
           </div>
-          <span>구글로그인</span>
+          <span>Google</span>
         </button>
         <button onClick={() => handleLogin("kakao")} className="flex flex-col items-center">
           <div className="w-12 h-12 flex items-center justify-center mb-2">
-            <Image src="/kakaologo.png" alt="Kakao" width={48} height={48} />
+            <Image src="/logos/kakao-logo.png" alt="Kakao" width={48} height={48} />
           </div>
-          <span>카카오로그인</span>
+          <span>Kakao</span>
         </button>
       </div>
     </div>

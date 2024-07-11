@@ -2,13 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 import { useUserStore } from "@/store";
 
 const KakaoRedirectPage = () => {
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
   const [loading, setLoading] = useState(true);
+  const supabase = createClient();
 
   useEffect(() => {
     const handleKakaoLogin = async () => {
