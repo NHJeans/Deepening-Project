@@ -3,13 +3,16 @@ import Image from "next/image";
 import React, { useCallback, useState } from "react";
 import logo from "../../../../../public/logo.png";
 import emptyimage from "../../../../../public/empty-image.png";
-import {createClient} from "@/utils/supabase/client"
+import { createClient } from "@/utils/supabase/client";
 import { useDropzone } from "react-dropzone";
+import { useRouter } from "next/navigation";
 
 const CreateClub = () => {
   const [club, setClub] = useState("");
   const [inputImage, setInputimage] = useState<string>("");
   const [file, setFile] = useState<File>();
+  const supabase = createClient();
+  const router = useRouter();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const avatarFile = acceptedFiles[0];
@@ -31,12 +34,11 @@ const CreateClub = () => {
       alert("모임명을 입력해주세요");
       return;
     }
-    const supabase = createClient();
     if (!file) {
       const { data, error } = await supabase
         .from("Clubs")
         .insert([{ title: club, thumbnail: defaultImgUrl, user_id: "d5dca952-6c07-4f54-9fe7-bc587b5f9c46" }]);
-      data ? alert("모임 등록에 실패하였습니다.") : alert("모임이 성공적으로 등록되었습니다.");
+      data ? alert("모임 등록에 실패하였습니다.") : alert("모임이 성공적으로 등록되었습니다.");      
     } else {
       const filename = `${Date.now()}.jpg`;
       await supabase.storage.from("DeepeningProject").upload(filename, file);
@@ -44,8 +46,9 @@ const CreateClub = () => {
       const { data, error } = await supabase
         .from("Clubs")
         .insert([{ title: club, thumbnail: imageUrl.publicUrl, user_id: "d5dca952-6c07-4f54-9fe7-bc587b5f9c46" }]);
-      data ? alert("모임 등록에 실패하였습니다.") : alert("모임이 성공적으로 등록되었습니다.");
-    }
+      data ? alert("모임 등록에 실패하였습니다.") : alert("모임이 성공적으로 등록되었습니다.");      
+    }   
+    router.push("/clubs");
   };
 
   return (
