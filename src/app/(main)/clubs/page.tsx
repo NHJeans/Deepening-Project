@@ -11,7 +11,7 @@ const ClubListPage = async () => {
 
   await queryClient.prefetchQuery({
     queryKey: ["clubs"],
-    queryFn: fetchClubs,
+    queryFn: () => fetchClubs({ pageParam: 0 }),
   });
 
   await queryClient.prefetchQuery({
