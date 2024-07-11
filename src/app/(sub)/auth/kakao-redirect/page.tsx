@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
+import { useUserStore } from "@/store";
 
 const KakaoRedirectPage = () => {
   const router = useRouter();
+  const setUser = useUserStore((state) => state.setUser);
+  const [loading, setLoading] = useState(true);
+  const supabase = createClient();
 
   useEffect(() => {
     const handleKakaoLogin = async () => {
@@ -13,6 +17,7 @@ const KakaoRedirectPage = () => {
         data: { session },
         error,
       } = await supabase.auth.getSession();
+
       if (error) {
         console.error("세션 가져오기 실패:", error.message);
         router.push("/auth/login");
@@ -36,29 +41,29 @@ const KakaoRedirectPage = () => {
         return;
       }
 
-      if (!userData) {
-        const { full_name = "Unknown", avatar_url = "" } = user.user_metadata || {};
-
-        const { error: insertError } = await supabase.from("Users").insert({
+      if (userData) {
+        setUser({
           id: user.id,
-          email: user.email!,
-          nickname: full_name,
-          profile_img: avatar_url,
+          email: user.email ?? "",
+          nickname: userData.nickname,
+          profile_img: userData.profile_img,
         });
-
-        if (insertError) {
-          console.error("유저 데이터 삽입 실패:", insertError.message);
-          return;
-        }
+        console.log("유저 데이터 설정 완료:", userData);
+        router.push("/clubs");
+        return;
       }
 
-      router.push("/clubs");
+      router.push("/auth/socialNickname");
     };
 
-    handleKakaoLogin();
-  }, [router]);
+    handleKakaoLogin().finally(() => setLoading(false));
+  }, [router, setUser]);
 
-  return <div>로그인 중...</div>;
+  if (loading) {
+    return <div className="font-semibold">로그인 중...</div>;
+  }
+
+  return null;
 };
 
 export default KakaoRedirectPage;

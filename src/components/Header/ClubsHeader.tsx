@@ -1,8 +1,8 @@
 "use client";
 
 import { useUserProfile } from "@/store/queries/useUserProfileQueries";
-import { supabase } from "@/utils/supabase/client";
 import Image from "next/image";
+import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import SmallButton from "../Button/SmallButton";
@@ -12,9 +12,10 @@ import SkeletonHeader from "./SkeletonHeader";
 
 const ClubsHeader = () => {
   const { data, isLoading, error } = useUserProfile();
-  const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [nickname, setNickname] = useState("");
+  const router = useRouter();
+  const supabase = createClient();
 
   useEffect(() => {
     if (data?.nickname) {

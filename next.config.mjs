@@ -1,11 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      'm.secondmorning.co.kr',
-      'saayznmhcfprtrehndli.supabase.co',
-      'k.kakaocdn.net'
-    ],
     remotePatterns: [
       {
         protocol: "https",
@@ -18,9 +13,9 @@ const nextConfig = {
         pathname: "**",
       },
       {
-        protocol: "https",
-        hostname: "k.kakaocdn.net",
-        pathname: "**",
+        protocol: "http",
+        hostname: "k.kakaocdn.net", // 여기에 k.kakaocdn.net 호스트네임을 추가합니다.
+        pathname: "/dn/**",
       },
     ],
   },
