@@ -23,8 +23,8 @@ const PostDetailPage = ({ params }: { params: { id: string; post_id: string } })
   } = useQuery<Post[], Error, Post[], [string, string]>({
     queryKey: ["posts", post_id],
     queryFn: async () => {
-      const response = await fetch(`/api/guests/${id}/postdetail/${post_id}`); // 데이터 읽어오는건 잘됨
-      // const response = await fetch(`/api/guests/${id}/postdetail${post_id}`);
+      const response = await fetch(`/api/guests/${id}/postdetail/${post_id}`);
+
       if (!response.ok) {
         throw new Error("네트워크가 불안정합니다");
       }
@@ -52,12 +52,25 @@ const PostDetailPage = ({ params }: { params: { id: string; post_id: string } })
   console.log("🚀 ~ PostDetailPage ~ post:", post);
 
   return (
-    <div style={{ backgroundColor: post.bg_image ?? "transparent" }} className="p-4 rounded shadow-md">
-      <h1 className="text-2xl font-bold mb-4">{post.content}</h1>
-      <p className="text-lg mb-2">카테고리: {post.category}</p>
-      <p className="text-lg mb-2">작성자: {post.nickname}</p>
-      <p className="text-lg mb-2">클럽 ID: {post.club_id}</p>
-    </div>
+    <section className="flex flex-col items-center justify-center min-h-screen pb-20">
+      <h1 className="font-black self-start ml-10">{`님의 모임`}</h1>
+      <div className="my-7 flex items-start mr-12">
+        <input
+          id="nickname"
+          value={post.nickname}
+          readOnly
+          className="w-1/5 mr-2  bg-customYellow border-b border-gray-300 outline-none placeholder-gray-500 "
+        />
+        <span className="mr-4 font-bold">님의</span>
+        <div className="w-1/5 bg-customGreen border rounded-md text-white shadow-md text-center">{post.category}</div>
+      </div>
+      <div
+        style={{ backgroundColor: post.bg_image ?? "transparent", backgroundImage: 'url("/logo.png")' }}
+        className="w-4/5 p-2 border border-gray-300 rounded-md min-h-140 resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
+      >
+        <h1 className="text-2xl  mb-4">{post.content}</h1>
+      </div>
+    </section>
   );
 };
 

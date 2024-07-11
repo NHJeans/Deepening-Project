@@ -96,23 +96,6 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
 
         console.log("🚀 ~ handleSubmit ~  if (response.ok) :", response);
 
-        // if (contentRef.current) contentRef.current.value = "";
-        // router.push({
-        //   pathname: "/guests/${id}/postDetail/[postId]",
-        //   query: { postId: id },
-        // });
-
-        // router.push(`/postDetail?&clubId=${id}`);
-        // router.push(`/guests/${id}/postDetail`);
-        // const post_id = data.post_id;
-        // const data = await response.json();
-        // console.log(data);
-        // const postId = data[0].id;
-
-        // if (!post_id) {
-        //   throw new Error("포스트 ID가 반환되지 않았습니다.");
-        // }
-
         alert("글이 성공적으로 작성되었습니다!");
         router.push(`/guests/${id}/postDetail/${data.id}`);
       } else {
@@ -126,7 +109,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="font-extrabold self-start">{club ? `${club.title}님의 모임` : "모임"}</h1>
+      <h1 className="font-black self-start ml-10 ">{club ? `${club.title}님의 모임` : "모임"}</h1>
       <div className="my-4 flex items-start ">
         <input
           id="nickname"
@@ -134,7 +117,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
           required
           className="w-1/5 bg-customYellow border-b border-gray-300 outline-none placeholder-gray-500 mr-2"
         />
-        <span className="mr-4">님의</span>
+        <span className="mr-4 font-bold">님의</span>
         <CategoryButtons handleCategoryChange={handleCategoryChange} />
       </div>
 
@@ -148,7 +131,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
             style={{ backgroundColor: colorRef.current, backgroundImage: 'url("/logo.png")' }}
           />
         </div>
-        <label className="block mb-2 p-5">편지색</label>
+        <label className="block mb-2 p-5 font-bold">편지색</label>
         <div className="flex space-x-2 mb-12 justify-center pb-20">
           <ColorButtons handleColorChange={handleColorChange} />
         </div>
