@@ -34,21 +34,25 @@ const CreateClub = () => {
       alert("모임명을 입력해주세요");
       return;
     }
-    if (!file) {
-      const { data, error } = await supabase
-        .from("Clubs")
-        .insert([{ title: club, thumbnail: defaultImgUrl, user_id: "d5dca952-6c07-4f54-9fe7-bc587b5f9c46" }]);
-      data ? alert("모임 등록에 실패하였습니다.") : alert("모임이 성공적으로 등록되었습니다.");      
-    } else {
+    let imageUrl = { publicUrl: "" };
+    if (file) {
       const filename = `${Date.now()}.jpg`;
       await supabase.storage.from("DeepeningProject").upload(filename, file);
-      const { data: imageUrl } = supabase.storage.from("DeepeningProject").getPublicUrl(filename);
-      const { data, error } = await supabase
-        .from("Clubs")
-        .insert([{ title: club, thumbnail: imageUrl.publicUrl, user_id: "d5dca952-6c07-4f54-9fe7-bc587b5f9c46" }]);
-      data ? alert("모임 등록에 실패하였습니다.") : alert("모임이 성공적으로 등록되었습니다.");      
-    }   
-    router.push("/clubs");
+      const { data } = supabase.storage.from("DeepeningProject").getPublicUrl(filename);
+      imageUrl = data;
+    }
+    const { data, error } = await supabase.from("Clubs").insert([
+      {
+        title: club,
+        thumbnail: file ? imageUrl.publicUrl : defaultImgUrl,
+        user_id: "d5dca952-6c07-4f54-9fe7-bc587b5f9c46",
+      },
+    ]);
+    if (data) alert("모임 등록에 실패하였습니다.");
+    else {
+      alert("모임이 성공적으로 등록되었습니다.");
+      router.push("/clubs");
+    }
   };
 
   return (
