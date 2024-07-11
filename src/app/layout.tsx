@@ -5,8 +5,6 @@ import QueryProvider from "@/provider/QureyProvider";
 import Script from "next/script";
 import Head from "next/head";
 
-interface RootLayoutProps {}
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

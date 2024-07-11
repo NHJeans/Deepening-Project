@@ -35,15 +35,6 @@ const KakaoShareButton: FC<KakaoShareButtonProps> = ({ id }) => {
   };
 
   return (
-    // <div onClick={handleShare}>
-    //   <Image
-    //     className="w-10 h-10 cursor-pointer"
-    //     src="https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/kakao.jfif"
-    //     alt="카카오톡 공유 이미지"
-    //     width={150}
-    //     height={150}
-    //   />
-    // </div>
     <div onClick={handleShare}>
       <div className="relative w-[50px] h-[50px] items-center">
         <Image
