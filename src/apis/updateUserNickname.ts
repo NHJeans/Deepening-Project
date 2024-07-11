@@ -1,5 +1,5 @@
 export const updateUserNickname = async (newNickname: string) => {
-  const response = await fetch("/api/user/profile", {
+  const response = await fetch("/api/auth/profile", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

@@ -17,7 +17,7 @@ const EditNickname = ({ currentNickname, onChangeNickname, onCancel }: EditNickn
     if (nicknameRef.current) {
       const newNickname = nicknameRef.current.value;
 
-      if (newNickname.length > 1) {
+      if (newNickname.length < 2 || newNickname.length > 6) {
         alert("닉네임은 최소 2글자 이상이어야 합니다.");
         return;
       }

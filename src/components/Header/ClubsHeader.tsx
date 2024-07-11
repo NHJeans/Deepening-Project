@@ -1,6 +1,5 @@
 "use client";
 
-import { useUserProfile } from "@/store/queries/useUserProfileQueries";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
@@ -8,29 +7,29 @@ import { useEffect, useMemo, useState } from "react";
 import SmallButton from "../Button/SmallButton";
 import EditNickname from "./EditNickname";
 import HeaderSection from "./HeaderSection";
+import { useUserStore } from "@/store";
+import { useUserProfile } from "@/hooks/useUserProfile";
 import SkeletonHeader from "./SkeletonHeader";
 
 const ClubsHeader = () => {
-  const { data, isLoading, error } = useUserProfile();
+  useUserProfile();
+  const { user, isLoggedIn, setUser, clearUser } = useUserStore();
+  // const { data, isLoading, error } = useUserProfile();
   const [isEditing, setIsEditing] = useState(false);
   const [nickname, setNickname] = useState("");
   const router = useRouter();
   const supabase = createClient();
 
   useEffect(() => {
-    if (data?.nickname) {
-      setNickname(data.nickname);
+    if (user?.nickname) {
+      setNickname(user.nickname);
     }
-  }, [data]);
+  }, [user]);
 
-  const profileImg = useMemo(() => data?.profile_img || "/logo.png", [data]);
-
-  if (isLoading) {
+  if (!isLoggedIn) {
     return <SkeletonHeader />;
   }
-  if (error) {
-    return <div>Error</div>;
-  }
+  const profileImg = user?.profile_img || "/logo.png";
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -46,6 +45,7 @@ const ClubsHeader = () => {
 
   const handleNicknameChange = (newNickname: string) => {
     setNickname(newNickname);
+    user!.nickname = newNickname;
     setIsEditing(false);
   };
   const handleCancelEdit = () => {
