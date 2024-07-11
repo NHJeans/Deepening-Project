@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/utils/supabase/client";
 import Image from "next/image";
+import Link from "next/link";
 import { useUserStore } from "@/store";
 
 const LoginPage = () => {
@@ -15,23 +15,44 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     setError(null);
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
-      if (error.message.includes("Invalid login credentials")) {
-        setError("로그인 정보가 일치하지 않습니다.");
-      } else {
-        setError(error.message);
-      }
+
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const result = await response.json();
+
+    if (result.error) {
+      setError(result.error);
       return;
     }
 
-    const user = data.user;
+    const user = result.user;
     if (user) {
+      const userResponse = await fetch("/api/get-user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: user.id }),
+      });
+
+      const userData = await userResponse.json();
+
+      if (userData.error) {
+        console.error("유저 데이터 선택 실패:", userData.error);
+        return;
+      }
+
       setUser({
         id: user.id,
         email: user.email ?? "",
-        nickname: "",
-        profile_img: user.user_metadata.avatar_url ?? null,
+        nickname: userData.nickname,
+        profile_img: userData.profile_img,
       });
 
       router.push("/clubs");
@@ -62,9 +83,9 @@ const LoginPage = () => {
       <button onClick={handleLogin} className="bg-customGreen text-white px-4 py-2 rounded mb-4">
         로그인
       </button>
-      <button onClick={() => router.push("/auth/sign-up")} className="text-lightgrey-500">
+      <Link href="/auth/sign-up" className="text-lightgrey-500">
         아직 회원이 아니신가요?
-      </button>
+      </Link>
     </div>
   );
 };

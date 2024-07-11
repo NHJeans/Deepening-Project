@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/utils/supabase/client";
 import Image from "next/image";
@@ -11,6 +11,38 @@ const SocialNicknamePage = () => {
   const setUser = useUserStore((state) => state.setUser);
   const [nickname, setNickname] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      const user = session?.user;
+
+      if (!user) {
+        setError("로그인 정보가 없습니다.");
+        router.push("/auth/login");
+        return;
+      }
+
+      const { data: userData } = await supabase.from("Users").select("*").eq("id", user.id).single();
+
+      if (userData) {
+        setUser({
+          id: user.id,
+          email: user.email ?? "",
+          nickname: userData.nickname,
+          profile_img: userData.profile_img,
+        });
+        router.push("/clubs");
+      } else {
+        setLoading(false);
+      }
+    };
+
+    checkUser();
+  }, [router, setUser]);
 
   const handleNicknameSubmit = async () => {
     setError(null);
@@ -66,7 +98,6 @@ const SocialNicknamePage = () => {
       setError(insertError.message);
       return;
     }
-
     setUser({
       id: user.id,
       email: user.email,
@@ -76,6 +107,10 @@ const SocialNicknamePage = () => {
 
     router.push("/clubs");
   };
+
+  if (loading) {
+    return <div className="font-semibold">로딩 중...</div>;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-customYellow">

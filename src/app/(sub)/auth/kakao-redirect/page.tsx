@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/utils/supabase/client";
 import { useUserStore } from "@/store";
@@ -8,6 +8,7 @@ import { useUserStore } from "@/store";
 const KakaoRedirectPage = () => {
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const handleKakaoLogin = async () => {
@@ -51,13 +52,17 @@ const KakaoRedirectPage = () => {
         return;
       }
 
-      router.push("/auth/social-nickname");
+      router.push("/auth/socialNickname");
     };
 
-    handleKakaoLogin();
+    handleKakaoLogin().finally(() => setLoading(false));
   }, [router, setUser]);
 
-  return <div className="font-semibold">로그인 중...</div>;
+  if (loading) {
+    return <div className="font-semibold">로그인 중...</div>;
+  }
+
+  return null;
 };
 
 export default KakaoRedirectPage;

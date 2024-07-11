@@ -2,14 +2,11 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/utils/supabase/client";
 import Image from "next/image";
 import Link from "next/link";
-import { useUserStore } from "@/store";
 
 const SignUpPage = () => {
   const router = useRouter();
-  const setUser = useUserStore((state) => state.setUser);
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
@@ -17,11 +14,6 @@ const SignUpPage = () => {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [signUpError, setSignUpError] = useState<string | null>(null);
   const [emailChecked, setEmailChecked] = useState<boolean | null>(null);
-
-  const checkEmailExists = async (email: string) => {
-    const { data, error } = await supabase.from("Users").select("id").eq("email", email).single();
-    return !!data;
-  };
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -38,13 +30,22 @@ const SignUpPage = () => {
       return;
     }
 
-    const emailExists = await checkEmailExists(email);
-    if (emailExists) {
+    const response = await fetch("/api/email-check", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    const result = await response.json();
+
+    if (result.exists) {
       setEmailError("이미 사용 중인 이메일입니다.");
       setEmailChecked(false);
-      return;
+    } else {
+      setEmailChecked(true);
     }
-    setEmailChecked(true);
   };
 
   const handleSignUp = async () => {
@@ -56,48 +57,21 @@ const SignUpPage = () => {
       return;
     }
 
-    const emailExists = await checkEmailExists(email);
-    if (emailExists) {
-      setEmailError("이미 사용 중인 이메일입니다.");
-      return;
-    }
-
-    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
+    const response = await fetch("/api/sign-up", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password, nickname }),
     });
 
-    if (signUpError) {
-      setSignUpError(signUpError.message);
-      return;
+    const result = await response.json();
+
+    if (result.error) {
+      setSignUpError(result.error);
+    } else {
+      router.push("/auth/login");
     }
-
-    const userId = signUpData.user?.id;
-    if (!userId) {
-      setSignUpError("사용자 생성에 실패했습니다.");
-      return;
-    }
-
-    const { error: insertError } = await supabase.from("Users").insert({
-      id: userId,
-      email,
-      nickname,
-      profile_img: null,
-    });
-
-    if (insertError) {
-      setSignUpError(insertError.message);
-      return;
-    }
-
-    setUser({
-      id: userId,
-      email,
-      nickname,
-      profile_img: null,
-    });
-
-    router.push("/auth/login");
   };
 
   return (
