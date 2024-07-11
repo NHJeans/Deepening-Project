@@ -3,8 +3,8 @@ import Image from "next/image";
 import React, { useCallback, useState } from "react";
 import logo from "../../../../../public/logo.png";
 import emptyimage from "../../../../../public/empty-image.png";
+import {createClient} from "@/utils/supabase/client"
 import { useDropzone } from "react-dropzone";
-import { createClient } from "@/utils/supabase/client";
 
 const CreateClub = () => {
   const [club, setClub] = useState("");
