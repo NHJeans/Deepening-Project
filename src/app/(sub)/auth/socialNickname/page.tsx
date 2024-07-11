@@ -22,6 +22,36 @@ const SocialNicknamePage = () => {
 
     if (!user) {
       setError("로그인 정보가 없습니다.");
+      router.push("/auth/login");
+      return;
+    }
+
+    const { data: userData, error: selectError } = await supabase.from("Users").select("*").eq("id", user.id).single();
+
+    if (selectError && selectError.code !== "PGRST116") {
+      setError(selectError.message);
+      return;
+    }
+
+    if (userData) {
+      const { error: updateError } = await supabase
+        .from("Users")
+        .update({ nickname, profile_img: user.user_metadata.avatar_url || null })
+        .eq("id", user.id);
+
+      if (updateError) {
+        setError(updateError.message);
+        return;
+      }
+
+      setUser({
+        id: user.id,
+        email: user.email,
+        nickname,
+        profile_img: user.user_metadata.avatar_url || null,
+      });
+
+      router.push("/clubs");
       return;
     }
 
@@ -69,7 +99,7 @@ const SocialNicknamePage = () => {
       />
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <button onClick={handleNicknameSubmit} className="bg-customGreen text-white px-4 py-2 rounded mb-4">
-        회원가입
+        닉네임 설정
       </button>
     </div>
   );
