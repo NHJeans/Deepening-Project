@@ -1,22 +1,35 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/utils/supabase/client";
 import SmallButton from "../Button/SmallButton";
 import HeaderSection from "./HeaderSection";
 import { useUserProfile } from "@/store/queries/useUserProfileQueries";
 import Image from "next/image";
+import SkeletonHeader from "./SkeletonHeader";
+import EditNickname from "./EditNickname";
 
 const ClubsHeader = () => {
   const { data, isLoading, error } = useUserProfile();
   const router = useRouter();
+  const [isEditing, setIsEditing] = useState(false);
+  const [nickname, setNickname] = useState("");
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading user profile</div>;
+  useEffect(() => {
+    if (data?.nickname) {
+      setNickname(data.nickname);
+    }
+  }, [data]);
 
-  const profileImg = data?.profile_img || "/logo.png";
-  const nickname = data?.nickname || "Guest";
+  const profileImg = useMemo(() => data?.profile_img || "/logo.png", [data]);
+
+  if (isLoading) {
+    return <SkeletonHeader />;
+  }
+  if (error) {
+    return <div>Error</div>;
+  }
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -30,17 +43,37 @@ const ClubsHeader = () => {
     }
   };
 
+  const handleNicknameChange = (newNickname: string) => {
+    setNickname(newNickname);
+    setIsEditing(false);
+  };
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+  };
+
   return (
     <HeaderSection>
       <div className="relative w-[60px] h-[60px] rounded-full overflow-hidden bg-white">
-        <Image src={profileImg} alt="profile" layout="fill" objectFit="cover" />
+        <Image src={profileImg} alt="profile" width={60} height={60} objectFit="cover" className="rounded-full" />
       </div>
       <div className="ml-4">
-        <strong className="text-2xl">{nickname}</strong>
-        <div className="space-x-2">
-          <SmallButton>정보수정</SmallButton>
-          <SmallButton onClick={handleLogout}>로그아웃</SmallButton>
-        </div>
+        {isEditing ? (
+          <EditNickname
+            currentNickname={nickname}
+            onChangeNickname={handleNicknameChange}
+            onCancel={handleCancelEdit}
+          />
+        ) : (
+          <>
+            <strong className="text-2xl" onClick={() => setIsEditing(true)}>
+              {nickname}
+            </strong>
+            <div className="space-x-2">
+              <SmallButton onClick={() => setIsEditing(true)}>정보수정</SmallButton>
+              <SmallButton onClick={handleLogout}>로그아웃</SmallButton>
+            </div>
+          </>
+        )}
       </div>
     </HeaderSection>
   );
