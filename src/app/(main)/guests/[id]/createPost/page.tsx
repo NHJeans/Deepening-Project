@@ -106,15 +106,15 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="font-black text-xl self-start ml-10 ">{club ? `${club.title}님의 모임` : "모임"}</h1>
-      <div className="my-4 flex items-start ">
+      <h1 className="font-black text-xl self-start ml-10 pb-5 ">{club ? `${club.title}님의 모임` : "모임"}</h1>
+      <div className=" pl-9 flex items-start ">
         <input
           id="nickname"
           ref={nicknameRef}
           required
-          className="w-1/5 bg-customYellow border-b border-gray-300 outline-none placeholder-gray-500 mr-2"
+          className="w-1/6 bg-customYellow border-b border-gray-300 outline-none placeholder-gray-500 "
         />
-        <span className="mr-4 font-bold">님의</span>
+        <span className="mr-1 font-bold">님의</span>
         <CategoryButtons handleCategoryChange={handleCategoryChange} />
       </div>
 

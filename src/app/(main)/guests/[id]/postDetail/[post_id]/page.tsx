@@ -68,20 +68,20 @@ const PostDetailPage = ({ params }: { params: { id: string; post_id: string } })
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen pb-20">
-      <h1 className="font-black text-xl self-start ml-10">{`${club.title}님의 모임`}</h1>
-      <div className="my-7 flex items-start mr-12">
+      <h1 className="font-black text-xl self-start ml-10 pb-3">{`${club.title}님의 모임`}</h1>
+      <div className="my-4 flex items-start mr-12 pl-9 pb-4">
         <input
           id="nickname"
           value={post.nickname}
           readOnly
           className="w-1/5 mr-2  bg-customYellow border-b border-gray-300 outline-none placeholder-gray-500 "
         />
-        <span className="mr-4 font-bold">님의</span>
-        <div className="w-1/5 bg-customGreen border rounded-md text-white shadow-md text-center">{post.category}</div>
+        <span className="mr-2 font-bold">님의</span>
+        <div className="w-1/5  bg-customGreen border rounded-md text-white shadow-md text-center">{post.category}</div>
       </div>
       <div
         style={{ backgroundColor: post.bg_image ?? "transparent", backgroundImage: 'url("/logo.png")' }}
-        className="w-4/5 p-2 border border-gray-300 rounded-md min-h-140 resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
+        className="w-4/5 p-2 border border-gray-300 rounded-md min-h-160 resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
       >
         <h1 className="text-2xl  mb-4">{post.content}</h1>
       </div>

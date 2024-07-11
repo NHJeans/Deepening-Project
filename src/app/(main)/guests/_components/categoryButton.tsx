@@ -23,7 +23,7 @@ const CategoryButtons: React.FC<CategoryButtonsProps> = ({ handleCategoryChange 
         ref={categoryRef}
         defaultValue="응원글"
         onChange={(e) => handleCategoryChange(e.target.value)}
-        className="w-4/5 bg-customGreen border rounded-md text-white shadow-md"
+        className="w-3/5 p-1 bg-customGreen border rounded-md text-white shadow-md text-center "
         required
       >
         <option value="">선택해주세요</option>

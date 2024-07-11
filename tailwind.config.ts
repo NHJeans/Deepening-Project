@@ -19,6 +19,8 @@ const config: Config = {
         "100": "25rem",
         "120": "30rem",
         "140": "35rem",
+        "160": "40rem",
+        "180": "45rem",
       },
       keyframes: {
         rotate: {
@@ -36,6 +38,14 @@ const config: Config = {
           "url(\"data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='3' stroke-dasharray='8' stroke-dashoffset='20' stroke-linecap='square'/%3e%3c/svg%3e\")",
         "hover-border-pattern":
           "url(\"data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%238D8A8AFF' stroke-width='3' stroke-dasharray='8' stroke-dashoffset='20' stroke-linecap='square'/%3e%3c/svg%3e\")",
+      },
+      padding: {
+        "22": "5.5rem",
+        "24": "6rem",
+        "26": "6.5rem",
+        "28": "7rem",
+        "30": "7.5rem",
+        "34": "8.5rem",
       },
     },
   },
