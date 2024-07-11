@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import SmallButton from "../Button/SmallButton";
 import EditNickname from "./EditNickname";
 import HeaderSection from "./HeaderSection";
@@ -13,8 +13,7 @@ import SkeletonHeader from "./SkeletonHeader";
 
 const ClubsHeader = () => {
   useUserProfile();
-  const { user, isLoggedIn, setUser, clearUser } = useUserStore();
-  // const { data, isLoading, error } = useUserProfile();
+  const { user, isLoggedIn, clearUser } = useUserStore();
   const [isEditing, setIsEditing] = useState(false);
   const [nickname, setNickname] = useState("");
   const router = useRouter();
@@ -37,6 +36,7 @@ const ClubsHeader = () => {
       document.cookie.split(";").forEach((c) => {
         document.cookie = c.replace(/^ +/, "").replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`);
       });
+      clearUser();
       router.push("/");
     } else {
       console.error("로그아웃 실패:", error.message);
