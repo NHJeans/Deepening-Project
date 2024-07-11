@@ -17,7 +17,7 @@ interface CommentItemProps {
 const CommentGridItem = ({ comment, position, handleMouseDown }: CommentItemProps) => {
   return (
     <div
-      className="absolute flex flex-col items-center justify-center w-[150px] h-[170px] cursor-pointer"
+      className="absolute flex flex-col items-center justify-center w-[150px] h-[170px]"
       onMouseDown={(e) => handleMouseDown(e, comment.id.toString())}
       style={{
         left: `${position.x}px`,
@@ -30,11 +30,11 @@ const CommentGridItem = ({ comment, position, handleMouseDown }: CommentItemProp
           alt={comment.category}
           width={100}
           height={100}
-          className="object-cover"
+          className="object-cover cursor-pointer"
           priority
         />
       </div>
-      <h3 className="w-full absolute bottom-0 text-center text-sm">{`${comment.nickname}의 ${comment.category}`}</h3>
+      <h3 className="w-full absolute bottom-0 text-center text-sm cursor-pointer">{`${comment.nickname}의 ${comment.category}`}</h3>
     </div>
   );
 };

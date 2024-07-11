@@ -2,7 +2,9 @@
 
 import HeaderSection from "@/components/Header/HeaderSection";
 import { Comment } from "@/types/comment.type";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
+import menuDotIcon from "../../../../../../public/icons/share.png";
 import ClubDetailPageHeader from "./_components/ClubDetailPageHeader";
 import CommentGridItem from "./_components/CommentGridItem";
 import CommentListItem from "./_components/CommentListItem";
@@ -14,6 +16,8 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
   const [initialMousePosition, setInitialMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [initialStickerPosition, setInitialStickerPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [viewMode, setViewMode] = useState<string>("grid");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isRearranging, setIsRearranging] = useState(false);
 
   useEffect(() => {
     const fetchCommentData = async () => {
@@ -37,58 +41,74 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
     fetchCommentData();
   }, [clubId]);
 
-  // 드래그 시작시 호출
-  const handleMouseDown = (e: React.MouseEvent, id: string) => {
-    setDragging({ id, isDragging: false });
-    setInitialMousePosition({ x: e.clientX, y: e.clientY });
-    setInitialStickerPosition({ x: positions[id].x, y: positions[id].y });
-  };
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent, id: string) => {
+      if (!isRearranging) return;
+      setDragging({ id, isDragging: false });
+      setInitialMousePosition({ x: e.clientX, y: e.clientY });
+      setInitialStickerPosition({ x: positions[id].x, y: positions[id].y });
+    },
+    [isRearranging, positions],
+  );
 
-  // 드래그 끝날 때 호출
-  const handleMouseUp = () => {
-    // 실제 드래그 작업이 진행된 경우
+  const handleMouseUp = useCallback(() => {
+    if (!isRearranging) return;
+
     if (dragging && dragging.isDragging) {
       setDragging(null);
       return;
     }
 
-    // 드래그 작업은 진행되지 않으나, 클릭된 경우 => onClick 효과
     if (dragging) {
       handleMoveDetail(dragging.id);
     }
 
     setDragging(null);
-  };
+  }, [isRearranging, dragging]);
 
-  // 마우스 이동시 호출
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!dragging) return;
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (!dragging || !isRearranging) return;
 
-    const deltaX = e.clientX - initialMousePosition.x;
-    const deltaY = e.clientY - initialMousePosition.y;
+      const deltaX = e.clientX - initialMousePosition.x;
+      const deltaY = e.clientY - initialMousePosition.y;
 
-    // 일정 값 이상 이동하면 드래그를 한 것으로 간주
-    if (!dragging.isDragging && (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5)) {
-      setDragging({ ...dragging, isDragging: true });
-    }
+      if (!dragging.isDragging && (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5)) {
+        setDragging((prevDragging) => (prevDragging ? { ...prevDragging, isDragging: true } : null));
+      }
 
-    if (dragging.isDragging) {
-      const newPositions = { ...positions };
-      newPositions[dragging.id] = {
-        x: initialStickerPosition.x + deltaX,
-        y: initialStickerPosition.y + deltaY,
-      };
-      setPositions(newPositions);
-    }
-  };
+      if (dragging.isDragging) {
+        setPositions((prevPositions) => ({
+          ...prevPositions,
+          [dragging.id]: {
+            x: initialStickerPosition.x + deltaX,
+            y: initialStickerPosition.y + deltaY,
+          },
+        }));
+      }
+    },
+    [dragging, isRearranging, initialMousePosition, initialStickerPosition],
+  );
 
-  const handleMoveDetail = (clubId: string) => {
-    // alert -> 추후 디테일로 변경 예정
-    alert(`클릭: ${clubId}`);
-  };
+  const handleMoveDetail = useCallback(
+    (clubId: string) => {
+      if (isRearranging) return;
+      alert(`클릭: ${clubId}`);
+    },
+    [isRearranging],
+  );
+
+  const handleMenuToggle = useCallback(() => {
+    setIsMenuOpen((prev) => !prev);
+  }, []);
+
+  const handleRearrangeToggle = useCallback(() => {
+    setIsRearranging((prev) => !prev);
+    setIsMenuOpen(false);
+  }, []);
 
   return (
-    <section className="relative h-full w-full " onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
+    <section className="relative h-full w-full" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
       <HeaderSection>
         <ClubDetailPageHeader id={clubId} setViewMode={setViewMode} />
       </HeaderSection>
@@ -106,10 +126,30 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
               <CommentListItem key={comment.id} comment={comment} handleMoveDetail={handleMoveDetail} />
             ))}
       </section>
-      <div className="flex h-[10%] items-center justify-center">
+      <div className="flex h-[9%] items-center justify-center gap-2">
         <button className="cursor-pointer rounded bg-customGreen px-24 py-2 font-semibold text-white hover:opacity-90">
           공유하기
         </button>
+        <button
+          className="cursor-pointer rounded bg-customGreen p-1 font-semibold text-white hover:opacity-90"
+          onClick={handleMenuToggle}
+        >
+          <div className="p-1">
+            <Image src={menuDotIcon} alt="..." />
+          </div>
+        </button>
+        {isMenuOpen && (
+          <div className="absolute bottom-14 mb-2 right-4 bg-white border border-customGreen rounded shadow-md p-2 z-10">
+            <ul>
+              <li className="p-2 text-sm cursor-pointer hover:bg-gray-100" onClick={handleRearrangeToggle}>
+                {isRearranging ? "배치 완료" : "재배치"}
+              </li>
+              <li className="p-2 text-sm cursor-pointer hover:bg-gray-100" onClick={handleMenuToggle}>
+                버튼
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </section>
   );

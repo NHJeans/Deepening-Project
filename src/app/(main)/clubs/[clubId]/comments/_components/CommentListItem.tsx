@@ -8,9 +8,7 @@ interface CommentListItemProps {
     nickname: string;
     content: string;
   };
-  handleMoveDetail: {
-    (clubId: string): void;
-  };
+  handleMoveDetail: (clubId: string) => void;
 }
 
 const CommentListItem = ({ comment, handleMoveDetail }: CommentListItemProps) => {
