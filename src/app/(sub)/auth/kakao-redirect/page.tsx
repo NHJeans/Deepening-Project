@@ -2,10 +2,11 @@
 
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 
 const KakaoRedirectPage = () => {
   const router = useRouter();
+  const supabase = createClient();
 
   useEffect(() => {
     const handleKakaoLogin = async () => {
