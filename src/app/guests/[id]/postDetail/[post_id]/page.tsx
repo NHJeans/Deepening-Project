@@ -1,7 +1,8 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, UseQueryOptions, UseQueryResult } from "@tanstack/react-query";
 import Image from "next/image";
+import Link from "next/link";
 
 type Post = {
   content: string;
@@ -11,27 +12,43 @@ type Post = {
   nickname: string;
 };
 
+type Club = {
+  id: number;
+  title: string;
+};
+
 const PostDetailPage = ({ params }: { params: { id: string; post_id: string } }) => {
   // const { post_id } = params;
   const { id, post_id } = params;
   console.log("🚀 ~ PostDetailPage ~ id:", post_id);
 
-  const {
-    data: postData,
-    isPending,
-    error,
-  } = useQuery<Post[], Error, Post[], [string, string]>({
-    queryKey: ["posts", post_id],
-    queryFn: async () => {
-      const response = await fetch(`/api/guests/${id}/postdetail/${post_id}`);
-
-      if (!response.ok) {
-        throw new Error("네트워크가 불안정합니다");
-      }
-      return response.json();
+  const queryOptions: UseQueryOptions<any, Error, any, [string, string]>[] = [
+    {
+      queryKey: ["post", post_id],
+      queryFn: async () => {
+        const response = await fetch(`/api/guests/${id}/postdetail/${post_id}`);
+        if (!response.ok) {
+          throw new Error("네트워크가 불안정합니다");
+        }
+        return response.json();
+      },
     },
-  });
-  if (isPending) {
+    {
+      queryKey: ["club", id],
+      queryFn: async () => {
+        const response = await fetch(`/api/guests/${id}`);
+        if (!response.ok) {
+          throw new Error("네트워크가 불안정합니다");
+        }
+        return response.json();
+      },
+    },
+  ];
+
+  const results = useQueries({ queries: queryOptions });
+
+  const [postResult, clubResult] = results as UseQueryResult<any, Error>[];
+  if (postResult.isLoading || clubResult.isLoading) {
     return (
       <div className="flex flex-col justify-center items-center">
         <Image src="/logo.png" alt="Loading..." width={256} height={256} className="mb-4 animate-rotate" />
@@ -40,20 +57,23 @@ const PostDetailPage = ({ params }: { params: { id: string; post_id: string } })
     );
   }
 
-  if (error) {
-    return <div>무언가 잘못되었습니다: {error.message}</div>;
+  if (postResult.error || clubResult.error) {
+    return <div>무언가 잘못되었습니다: {postResult.error?.message || clubResult.error?.message}</div>;
   }
 
-  if (!postData || postData.length === 0) {
-    return <div>게시글이 없습니다.</div>;
+  const post: Post = postResult.data[0];
+  const club: Club = clubResult.data[0];
+
+  if (!post || !club) {
+    return <div>게시글이나 모임 정보가 없습니다.</div>;
   }
 
-  const post = postData[0];
   console.log("🚀 ~ PostDetailPage ~ post:", post);
+  console.log("🚀 ~ PostDetailPage ~ club:", club);
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen pb-20">
-      <h1 className="font-black self-start ml-10">{`님의 모임`}</h1>
+      <h1 className="font-black self-start ml-10">{`${club.title}님의 모임`}</h1>
       <div className="my-7 flex items-start mr-12">
         <input
           id="nickname"
@@ -70,6 +90,14 @@ const PostDetailPage = ({ params }: { params: { id: string; post_id: string } })
       >
         <h1 className="text-2xl  mb-4">{post.content}</h1>
       </div>
+      <ul className="pt-10">
+        <Link
+          href={`/clubs/${id}/comments`}
+          className=" bg-customGreen border rounded-md text-white shadow-md text-center p-2 px-10"
+        >
+          모임 응원글 보러가기
+        </Link>
+      </ul>
     </section>
   );
 };
