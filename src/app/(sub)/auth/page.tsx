@@ -3,10 +3,11 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { supabase } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 
 const AuthSelectionPage = () => {
   const router = useRouter();
+  const supabase = createClient();
 
   const handleLogin = async (method: string) => {
     if (method === "kakao") {
