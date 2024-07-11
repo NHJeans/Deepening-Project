@@ -68,7 +68,7 @@ const PostDetailPage = ({ params }: { params: { id: string; post_id: string } })
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen pb-20">
-      <h1 className="font-black self-start ml-10">{`${club.title}님의 모임`}</h1>
+      <h1 className="font-black text-xl self-start ml-10">{`${club.title}님의 모임`}</h1>
       <div className="my-7 flex items-start mr-12">
         <input
           id="nickname"

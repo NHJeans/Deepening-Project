@@ -106,7 +106,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="font-black self-start ml-10 ">{club ? `${club.title}님의 모임` : "모임"}</h1>
+      <h1 className="font-black text-xl self-start ml-10 ">{club ? `${club.title}님의 모임` : "모임"}</h1>
       <div className="my-4 flex items-start ">
         <input
           id="nickname"
