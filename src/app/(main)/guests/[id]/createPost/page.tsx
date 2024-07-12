@@ -45,8 +45,6 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
     return <div>무언가 잘못되었습니다{error.message}</div>;
   }
 
-  const club = clubData ? clubData[0] : null;
-
   const handleColorChange = (color: string) => {
     colorRef.current = color;
     if (contentRef.current) {
@@ -57,8 +55,8 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
     categoryRef.current = category;
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     const content = contentRef.current?.value;
     const category = categoryRef.current;
     const nickname = nicknameRef.current?.value;
@@ -106,13 +104,13 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="font-black text-xl self-start ml-10 pb-5 ">{club ? `${club.title}님의 모임` : "모임"}</h1>
+      <h1 className="font-black text-xl self-start ml-10 pb-5 ">{`${clubData[0].title}님의 모임`}</h1>
       <div className=" pl-9 flex items-start ">
         <input
           id="nickname"
           ref={nicknameRef}
           required
-          className="w-1/6 bg-customYellow border-b border-gray-300 outline-none placeholder-gray-500 "
+          className="w-1/6 bg-customYellow border-b border-gray-300 outline-none text-gray-500 "
         />
         <span className="mr-1 font-bold">님의</span>
         <CategoryButtons handleCategoryChange={handleCategoryChange} />
