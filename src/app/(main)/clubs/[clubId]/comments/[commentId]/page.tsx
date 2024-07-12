@@ -81,7 +81,7 @@ const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: st
         style={{ backgroundColor: comment.bg_image ?? "transparent", backgroundImage: 'url("/logo.png")' }}
         className="w-4/5 p-2 border border-gray-300 rounded-md min-h-160 resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
       >
-        <h1 className="text-2xl  mb-4">{comment.content}</h1>
+        <h2 className="text-2xl  mb-4">{comment.content}</h2>
       </div>
     </section>
   );
