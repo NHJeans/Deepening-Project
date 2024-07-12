@@ -17,14 +17,14 @@ type Club = {
   title: string;
 };
 
-const PostDetailPage = ({ params }: { params: { id: string; post_id: string } }) => {
-  const { id, post_id } = params;
+const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) => {
+  const { id, postId } = params;
 
   const queryOptions: UseQueryOptions<any, Error, any, [string, string]>[] = [
     {
-      queryKey: ["post", post_id],
+      queryKey: ["post", postId],
       queryFn: async () => {
-        const response = await fetch(`/api/guests/${id}/postdetail/${post_id}`);
+        const response = await fetch(`/api/guests/${id}/postdetail/${postId}`);
         if (!response.ok) {
           throw new Error("네트워크가 불안정합니다");
         }
