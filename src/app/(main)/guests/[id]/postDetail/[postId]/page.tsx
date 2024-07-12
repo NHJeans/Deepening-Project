@@ -20,7 +20,7 @@ type Club = {
 const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) => {
   const { id, postId } = params;
 
-  const queryOptions: UseQueryOptions<any, Error, any, [string, string]>[] = [
+  const queryOptions: UseQueryOptions<unknown, Error, unknown>[] = [
     {
       queryKey: ["post", postId],
       queryFn: async () => {
@@ -56,7 +56,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
   }
 
   if (postResult.error || clubResult.error) {
-    return <div>무언가 잘못되었습니다: {postResult.error?.message || clubResult.error?.message}</div>;
+    return <div>정보를 읽어올 수 없습니다 {postResult.error?.message || clubResult.error?.message}</div>;
   }
 
   const post: Post = postResult.data[0];
@@ -74,7 +74,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
           id="nickname"
           value={post.nickname}
           readOnly
-          className="w-1/5 mr-2  bg-customYellow border-b border-gray-300 outline-none text-black-500  "
+          className="w-1/5 mr-2  bg-customYellow border-b border-gray-300 outline-none text-black-500 "
         />
         <span className="mr-2 font-bold">님의</span>
         <div className="w-1/5  bg-customGreen border rounded-md text-white shadow-md text-center">{post.category}</div>
@@ -88,7 +88,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
       <ul className="pt-10">
         <Link
           href={`/clubs/${id}/comments`}
-          className=" bg-customGreen border rounded-md text-white shadow-md text-center p-2 px-10"
+          className="bg-customGreen border rounded-md text-white shadow-md text-center p-2 px-10"
         >
           모임 응원글 보러가기
         </Link>

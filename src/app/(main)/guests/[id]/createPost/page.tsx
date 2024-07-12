@@ -66,13 +66,6 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
       return;
     }
 
-    const club_id = parseInt(id, 10); // params = club
-
-    if (isNaN(club_id)) {
-      alert("유효한 클럽 ID가 아닙니다.");
-      return;
-    }
-
     try {
       const response = await fetch(`/api/guests/${id}/createpost`, {
         method: "POST",
@@ -93,8 +86,6 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
 
         alert("글이 성공적으로 작성되었습니다!");
         router.push(`/guests/${id}/postDetail/${data.id}`);
-      } else {
-        alert("글 작성 중 오류가 발생했습니다.");
       }
     } catch (error) {
       console.error("Error creating post:", error);
@@ -105,19 +96,19 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
   return (
     <section className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="font-black text-xl self-start ml-10 pb-5 ">{`${clubData[0].title}님의 모임`}</h1>
-      <div className=" pl-9 flex items-start ">
+      <div className="pl-9 flex items-start">
         <input
           id="nickname"
           ref={nicknameRef}
           required
-          className="w-1/6 bg-customYellow border-b border-gray-300 outline-none text-black-500 "
+          className="w-1/6 bg-customYellow border-b border-gray-300 outline-none text-black-500"
         />
         <span className="mr-1 font-bold">님의</span>
         <CategoryButtons handleCategoryChange={handleCategoryChange} />
       </div>
 
-      <form onSubmit={handleSubmit} className="w-4/5 ">
-        <div className=" my-4">
+      <form onSubmit={handleSubmit} className="w-4/5">
+        <div className="my-4">
           <textarea
             id="content"
             ref={contentRef}
