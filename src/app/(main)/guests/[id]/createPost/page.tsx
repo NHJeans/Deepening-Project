@@ -5,9 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
-import CategoryButtons from "../../_components/categoryButton";
-import ColorButtons from "../../_components/colorButton";
-import CustomButton from "../../_components/submitButton";
+import CategoryButtons from "../../_components/CategoryButton";
+import ColorButtons from "../../_components/ColorButton";
+import CustomButton from "../../_components/SubmitButton";
 
 const CreatePostPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
