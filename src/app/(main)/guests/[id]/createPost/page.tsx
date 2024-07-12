@@ -2,11 +2,13 @@
 
 import { Club } from "@/types/club.type";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
+
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import CategoryButtons from "../../_components/CategoryButton";
 import ColorButtons from "../../_components/ColorButton";
+
+import LoadingSpinner from "../../_components/LoadingSpinner";
 import CustomButton from "../../_components/SubmitButton";
 
 const CreatePostPage = ({ params }: { params: { id: string } }) => {
@@ -22,27 +24,22 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
     data: clubData,
     isPending,
     error,
-  } = useQuery<Club[], Error, Club[], [string, string]>({
+  } = useQuery<Club[], Error, Club[]>({
     queryKey: ["clubs", id],
     queryFn: async () => {
       const response = await fetch(`/api/guests/${id}`);
       if (!response.ok) {
-        throw new Error("네트워크가 불안정합니다");
+        throw new Error("데이터를 불러올 수 없습니다");
       }
       return response.json();
     },
   });
   if (isPending) {
-    return (
-      <div className="flex flex-col justify-center items-center">
-        <Image src="/logo.png" alt="Loading..." width={256} height={256} className="mb-4 animate-rotate" />
-        <p className="text-xl font-semibold">불러오는 중..</p>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (error) {
-    return <div>무언가 잘못되었습니다{error.message}</div>;
+    return <h1>에러가 발생했습니다: {error.message}</h1>;
   }
 
   const handleColorChange = (color: string) => {
@@ -63,6 +60,11 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
 
     if (!content) {
       alert("내용을 입력해주세요.");
+      return;
+    }
+
+    if (!nickname) {
+      alert("닉네임을 설정해주세요");
       return;
     }
 
@@ -121,7 +123,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
         </section>
         <label className="block mb-2 p-5 font-bold">편지색</label>
         <section>
-          <div className="flex space-x-2 mb-12 justify-center pb-20">
+          <div className="flex space-x-2 mb-12 justify-center pb-7">
             <ColorButtons handleColorChange={handleColorChange} />
           </div>
           <div className="flex justify-end">
