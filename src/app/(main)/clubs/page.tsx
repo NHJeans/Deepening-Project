@@ -1,10 +1,8 @@
 import { fetchClubs } from "@/apis/fetchClubs";
-import CreateClubButton from "@/components/Button/CreateClubButton";
-import ClubsList from "@/components/Club/ClubList";
-import ClubsHeader from "@/components/Header/ClubsHeader";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import ClubsHeader from "./_components/ClubsHeader";
+import ClubsList from "./_components/ClubsList";
+import CreateClubButton from "./_components/CreateClubButton";
 
 const ClubListPage = async () => {
   const queryClient = new QueryClient();

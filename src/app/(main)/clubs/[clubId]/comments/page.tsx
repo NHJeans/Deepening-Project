@@ -1,14 +1,10 @@
 "use client";
 
-import HeaderSection from "@/components/Header/HeaderSection";
 import { Comment } from "@/types/comment.type";
 import { useEffect, useState } from "react";
 import ClubDetailPageHeader from "./_components/ClubDetailPageHeader";
 import CommentGridItem from "./_components/CommentGridItem";
 import CommentListItem from "./_components/CommentListItem";
-import Modal from "@/components/modal/Modal";
-import DetailShareBtn from "@/components/share/share";
-import KakaoShareButton from "@/components/share/kakao/Kakaoshare";
 
 const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) => {
   const [commentList, setCommentList] = useState<Comment[]>([]);

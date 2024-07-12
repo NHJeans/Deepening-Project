@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import SmallButton from "../Button/SmallButton";
 import { updateUserNickname } from "@/apis/updateUserNickname";
+import SmallButton from "@/commons/Button/SmallButton";
+import { useRef } from "react";
 
 interface EditNicknameProps {
   currentNickname: string;

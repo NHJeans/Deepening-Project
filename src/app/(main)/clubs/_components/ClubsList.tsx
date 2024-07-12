@@ -1,11 +1,11 @@
 "use client";
 
+import LoadingSpinner from "@/commons/Loading/ClubsLoadingSpinner";
 import { useInfiniteFetchClubs } from "@/store/queries/useClubQueries";
 import { Club } from "@/types/club.type";
 import Image from "next/image";
-import { useCallback, useRef } from "react";
-import LoadingSpinner from "../Loading/LoadingSpinner";
 import Link from "next/link";
+import { useCallback, useRef } from "react";
 
 const ClubsList = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteFetchClubs();
