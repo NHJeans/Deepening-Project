@@ -65,7 +65,7 @@ const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: st
           id="nickname"
           value={comment.nickname}
           readOnly
-          className="w-1/5 mr-2  bg-customYellow border-b border-gray-300 outline-none placeholder-gray-500 "
+          className="w-1/5 mr-2  bg-customYellow border-b border-gray-300 outline-none text-black-500 "
         />
         <span className="mr-2 font-bold">님의</span>
         <div className="w-1/5  bg-customGreen border rounded-md text-white shadow-md text-center">
