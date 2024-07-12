@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -14,6 +16,7 @@ const SignUpPage = () => {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [signUpError, setSignUpError] = useState<string | null>(null);
   const [emailChecked, setEmailChecked] = useState<boolean | null>(null);
+
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
