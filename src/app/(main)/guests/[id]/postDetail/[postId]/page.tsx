@@ -81,7 +81,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
       </div>
       <div
         style={{ backgroundColor: post.bg_image ?? "transparent", backgroundImage: 'url("/logo.png")' }}
-        className="w-4/5 p-2 border border-gray-300 rounded-md min-h-160 resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
+        className="w-4/5 p-2 border border-gray-300 rounded-md min-h-[40rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
       >
         <h1 className="text-2xl  mb-4">{post.content}</h1>
       </div>
