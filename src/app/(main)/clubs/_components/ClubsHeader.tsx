@@ -1,8 +1,8 @@
 "use client";
 
-import SmallButton from "@/commons/Button/SmallButton";
-import HeaderSection from "@/commons/Header/HeaderSection";
-import SkeletonHeader from "@/commons/Header/SkeletonHeader";
+import SmallButton from "@/components/Button/SmallButton";
+import HeaderSection from "@/components/Header/HeaderSection";
+import SkeletonHeader from "@/components/Header/SkeletonHeader";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useUserStore } from "@/store";
 import { createClient } from "@/utils/supabase/client";

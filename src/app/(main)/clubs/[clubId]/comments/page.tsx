@@ -1,6 +1,6 @@
 "use client";
 
-import HeaderSection from "@/commons/Header/HeaderSection";
+import HeaderSection from "@/components/Header/HeaderSection";
 import { Comment } from "@/types/comment.type";
 import { useEffect, useState } from "react";
 import ClubDetailPageHeader from "./_components/ClubDetailPageHeader";

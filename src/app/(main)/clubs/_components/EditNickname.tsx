@@ -1,7 +1,7 @@
 "use client";
 
 import { updateUserNickname } from "@/apis/updateUserNickname";
-import SmallButton from "@/commons/Button/SmallButton";
+import SmallButton from "@/components/Button/SmallButton";
 import { useRef } from "react";
 
 interface EditNicknameProps {

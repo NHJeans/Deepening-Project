@@ -1,6 +1,6 @@
 "use client";
 
-import LargeButton from "@/commons/Button/LargeButton";
+import LargeButton from "@/components/Button/LargeButton";
 import { useUserStore } from "@/store";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
