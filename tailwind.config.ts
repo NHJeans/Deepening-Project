@@ -24,6 +24,7 @@ const config: Config = {
       },
       animation: {
         rotate: "rotate 1s infinite linear",
+        bounce: "bounce 1s infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
