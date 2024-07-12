@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 type CategoryButtonsProps = {
   handleCategoryChange: (category: string) => void;
 };
 
-const CategoryButtons: React.FC<CategoryButtonsProps> = ({ handleCategoryChange }) => {
+const CategoryButtons = ({ handleCategoryChange }: CategoryButtonsProps) => {
   const categoryRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {

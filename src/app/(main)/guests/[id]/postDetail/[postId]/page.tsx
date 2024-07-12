@@ -1,8 +1,8 @@
 "use client";
 
 import { useQueries, UseQueryOptions, UseQueryResult } from "@tanstack/react-query";
-import Image from "next/image";
 import Link from "next/link";
+import LoadingSpinner from "../../../_components/loadingSpinner";
 
 type Post = {
   content: string;
@@ -26,7 +26,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
       queryFn: async () => {
         const response = await fetch(`/api/guests/${id}/postdetail/${postId}`);
         if (!response.ok) {
-          throw new Error("네트워크가 불안정합니다");
+          throw new Error("데이터를 불러올 수 없습니다");
         }
         return response.json();
       },
@@ -46,17 +46,12 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
   const results = useQueries({ queries: queryOptions });
 
   const [postResult, clubResult] = results as UseQueryResult<any, Error>[];
-  if (postResult.isLoading || clubResult.isLoading) {
-    return (
-      <div className="flex flex-col justify-center items-center">
-        <Image src="/logo.png" alt="Loading..." width={256} height={256} className="mb-4 animate-rotate" />
-        <p className="text-xl font-semibold">불러오는 중..</p>
-      </div>
-    );
+  if (postResult.isPending || clubResult.isPending) {
+    return <LoadingSpinner />;
   }
 
   if (postResult.error || clubResult.error) {
-    return <div>무언가 잘못되었습니다: {postResult.error?.message || clubResult.error?.message}</div>;
+    return <div>데이터를 불러올 수 없습니다: {postResult.error?.message || clubResult.error?.message}</div>;
   }
 
   const post: Post = postResult.data[0];
@@ -74,7 +69,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
           id="nickname"
           value={post.nickname}
           readOnly
-          className="w-1/5 mr-2  bg-customYellow border-b border-gray-300 outline-none placeholder-gray-500 "
+          className="w-1/5 mr-2  bg-customYellow border-b border-gray-300 outline-none gray-500 "
         />
         <span className="mr-2 font-bold">님의</span>
         <div className="w-1/5  bg-customGreen border rounded-md text-white shadow-md text-center">{post.category}</div>

@@ -2,11 +2,12 @@
 
 import { Club } from "@/types/club.type";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
+
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import CategoryButtons from "../../_components/categoryButton";
 import ColorButtons from "../../_components/colorButton";
+import LoadingSpinner from "../../_components/loadingSpinner";
 import CustomButton from "../../_components/submitButton";
 
 const CreatePostPage = ({ params }: { params: { id: string } }) => {
@@ -27,25 +28,18 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
     queryFn: async () => {
       const response = await fetch(`/api/guests/${id}`);
       if (!response.ok) {
-        throw new Error("네트워크가 불안정합니다");
+        throw new Error("데이터를 불러올 수 없습니다");
       }
       return response.json();
     },
   });
   if (isPending) {
-    return (
-      <div className="flex flex-col justify-center items-center">
-        <Image src="/logo.png" alt="Loading..." width={256} height={256} className="mb-4 animate-rotate" />
-        <p className="text-xl font-semibold">불러오는 중..</p>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (error) {
-    return <div>무언가 잘못되었습니다{error.message}</div>;
+    return <h1>에러가 발생했습니다: {error.message}</h1>;
   }
-
-  const club = clubData ? clubData[0] : null;
 
   const handleColorChange = (color: string) => {
     colorRef.current = color;
@@ -57,8 +51,8 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
     categoryRef.current = category;
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     const content = contentRef.current?.value;
     const category = categoryRef.current;
     const nickname = nicknameRef.current?.value;
@@ -106,7 +100,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="font-black text-xl self-start ml-10 pb-5 ">{club ? `${club.title}님의 모임` : "모임"}</h1>
+      <h1 className="font-black text-xl self-start ml-10 pb-5 ">{`${clubData[0].title}님의 모임`}</h1>
       <div className=" pl-9 flex items-start ">
         <input
           id="nickname"

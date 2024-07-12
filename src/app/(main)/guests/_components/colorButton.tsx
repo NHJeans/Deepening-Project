@@ -1,12 +1,10 @@
 "use client";
 
-import React from "react";
-
 type ColorButtonsProps = {
   handleColorChange: (color: string) => void;
 };
 
-const ColorButtons: React.FC<ColorButtonsProps> = ({ handleColorChange }) => {
+const ColorButtons = ({ handleColorChange }: ColorButtonsProps) => {
   return (
     <div className="flex space-x-6 justify-center ">
       <button type="button" style={{ backgroundColor: "#ffcccc" }} onClick={() => handleColorChange("#FFBABA")}>
