@@ -40,7 +40,7 @@ const CreateClub = () => {
     if (data) alert("모임 등록에 실패하였습니다.");
     else {
       alert("모임이 성공적으로 등록되었습니다.");
-      router.push("/clubs");
+      router.replace("/clubs");
     }
   };
 
