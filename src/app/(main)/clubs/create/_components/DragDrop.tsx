@@ -9,19 +9,22 @@ interface DragDropType {
 const DragDrop = ({ setFile }: DragDropType) => {
   const [inputImage, setInputimage] = useState<string>("");
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const avatarFile = acceptedFiles[0];
-    setFile(avatarFile);
-    let reader = new FileReader();
-    reader.readAsDataURL(avatarFile);
-    reader.onloadend = () => {
-      setInputimage(reader.result as string);
-    };
-  }, [setFile]);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const avatarFile = acceptedFiles[0];
+      setFile(avatarFile);
+      let reader = new FileReader();
+      reader.readAsDataURL(avatarFile);
+      reader.onloadend = () => {
+        setInputimage(reader.result as string);
+      };
+    },
+    [setFile],
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   return (
-    <div className="w-[270px]">
+    <div className="w-[270px] mb-3">
       <div className="font-bold mb-2">커버 사진 등록</div>
       {inputImage ? (
         <div {...getRootProps()}>
@@ -37,7 +40,7 @@ const DragDrop = ({ setFile }: DragDropType) => {
             </div>
           ) : (
             <div className="w-[270px] h-[221px] flex flex-col items-center justify-center bg-border-pattern cursor-pointer">
-              <Image src={"/empty-image.png"} alt="빈 이미지" width="60" height="60" />
+              <Image src={"/empty-image.png"} alt="빈 이미지" width={60} height={60} />
               <p className="font-bold mt-3">클릭 혹은 사진을 이곳에 드롭하세요.</p>
               <p className="mt-1 text-sm">사진 당 최대 5MB</p>
             </div>
