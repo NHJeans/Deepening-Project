@@ -1,3 +1,4 @@
+import { ModalProvider } from "@/context/modal.context";
 import QueryProvider from "@/provider/QureyProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -19,7 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <QueryProvider>
-          <div className="container max-w-custom bg-customYellow h-dvh mx-auto">{children}</div>
+          <ModalProvider>
+            <div className="container max-w-custom bg-customYellow h-dvh mx-auto">{children}</div>
+          </ModalProvider>
         </QueryProvider>
       </body>
     </html>

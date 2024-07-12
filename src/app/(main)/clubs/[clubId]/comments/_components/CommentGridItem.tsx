@@ -11,30 +11,31 @@ interface CommentItemProps {
     x: number;
     y: number;
   };
-  handleMouseDown: (e: React.MouseEvent, id: string) => void;
+  handleMouseDown: (e: React.MouseEvent, id: number) => void;
 }
 
 const CommentGridItem = ({ comment, position, handleMouseDown }: CommentItemProps) => {
   return (
     <div
-      className="absolute flex flex-col items-center justify-center w-[150px] h-[170px]"
-      onMouseDown={(e) => handleMouseDown(e, comment.id.toString())}
+      className="absolute flex flex-col items-center justify-center w-[150px] h-[170px] cursor-pointer"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
+        userSelect: "none",
       }}
+      onMouseDown={(e) => handleMouseDown(e, comment.id)}
     >
-      <div className="w-24">
+      <div className="relative w-24">
         <Image
           src={selectPlantImg(comment.category)}
           alt={comment.category}
           width={100}
           height={100}
-          className="object-cover cursor-pointer"
+          className="object-cover pointer-events-none"
           priority
         />
       </div>
-      <h3 className="w-full absolute bottom-0 text-center text-sm cursor-pointer">{`${comment.nickname}의 ${comment.category}`}</h3>
+      <h3 className="w-full absolute bottom-0 text-center text-sm pointer-events-none">{`${comment.nickname}의 ${comment.category}`}</h3>
     </div>
   );
 };

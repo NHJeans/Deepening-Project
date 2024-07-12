@@ -8,7 +8,7 @@ interface CommentListItemProps {
     nickname: string;
     content: string;
   };
-  handleMoveDetail: (clubId: string) => void;
+  handleMoveDetail: (clubId: number) => void;
 }
 
 const CommentListItem = ({ comment, handleMoveDetail }: CommentListItemProps) => {
@@ -21,13 +21,10 @@ const CommentListItem = ({ comment, handleMoveDetail }: CommentListItemProps) =>
           width={50}
           height={50}
           className="cursor-pointer"
-          onClick={() => handleMoveDetail(comment.id.toString())}
+          onClick={() => handleMoveDetail(comment.id)}
           priority
         />
-        <div
-          className="flex flex-col gap-1 mt-1 cursor-pointer"
-          onClick={() => handleMoveDetail(comment.id.toString())}
-        >
+        <div className="flex flex-col gap-1 mt-1 cursor-pointer" onClick={() => handleMoveDetail(comment.id)}>
           <h2 className="font-semibold">{`${comment.nickname}님의 ${comment.category}`}</h2>
           <h4 className="text-sm truncate max-w-60">{comment.content}</h4>
         </div>
