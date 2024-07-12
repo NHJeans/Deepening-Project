@@ -1,9 +1,11 @@
-import { fetchClubs } from "@/apis/fetchClubs";
-import { useQuery } from "@tanstack/react-query";
+import { fetchClubs, FetchClubsResponse } from "@/apis/fetchClubs";
+import { InfiniteData, useInfiniteQuery, UseInfiniteQueryResult } from "@tanstack/react-query";
 
-export const useClub = () => {
-  return useQuery({
+export const useInfiniteFetchClubs = (limit = 12): UseInfiniteQueryResult<InfiniteData<FetchClubsResponse>, Error> => {
+  return useInfiniteQuery<FetchClubsResponse, Error>({
     queryKey: ["clubs"],
-    queryFn: () => fetchClubs(),
+    queryFn: ({ pageParam = 0 }) => fetchClubs({ pageParam: pageParam as number, limit }),
+    getNextPageParam: (lastPage) => (lastPage.hasMore ? lastPage.nextPage : undefined),
+    initialPageParam: 0,
   });
 };
