@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useUserStore } from "@/store";
+import { useState } from "react";
+
 
 const LoginPage = () => {
   const router = useRouter();
@@ -12,6 +14,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const supabase = createClient();
 
   const handleLogin = async () => {
     setError(null);
