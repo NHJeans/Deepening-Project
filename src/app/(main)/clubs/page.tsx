@@ -1,10 +1,10 @@
 import { fetchClubs } from "@/apis/fetchClubs";
-import { fetchUserProfile } from "@/apis/fetchUserProfile";
 import CreateClubButton from "@/components/Button/CreateClubButton";
 import ClubsList from "@/components/Club/ClubList";
 import ClubsHeader from "@/components/Header/ClubsHeader";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 const ClubListPage = async () => {
   const queryClient = new QueryClient();
@@ -12,11 +12,6 @@ const ClubListPage = async () => {
   await queryClient.prefetchQuery({
     queryKey: ["clubs"],
     queryFn: () => fetchClubs({ pageParam: 0 }),
-  });
-
-  await queryClient.prefetchQuery({
-    queryKey: ["userProfile"],
-    queryFn: fetchUserProfile,
   });
 
   return (
