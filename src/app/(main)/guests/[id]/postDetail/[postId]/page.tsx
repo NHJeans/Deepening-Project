@@ -51,7 +51,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
   }
 
   if (postResult.error || clubResult.error) {
-    return <div>데이터를 불러올 수 없습니다: {postResult.error?.message || clubResult.error?.message}</div>;
+    return <div>정보를 읽어올 수 없습니다 {postResult.error?.message || clubResult.error?.message}</div>;
   }
 
   const post: Post = postResult.data[0];
@@ -62,7 +62,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
   }
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen pb-10">
+    <main className="flex flex-col items-center justify-center min-h-screen pb-10">
       <h1 className="font-black text-xl self-start ml-10 pb-3">{`${club.title}님의 모임`}</h1>
       <section className="my-4 flex items-start mr-12 pl-9 pb-4">
         <input
@@ -88,7 +88,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
           모임 응원글 보러가기
         </Link>
       </ul>
-    </section>
+    </main>
   );
 };
 
