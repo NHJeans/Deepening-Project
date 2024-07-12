@@ -63,6 +63,11 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
       return;
     }
 
+    if (!nickname) {
+      alert("닉네임을 설정해주세요");
+      return;
+    }
+
     try {
       const response = await fetch(`/api/guests/${id}/createpost`, {
         method: "POST",
@@ -118,7 +123,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
         </section>
         <label className="block mb-2 p-5 font-bold">편지색</label>
         <section>
-          <div className="flex space-x-2 mb-12 justify-center pb-20">
+          <div className="flex space-x-2 mb-12 justify-center pb-7">
             <ColorButtons handleColorChange={handleColorChange} />
           </div>
           <div className="flex justify-end">
