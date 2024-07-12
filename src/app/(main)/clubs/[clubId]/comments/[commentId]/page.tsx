@@ -26,15 +26,11 @@ const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: st
   }
 
   if (commentResult.error || clubResult.error) {
-    return <div>정보를 읽어올 수 없습니다 {commentResult.error?.message || clubResult.error?.message}</div>;
+    return <p>정보를 읽어올 수 없습니다 {commentResult.error?.message || clubResult.error?.message}</p>;
   }
 
   const comment: Comment = commentResult.data[0];
   const club: Club = clubResult.data[0];
-
-  if (!comment || !club) {
-    return <div>게시글이나 모임 정보가 없습니다.</div>;
-  }
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen pb-10">

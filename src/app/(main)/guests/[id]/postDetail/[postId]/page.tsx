@@ -23,21 +23,15 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
   const { postResult, clubResult } = useFetchPostAndClub(postId, id);
 
   if (postResult.isPending || clubResult.isPending) {
-    console.log("🚀 ~ PostDetailPage ~ postResult:", postResult);
-    console.log("🚀 ~ PostDetailPage ~ clubResult:", clubResult);
     return <LoadingSpinner />;
   }
 
   if (postResult.error || clubResult.error) {
-    return <div>정보를 읽어올 수 없습니다 {postResult.error?.message || clubResult.error?.message}</div>;
+    return <p>정보를 읽어올 수 없습니다 {postResult.error?.message || clubResult.error?.message}</p>;
   }
 
   const post: Post = postResult.data[0];
   const club: Club = clubResult.data[0];
-
-  if (!post || !club) {
-    return <div>게시글이나 모임 정보가 없습니다.</div>;
-  }
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen pb-10">
