@@ -1,8 +1,8 @@
 "use client";
 
-import { useQueries, UseQueryOptions, UseQueryResult } from "@tanstack/react-query";
 import Link from "next/link";
 import LoadingSpinner from "../../../_components/LoadingSpinner";
+import useFetchPostAndClub from "../../../_components/UseQueriesPostAndClub";
 
 type Post = {
   content: string;
@@ -20,33 +20,11 @@ type Club = {
 const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) => {
   const { id, postId } = params;
 
-  const queryOptions: UseQueryOptions<unknown, Error, unknown>[] = [
-    {
-      queryKey: ["post", postId],
-      queryFn: async () => {
-        const response = await fetch(`/api/guests/${id}/postdetail/${postId}`);
-        if (!response.ok) {
-          throw new Error("데이터를 불러올 수 없습니다");
-        }
-        return response.json();
-      },
-    },
-    {
-      queryKey: ["club", id],
-      queryFn: async () => {
-        const response = await fetch(`/api/guests/${id}`);
-        if (!response.ok) {
-          throw new Error("네트워크가 불안정합니다");
-        }
-        return response.json();
-      },
-    },
-  ];
+  const { postResult, clubResult } = useFetchPostAndClub(postId, id);
 
-  const results = useQueries({ queries: queryOptions });
-
-  const [postResult, clubResult] = results as UseQueryResult<any, Error>[];
   if (postResult.isPending || clubResult.isPending) {
+    console.log("🚀 ~ PostDetailPage ~ postResult:", postResult);
+    console.log("🚀 ~ PostDetailPage ~ clubResult:", clubResult);
     return <LoadingSpinner />;
   }
 
