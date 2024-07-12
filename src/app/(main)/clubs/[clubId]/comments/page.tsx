@@ -126,7 +126,7 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
           공유하기
         </button>
         <Modal isOpen={isModalOpen} onClose={handleModalClose}>
-          <div className="flex gap-x-2 items-center">
+          <div className="flex flex-wrap gap-x-10 gap-y-5 justify-center items-center mb-2.5">
             <DetailShareBtn />
             <KakaoShareButton id={clubId} />
           </div>

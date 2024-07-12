@@ -13,6 +13,7 @@ interface ClubData {
 
 const ClubTitle = ({ clubId }: ClubTitleProps) => {
   const [clubData, setClubData] = useState<ClubData>();
+  const [error, setError] = useState<string | null>(null);
   const supabase = createClient();
 
   useEffect(() => {
@@ -21,11 +22,16 @@ const ClubTitle = ({ clubId }: ClubTitleProps) => {
         const { data, error } = await supabase.from("Clubs").select("*").eq("id", clubId).single();
         const clubsData = { thumbnail: data?.thumbnail, title: data?.title };
         setClubData(clubsData);
-      } catch (error) {}
+      } catch (error) {
+        setError("모임 데이터를 불러오는 데 실패했습니다. 나중에 다시 시도해주세요.");
+      }
     };
 
     fetchClubData();
   }, [clubId]);
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   if (!clubData) {
     return <div>Loading...</div>;
