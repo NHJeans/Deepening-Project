@@ -1,9 +1,8 @@
 "use client";
 
 import { useUserProfile } from "@/store/queries/useUserProfileQueries";
-
-import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
+import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import SmallButton from "../Button/SmallButton";
 import HeaderSection from "./HeaderSection";
