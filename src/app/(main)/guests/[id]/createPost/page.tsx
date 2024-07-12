@@ -81,12 +81,14 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
         }),
       });
 
-      if (response.ok) {
-        const { data } = await response.json();
-
-        alert("글이 성공적으로 작성되었습니다!");
-        router.push(`/guests/${id}/postDetail/${data.id}`);
+      if (!response.ok) {
+        alert("글 작성 중 오류가 발생했습니다.");
+        return;
       }
+      const { data } = await response.json();
+
+      alert("글이 성공적으로 작성되었습니다!");
+      router.push(`/guests/${id}/postDetail/${data.id}`);
     } catch (error) {
       console.error("Error creating post:", error);
       alert("글 작성 중 오류가 발생했습니다.");
@@ -94,9 +96,9 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen">
+    <main className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="font-black text-xl self-start ml-10 pb-5 ">{`${clubData[0].title}님의 모임`}</h1>
-      <div className="pl-9 flex items-start">
+      <section className="pl-9 flex items-start ">
         <input
           id="nickname"
           ref={nicknameRef}
@@ -105,27 +107,29 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
         />
         <span className="mr-1 font-bold">님의</span>
         <CategoryButtons handleCategoryChange={handleCategoryChange} />
-      </div>
+      </section>
 
       <form onSubmit={handleSubmit} className="w-4/5">
-        <div className="my-4">
+        <section className="my-4">
           <textarea
             id="content"
             ref={contentRef}
             required
-            className="w-full p-2 text-2xl border border-gray-300 rounded-md min-h-[30rem] resize-none shadow-xl  bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
+            className="w-full p-2 text-2xl  border border-gray-300 rounded-md min-h-[30rem] resize-none shadow-xl  bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
             style={{ backgroundColor: colorRef.current, backgroundImage: 'url("/logo.png")' }}
           />
-        </div>
+        </section>
         <label className="block mb-2 p-5 font-bold">편지색</label>
-        <div className="flex space-x-2 mb-12 justify-center pb-20">
-          <ColorButtons handleColorChange={handleColorChange} />
-        </div>
-        <div className="flex justify-end">
-          <CustomButton type="submit">작성</CustomButton>
-        </div>
+        <section>
+          <div className="flex space-x-2 mb-12 justify-center pb-20">
+            <ColorButtons handleColorChange={handleColorChange} />
+          </div>
+          <div className="flex justify-end">
+            <CustomButton type="submit">작성</CustomButton>
+          </div>
+        </section>
       </form>
-    </section>
+    </main>
   );
 };
 

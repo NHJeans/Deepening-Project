@@ -67,9 +67,9 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
   }
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen pb-20">
+    <main className="flex flex-col items-center justify-center min-h-screen pb-10">
       <h1 className="font-black text-xl self-start ml-10 pb-3">{`${club.title}님의 모임`}</h1>
-      <div className="my-4 flex items-start mr-12 pl-9 pb-4">
+      <section className="my-4 flex items-start mr-12 pl-9 pb-4">
         <input
           id="nickname"
           value={post.nickname}
@@ -78,13 +78,13 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
         />
         <span className="mr-2 font-bold">님의</span>
         <div className="w-1/5  bg-customGreen border rounded-md text-white shadow-md text-center">{post.category}</div>
-      </div>
-      <div
-        style={{ backgroundColor: post.bg_image ?? "white", backgroundImage: 'url("/logo.png")' }}
-        className="w-4/5 p-2 border border-gray-300 rounded-md min-h-[40rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
+      </section>
+      <section
+        style={{ backgroundColor: post.bg_image ?? "transparent", backgroundImage: 'url("/logo.png")' }}
+        className="w-4/5 p-2 border border-gray-300 rounded-md min-h-[35rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
       >
         <h1 className="text-2xl  mb-4">{post.content}</h1>
-      </div>
+      </section>
       <ul className="pt-10">
         <Link
           href={`/clubs/${id}/comments`}
@@ -93,7 +93,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
           모임 응원글 보러가기
         </Link>
       </ul>
-    </section>
+    </main>
   );
 };
 

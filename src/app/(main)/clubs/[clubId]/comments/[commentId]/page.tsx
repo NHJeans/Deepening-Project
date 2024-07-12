@@ -51,18 +51,17 @@ const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: st
   }
 
   const comment: Comment = commentResult.data[0];
-  console.log("🚀 ~ CommentDetailPage ~ comment:", comment);
+
   const club: Club = clubResult.data[0];
-  console.log("🚀 ~ CommentDetailPage ~ club:", club);
 
   if (!comment || !club) {
     return <div>게시글이나 모임 정보가 없습니다.</div>;
   }
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen pb-20">
+    <main className="flex flex-col items-center justify-center min-h-screen pb-10">
       <h1 className="font-black text-xl self-start ml-10 pb-3">{`${club.title}님의 모임`}</h1>
-      <div className="my-4 flex items-start mr-12 pl-9 pb-4">
+      <section className="my-4 flex items-start mr-12 pl-9 pb-4">
         <input
           id="nickname"
           value={comment.nickname}
@@ -73,14 +72,14 @@ const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: st
         <div className="w-1/5  bg-customGreen border rounded-md text-white shadow-md text-center">
           {comment.category}
         </div>
-      </div>
+      </section>
       <div
         style={{ backgroundColor: comment.bg_image ?? "white", backgroundImage: 'url("/logo.png")' }}
-        className="w-4/5 p-2 border border-gray-300 rounded-md min-h-[40rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
+        className="w-4/5 p-2 border border-gray-300 rounded-md min-h-[35rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
       >
         <h2 className="text-2xl  mb-4">{comment.content}</h2>
       </div>
-    </section>
+    </main>
   );
 };
 
