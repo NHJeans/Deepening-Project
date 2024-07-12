@@ -1,7 +1,7 @@
 "use client";
 
+import LoadingSpinner from "@/app/(main)/guests/_components/LoadingSpinner";
 import { useQueries, UseQueryOptions, UseQueryResult } from "@tanstack/react-query";
-import Image from "next/image";
 
 type Comment = {
   content: string;
@@ -46,13 +46,8 @@ const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: st
 
   const [clubResult, commentResult] = results as UseQueryResult<any, Error>[];
 
-  if (clubResult.isLoading || commentResult.isLoading) {
-    return (
-      <div className="flex flex-col justify-center items-center">
-        <Image src="/logo.png" alt="Loading..." width={256} height={256} className="mb-4 animate-rotate" />
-        <p className="text-xl font-semibold">불러오는 중..</p>
-      </div>
-    );
+  if (clubResult.isPending || commentResult.isPending) {
+    return <LoadingSpinner />;
   }
 
   const comment: Comment = commentResult.data[0];
