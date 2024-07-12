@@ -13,51 +13,58 @@ const KakaoRedirectPage = () => {
 
   useEffect(() => {
     const handleKakaoLogin = async () => {
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
+      setLoading(true);
+      try {
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
 
-      if (error) {
-        console.error("세션 가져오기 실패:", error.message);
-        router.push("/auth/login");
-        return;
+        if (error) {
+          console.error("세션 가져오기 실패:", error.message);
+          router.push("/auth/login");
+          return;
+        }
+
+        const user = session?.user;
+        if (!user) {
+          router.push("/auth/login");
+          return;
+        }
+
+        const { data: userData, error: selectError } = await supabase
+          .from("Users")
+          .select("*")
+          .eq("id", user.id)
+          .single();
+
+        if (selectError && selectError.code !== "PGRST116") {
+          console.error("유저 데이터 선택 실패:", selectError.message);
+          return;
+        }
+
+        if (userData) {
+          setUser({
+            id: user.id,
+            email: user.email ?? "",
+            nickname: userData.nickname,
+            profile_img: userData.profile_img,
+          });
+          console.log("유저 데이터 설정 완료:", userData);
+          router.push("/clubs");
+          return;
+        }
+
+        router.push("/auth/socialNickname");
+      } catch (error) {
+        console.error("오류 발생:", error);
+      } finally {
+        setLoading(false);
       }
-
-      const user = session?.user;
-      if (!user) {
-        router.push("/auth/login");
-        return;
-      }
-
-      const { data: userData, error: selectError } = await supabase
-        .from("Users")
-        .select("*")
-        .eq("id", user.id)
-        .single();
-
-      if (selectError && selectError.code !== "PGRST116") {
-        console.error("유저 데이터 선택 실패:", selectError.message);
-        return;
-      }
-
-      if (userData) {
-        setUser({
-          id: user.id,
-          email: user.email ?? "",
-          nickname: userData.nickname,
-          profile_img: userData.profile_img,
-        });
-        console.log("유저 데이터 설정 완료:", userData);
-        router.push("/clubs");
-        return;
-      }
-
-      router.push("/auth/socialNickname");
     };
 
-    handleKakaoLogin().finally(() => setLoading(false));
-  }, [router, setUser]);
+    handleKakaoLogin();
+  }, [router, setUser, supabase]);
 
   if (loading) {
     return <div className="font-semibold">로그인 중...</div>;

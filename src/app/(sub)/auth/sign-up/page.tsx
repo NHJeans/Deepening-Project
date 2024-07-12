@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -120,7 +121,7 @@ const SignUpPage = () => {
       <button onClick={handleSignUp} className="bg-customGreen text-white px-4 py-2 rounded mb-4">
         회원가입
       </button>
-      <Link href="/auth/login" className="text-lightgrey-500">
+      <Link href="/auth/login" className="text-grey-500">
         이미 회원이신가요?
       </Link>
     </div>

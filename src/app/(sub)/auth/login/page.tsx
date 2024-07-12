@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useUserStore } from "@/store";
+import { useState } from "react";
 
 const LoginPage = () => {
   const router = useRouter();

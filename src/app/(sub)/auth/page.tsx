@@ -17,6 +17,7 @@ const AuthSelectionPage = () => {
           redirectTo: `${window.location.origin}/api/auth/callback`,
         },
       });
+
       if (error) {
         console.error("Kakao login error:", error.message);
         return;

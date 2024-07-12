@@ -14,7 +14,7 @@ const nextConfig = {
       },
       {
         protocol: "http",
-        hostname: "k.kakaocdn.net", // 여기에 k.kakaocdn.net 호스트네임을 추가합니다.
+        hostname: "k.kakaocdn.net",
         pathname: "/dn/**",
       },
     ],

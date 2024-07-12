@@ -117,7 +117,7 @@ const SocialNicknamePage = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-customYellow">
       <button onClick={() => router.back()} className="self-start m-4">
-        <Image src="/back.png" alt="Back" width={24} height={24} />
+        <Image src="/icons/back.png" alt="Back" width={24} height={24} />
       </button>
       <Image src="/logo.png" alt="Logo" width={96} height={96} className="mb-8" />
       <h1 className="text-2xl font-semibold mb-4">
