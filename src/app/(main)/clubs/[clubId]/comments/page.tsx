@@ -7,7 +7,7 @@ import ClubDetailPageHeader from "./_components/ClubDetailPageHeader";
 import CommentGridItem from "./_components/CommentGridItem";
 import CommentListItem from "./_components/CommentListItem";
 import Modal from "@/components/modal/Modal";
-import DetailShareBtn from "@/components/share/share";
+import DetailShareBtn from "@/components/share/Share";
 import KakaoShareButton from "@/components/share/kakao/Kakaoshare";
 
 const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) => {

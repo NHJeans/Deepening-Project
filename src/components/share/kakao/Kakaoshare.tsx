@@ -37,10 +37,10 @@ const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
   };
 
   return (
-    <div onClick={handleShare} className="relative w-[75px] h-[75px] items-center">
+    <div onClick={handleShare} className="relative w-[60px] h-[60px] items-center">
       <Image
         src="https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/kakaologo1.png"
-        alt="이미지 없음"
+        alt="카카오톡으로 공유하기"
         layout="fill"
         className="rounded-lg bg-cover cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110"
       />

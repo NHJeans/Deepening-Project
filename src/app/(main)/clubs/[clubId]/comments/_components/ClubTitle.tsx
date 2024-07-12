@@ -41,7 +41,7 @@ const ClubTitle = ({ clubId }: ClubTitleProps) => {
     <div className="flex gap-x-2">
       <div className="relative w-[50px] h-[50px] items-center">
         {clubData.thumbnail && (
-          <Image src={clubData.thumbnail} alt="Thumbnail" layout="fill" className="rounded-lg bg-cover" />
+          <Image src={clubData.thumbnail} alt="모임 이미지가 없습니다" layout="fill" className="rounded-lg bg-cover" />
         )}
       </div>
       <div className="ml-4 flex items-center font-bold text-2xl">{clubData.title} 모임</div>
