@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import ClubDetailPageHeader from "./_components/ClubDetailPageHeader";
 import CommentGridItem from "./_components/CommentGridItem";
 import CommentListItem from "./_components/CommentListItem";
-import Modal from "@/components/modal/Modal";
-import DetailShareBtn from "@/components/share/share";
-import KakaoShareButton from "@/components/share/kakao/Kakaoshare";
+import ShareModal from "./_components/Modal/ShareModal";
+import DetailShareBtn from "./_components/Share/Share";
+import KakaoShareButton from "./_components/Share/KakaoShare";
 
 const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) => {
   const [commentList, setCommentList] = useState<Comment[]>([]);
@@ -125,12 +125,12 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
         >
           공유하기
         </button>
-        <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+        <ShareModal isOpen={isModalOpen} onClose={handleModalClose}>
           <div className="flex flex-wrap gap-x-10 gap-y-5 justify-center items-center mb-2.5">
             <DetailShareBtn />
             <KakaoShareButton id={clubId} />
           </div>
-        </Modal>
+        </ShareModal>
       </div>
     </section>
   );
