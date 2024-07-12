@@ -19,11 +19,11 @@ type Club = {
 const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: string } }) => {
   const { commentId, clubId } = params;
 
-  const queryOptions: UseQueryOptions<unknown, Error, unknown>[] = [
+  const queryOptions: UseQueryOptions<any, Error, any>[] = [
     {
       queryKey: ["club", clubId],
       queryFn: async () => {
-        const response = await fetch(`/api/clubs/${clubId}/comments`);
+        const response = await fetch(`/api/guests/${clubId}`); //이상한점-경로를 clubs로 하면 에러남.
         if (!response.ok) {
           throw new Error("네트워크가 불안정합니다");
         }
@@ -51,7 +51,9 @@ const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: st
   }
 
   const comment: Comment = commentResult.data[0];
+  console.log("🚀 ~ CommentDetailPage ~ comment:", comment);
   const club: Club = clubResult.data[0];
+  console.log("🚀 ~ CommentDetailPage ~ club:", club);
 
   if (!comment || !club) {
     return <div>게시글이나 모임 정보가 없습니다.</div>;
@@ -73,7 +75,7 @@ const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: st
         </div>
       </div>
       <div
-        style={{ backgroundColor: comment.bg_image ?? "transparent", backgroundImage: 'url("/logo.png")' }}
+        style={{ backgroundColor: comment.bg_image ?? "white", backgroundImage: 'url("/logo.png")' }}
         className="w-4/5 p-2 border border-gray-300 rounded-md min-h-[40rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
       >
         <h2 className="text-2xl  mb-4">{comment.content}</h2>

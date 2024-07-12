@@ -80,7 +80,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
         <div className="w-1/5  bg-customGreen border rounded-md text-white shadow-md text-center">{post.category}</div>
       </div>
       <div
-        style={{ backgroundColor: post.bg_image ?? "transparent", backgroundImage: 'url("/logo.png")' }}
+        style={{ backgroundColor: post.bg_image ?? "white", backgroundImage: 'url("/logo.png")' }}
         className="w-4/5 p-2 border border-gray-300 rounded-md min-h-[40rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
       >
         <h1 className="text-2xl  mb-4">{post.content}</h1>
