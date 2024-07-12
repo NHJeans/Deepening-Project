@@ -23,7 +23,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
     data: clubData,
     isPending,
     error,
-  } = useQuery<Club[], Error, Club[], [string, string]>({
+  } = useQuery<Club[], Error, Club[]>({
     queryKey: ["clubs", id],
     queryFn: async () => {
       const response = await fetch(`/api/guests/${id}`);

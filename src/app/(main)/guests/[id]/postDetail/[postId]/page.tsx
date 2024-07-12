@@ -20,7 +20,7 @@ type Club = {
 const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) => {
   const { id, postId } = params;
 
-  const queryOptions: UseQueryOptions<any, Error, any, [string, string]>[] = [
+  const queryOptions: UseQueryOptions<any, Error, any>[] = [
     {
       queryKey: ["post", postId],
       queryFn: async () => {
