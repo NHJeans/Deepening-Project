@@ -2,7 +2,7 @@
 
 import { useQueries, UseQueryOptions, UseQueryResult } from "@tanstack/react-query";
 import Link from "next/link";
-import LoadingSpinner from "../../../_components/loadingSpinner";
+import LoadingSpinner from "../../../_components/LoadingSpinner";
 
 type Post = {
   content: string;
@@ -20,7 +20,7 @@ type Club = {
 const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) => {
   const { id, postId } = params;
 
-  const queryOptions: UseQueryOptions<any, Error, any>[] = [
+  const queryOptions: UseQueryOptions<unknown, Error, unknown>[] = [
     {
       queryKey: ["post", postId],
       queryFn: async () => {
@@ -83,7 +83,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
       <ul className="pt-10">
         <Link
           href={`/clubs/${id}/comments`}
-          className=" bg-customGreen border rounded-md text-white shadow-md text-center p-2 px-10"
+          className="bg-customGreen border rounded-md text-white shadow-md text-center p-2 px-10"
         >
           모임 응원글 보러가기
         </Link>

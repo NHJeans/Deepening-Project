@@ -15,13 +15,3 @@ const CustomButton = ({ onClick, type = "submit", children }: CustomButtonProps)
 };
 
 export default CustomButton;
-
-// const CustomButton: React.FC<CustomButtonProps> = ({ onClick, type = "submit", children }) => {
-//   return (
-//     <button type={type} onClick={onClick} className="px-4 py-1 bg-customGreen text-white rounded-md shadow-md">
-//       {children}
-//     </button>
-//   );
-// };
-
-// export default CustomButton;
