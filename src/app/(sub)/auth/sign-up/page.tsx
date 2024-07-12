@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/utils/supabase/client";
+import { useState } from "react";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -12,6 +12,7 @@ const SignUpPage = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [emailError, setEmailError] = useState<string | null>(null);
   const [signUpError, setSignUpError] = useState<string | null>(null);
+  const supabase = createClient();
 
   const checkEmailExists = async (email: string) => {
     const { data, error } = await supabase.from("Users").select("id").eq("email", email).single();
