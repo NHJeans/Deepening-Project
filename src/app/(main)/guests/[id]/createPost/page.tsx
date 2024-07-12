@@ -110,7 +110,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
             id="content"
             ref={contentRef}
             required
-            className="w-full p-2 text-2xl  border border-gray-300 rounded-md min-h-120 resize-none shadow-xl  bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
+            className="w-full p-2 text-2xl  border border-gray-300 rounded-md min-h-[30rem] resize-none shadow-xl  bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
             style={{ backgroundColor: colorRef.current, backgroundImage: 'url("/logo.png")' }}
           />
         </div>

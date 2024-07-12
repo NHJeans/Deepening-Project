@@ -15,11 +15,7 @@ const config: Config = {
       maxWidth: {
         custom: "420px",
       },
-      minHeight: {
-        "120": "30rem",
 
-        "160": "40rem",
-      },
       keyframes: {
         rotate: {
           "0%": { transform: "rotate(0deg)" },
