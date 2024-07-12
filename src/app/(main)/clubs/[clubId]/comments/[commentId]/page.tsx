@@ -19,7 +19,7 @@ type Club = {
 const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: string } }) => {
   const { commentId, clubId } = params;
 
-  const queryOptions: UseQueryOptions<any, Error, any, [string, string]>[] = [
+  const queryOptions: UseQueryOptions<any, Error, any>[] = [
     {
       queryKey: ["club", clubId],
       queryFn: async () => {
