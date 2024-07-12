@@ -5,11 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
-import CategoryButtons from "../../_components/CategoryButton";
-import ColorButtons from "../../_components/ColorButton";
-
+import CategoryButtons from "../../_components/CategoryButtons";
+import ColorButtons from "../../_components/ColorButtons";
+import CustomButton from "../../_components/CustomButton";
 import LoadingSpinner from "../../_components/LoadingSpinner";
-import CustomButton from "../../_components/SubmitButton";
 
 const CreatePostPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
