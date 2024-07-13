@@ -1,3 +1,4 @@
+import { useModal } from "@/context/modal.context";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
@@ -8,6 +9,7 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
   const categoryRef = useRef<string>(initialCategory);
   const [bgColor, setBgColor] = useState<string>(initialBgColor);
   const router = useRouter();
+  const modal = useModal();
 
   const handleColorChange = (color: string) => {
     colorRef.current = color;
@@ -26,12 +28,44 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
     const bgImage = colorRef.current;
 
     if (!content) {
-      alert("내용을 입력해주세요.");
+      modal.open({
+        title: "글을 써주세요",
+        content: "내용은 필수입니다",
+      });
+      return;
+    }
+    if (content.length < 5) {
+      modal.open({
+        title: "글의 내용은",
+        content: <h1 className="text-center ">다섯 글자 이상 입력하세요</h1>,
+      });
       return;
     }
 
     if (!nickname) {
-      alert("닉네임을 설정해주세요");
+      modal.open({
+        title: "닉네임은",
+        content: (
+          <div className="text-center">
+            <h2>필수입니다.</h2>
+            <p>세 글자 이상 적어주세요</p>
+          </div>
+        ),
+      });
+      return;
+    }
+
+    if (nickname.length < 3 || nickname.length > 10) {
+      modal.open({
+        title: "닉네임이",
+        content: (
+          <div className="text-center">
+            <h3>현재 너무 짧거나 길어요.</h3>
+            <p>세 글자 이상 열 글자 이하로 </p>
+            <p>작성해주세요.</p>
+          </div>
+        ),
+      });
       return;
     }
 
@@ -51,16 +85,39 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
       });
 
       if (!response.ok) {
-        alert("글 작성 중 오류가 발생했습니다.");
-        return;
+        modal.open({
+          title: "",
+          content: (
+            <div>
+              <h4 className="text-center ">글 작성 중</h4>
+              <p>오류가 발생했습니다.</p>
+            </div>
+          ),
+        });
       }
       const { data } = await response.json();
-
-      alert("글이 성공적으로 작성되었습니다!");
+      modal.open({
+        title: "",
+        content: (
+          <div>
+            <h5 className="text-center ">글이 성공적으로</h5>
+            <p>작성되었습니다!</p>
+          </div>
+        ),
+      });
       router.push(`/guests/${id}/postDetail/${data.id}`);
     } catch (error) {
       console.error("Error creating post:", error);
-      alert("글 작성 중 오류가 발생했습니다.");
+
+      modal.open({
+        title: "",
+        content: (
+          <div>
+            <h4 className="text-center ">글 작성 중</h4>
+            <p>오류가 발생했습니다.</p>
+          </div>
+        ),
+      });
     }
   };
 
