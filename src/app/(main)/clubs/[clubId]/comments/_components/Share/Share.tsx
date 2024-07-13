@@ -19,7 +19,7 @@ export default function DetailShareBtn() {
   return (
     <>
       <div onClick={handleCopyClick}>
-        <div className="relative w-[60px] h-[60px] items-center">
+        <div className="relative w-[50px] h-[50px] items-center mb-1">
           <Image
             src="https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/free_icon_link_455691.png"
             alt="이미지 없음"

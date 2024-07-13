@@ -1,14 +1,14 @@
 "use client";
 
-import Image from "next/image";
+import { useUserProfile } from "@/hooks/useUserProfile";
+import { useUserStore } from "@/store";
 import { createClient } from "@/utils/supabase/client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import SmallButton from "../Button/SmallButton";
 import EditNickname from "./EditNickname";
 import HeaderSection from "./HeaderSection";
-import { useUserStore } from "@/store";
-import { useUserProfile } from "@/hooks/useUserProfile";
 import SkeletonHeader from "./SkeletonHeader";
 
 const ClubsHeader = () => {
