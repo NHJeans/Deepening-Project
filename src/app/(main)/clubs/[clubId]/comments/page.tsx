@@ -10,6 +10,7 @@ import { useCallback, useEffect, useState } from "react";
 import ClubDetailPageHeader from "./_components/ClubDetailPageHeader";
 import CommentGridItem from "./_components/CommentGridItem";
 import CommentListItem from "./_components/CommentListItem";
+import ShareModal from "./_components/Modal/ShareModal";
 import NotFound from "./_components/NotFound";
 import KakaoShareButton from "./_components/Share/KakaoShare";
 import DetailShareBtn from "./_components/Share/Share";

@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import LargeButton from "@/components/Button/LargeButton";
+import { useUserStore } from "@/store";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import DragDrop from "../create/_components/DragDrop";
-import LargeButton from "@/components/Button/LargeButton";
 import CreateClubSection from "./_components/CreateClubSection";
-import { useUserStore } from "@/store";
 
 const CreateClub = () => {
   const [club, setClub] = useState("");
@@ -34,7 +34,7 @@ const CreateClub = () => {
       {
         title: club,
         thumbnail: file ? imageUrl.publicUrl : defaultImgUrl,
-        user_id: user?.id
+        user_id: user?.id,
       },
     ]);
     if (data) alert("모임 등록에 실패하였습니다.");
