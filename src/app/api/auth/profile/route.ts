@@ -11,7 +11,11 @@ export async function GET() {
   if (authError || !user) {
     return NextResponse.json({ profile_img: null, nickname: "Guest" }, { status: 200 });
   }
-  const { data, error } = await supabase.from("Users").select("profile_img, nickname").eq("id", user.id).single();
+  const { data, error } = await supabase
+    .from("Users")
+    .select("id, email, profile_img, nickname")
+    .eq("id", user.id)
+    .single();
 
   if (error) {
     return NextResponse.json({ error: "사용자 정보를 가져오는 데 실패했습니다." }, { status: 500 });

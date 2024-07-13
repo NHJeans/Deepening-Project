@@ -1,14 +1,16 @@
 "use client";
 
-import LoadingSpinner from "@/commons/Loading/ClubsLoadingSpinner";
+import LoadingSpinner from "@/components/Loading/ClubsLoadingSpinner";
+import { useUserStore } from "@/store";
 import { useInfiniteFetchClubs } from "@/store/queries/useClubQueries";
 import { Club } from "@/types/club.type";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useRef } from "react";
 
-const ClubsList = () => {
+const ClubsList = ({ myClubs }: { myClubs: boolean }) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteFetchClubs();
+  const { user } = useUserStore();
 
   const observerRef = useRef<IntersectionObserver | null>(null);
   const lastClubRef = useCallback(
@@ -25,11 +27,12 @@ const ClubsList = () => {
     [isFetchingNextPage, fetchNextPage, hasNextPage],
   );
   const allClubs = data?.pages.flatMap((page) => page.data) || [];
-
+  const filteredClubs = myClubs ? allClubs.filter((club) => club.user_id === user?.id) : allClubs;
+  console.log("filteredClubs", filteredClubs);
   return (
     <div className="max-h-full overflow-y-auto p-4">
       <div className="grid grid-cols-2 gap-4">
-        {allClubs.map((club: Club, index: number) => {
+        {filteredClubs.map((club: Club, index: number) => {
           const imageUrl = club.thumbnail || "/Default-Card-Image.png";
           const isLastClub = allClubs.length - 1 === index;
           return (

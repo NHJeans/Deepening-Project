@@ -11,11 +11,12 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import EditNickname from "./EditNickname";
 
-const ClubsHeader = () => {
+const ClubsHeader = ({ filterMyClubs }: { filterMyClubs: () => void }) => {
   useUserProfile();
   const { user, isLoggedIn, clearUser } = useUserStore();
   const [isEditing, setIsEditing] = useState(false);
   const [nickname, setNickname] = useState("");
+  const [myClubs, setMyClubs] = useState(false);
   const router = useRouter();
   const supabase = createClient();
 
@@ -51,6 +52,10 @@ const ClubsHeader = () => {
   const handleCancelEdit = () => {
     setIsEditing(false);
   };
+  const handleFilterMyClubs = () => {
+    setMyClubs((prev) => !prev);
+    filterMyClubs();
+  };
 
   return (
     <HeaderSection>
@@ -70,6 +75,7 @@ const ClubsHeader = () => {
               {nickname}
             </strong>
             <div className="space-x-2">
+              <SmallButton onClick={handleFilterMyClubs}>{myClubs ? "전체 모임" : "나의 모임"}</SmallButton>
               <SmallButton onClick={() => setIsEditing(true)}>정보수정</SmallButton>
               <SmallButton onClick={handleLogout}>로그아웃</SmallButton>
             </div>

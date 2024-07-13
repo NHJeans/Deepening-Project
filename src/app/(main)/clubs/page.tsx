@@ -1,8 +1,6 @@
 import { fetchClubs } from "@/apis/fetchClubs";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
-import ClubsHeader from "./_components/ClubsHeader";
-import ClubsList from "./_components/ClubsList";
-import CreateClubButton from "./_components/CreateClubButton";
+import ClubsFilterPage from "./_components/ClubsFilterPage";
 
 const ClubListPage = async () => {
   const queryClient = new QueryClient();
@@ -14,14 +12,7 @@ const ClubListPage = async () => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className="h-screen flex flex-col">
-        <ClubsHeader />
-        <CreateClubButton />
-        <h2 className="text-2xl font-bold p-4">모임들</h2>
-        <div className="flex-grow overflow-hidden">
-          <ClubsList />
-        </div>
-      </div>
+      <ClubsFilterPage />
     </HydrationBoundary>
   );
 };
