@@ -30,7 +30,7 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
     if (!content) {
       modal.open({
         title: "글을 써주세요",
-        content: "내용은 필수입니다",
+        content: <h1 className="text-center ">내용은 필수입니다</h1>,
       });
       return;
     }
