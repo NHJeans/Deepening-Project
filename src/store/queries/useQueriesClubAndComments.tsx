@@ -1,20 +1,6 @@
+import fetchClubData from "@/apis/fetchClubData";
+import fetchComment from "@/apis/fetchComment";
 import { useQueries, UseQueryResult } from "@tanstack/react-query";
-
-const fetchClub = async (clubId: string) => {
-  const response = await fetch(`/api/guests/${clubId}`);
-  if (!response.ok) {
-    throw new Error("데이터를 불러올 수 없습니다");
-  }
-  return response.json();
-};
-
-const fetchComment = async (clubId: string, commentId: string) => {
-  const response = await fetch(`/api/clubs/${clubId}/comments/${commentId}`);
-  if (!response.ok) {
-    throw new Error("데이터를 불러올 수 없습니다");
-  }
-  return response.json();
-};
 
 const useQueriesClubAndComment = (commentId: string, clubId: string) => {
   const queries = useQueries({
@@ -25,7 +11,7 @@ const useQueriesClubAndComment = (commentId: string, clubId: string) => {
       },
       {
         queryKey: ["club", clubId] as const,
-        queryFn: () => fetchClub(clubId),
+        queryFn: () => fetchClubData(clubId),
       },
     ],
   }) as UseQueryResult<any, Error>[];

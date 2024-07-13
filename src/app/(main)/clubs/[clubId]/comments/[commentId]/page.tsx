@@ -1,7 +1,7 @@
 "use client";
 
 import LoadingSpinner from "@/app/(main)/guests/_components/LoadingSpinner";
-import useQueriesClubAndComment from "@/app/(main)/guests/_components/useQueriesClubAndComments";
+import useQueriesClubAndComment from "@/store/queries/useQueriesClubAndComments";
 
 type Comment = {
   content: string;

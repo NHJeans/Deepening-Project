@@ -1,10 +1,11 @@
 "use client";
 
+import useQueryClubs from "../../../../../store/queries/UseQueryClubs";
 import CategoryButtons from "../../_components/CategoryButtons";
 import ColorButtons from "../../_components/ColorButtons";
 import CustomButton from "../../_components/CustomButton";
 import LoadingSpinner from "../../_components/LoadingSpinner";
-import UseQueryClubs from "../../_components/UseQueryClubs";
+
 import useSubmitPost from "../../_components/UseSubmitPost";
 
 const CreatePostPage = ({ params }: { params: { id: string } }) => {
@@ -13,7 +14,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
   const { handleSubmit, handleColorChange, handleCategoryChange, contentRef, nicknameRef, bgImageRef, categoryRef } =
     useSubmitPost(id, "white", "응원글");
 
-  const { clubData, isPending, error } = UseQueryClubs(id);
+  const { clubData, isPending, error } = useQueryClubs(id);
   if (isPending) {
     return <LoadingSpinner />;
   }

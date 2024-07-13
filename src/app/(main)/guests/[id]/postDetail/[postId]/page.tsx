@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import useFetchPostAndClub from "../../../../../../store/queries/UseQueriesPostAndClub";
 import LoadingSpinner from "../../../_components/LoadingSpinner";
-import useFetchPostAndClub from "../../../_components/UseQueriesPostAndClub";
 
 type Post = {
   content: string;
