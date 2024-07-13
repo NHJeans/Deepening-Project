@@ -11,7 +11,7 @@ import useSubmitPost from "../../_components/UseSubmitPost";
 const CreatePostPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
 
-  const { handleSubmit, handleColorChange, handleCategoryChange, contentRef, nicknameRef, bgImageRef, categoryRef } =
+  const { handleSubmit, handleColorChange, handleCategoryChange, contentRef, nicknameRef, bgColor, categoryRef } =
     useSubmitPost(id, "white", "응원글");
 
   const { clubData, isPending, error } = useQueryClubs(id);
@@ -48,7 +48,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
             ref={contentRef}
             required
             className="w-full p-2 text-2xl  border border-gray-300 rounded-md min-h-[30rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
-            style={{ backgroundColor: bgImageRef.current, backgroundImage: 'url("/logo.png")' }}
+            style={{ backgroundColor: bgColor, backgroundImage: 'url("/logo.png")' }}
           />
         </section>
         <label className="block mb-2 p-5 font-bold">편지색</label>

@@ -1,15 +1,17 @@
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const useSubmitPost = (id: string, initialBgColor: string, initialCategory: string) => {
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const nicknameRef = useRef<HTMLInputElement>(null);
-  const bgImageRef = useRef<string>(initialBgColor);
+  const colorRef = useRef<string>(initialBgColor);
   const categoryRef = useRef<string>(initialCategory);
+  const [bgColor, setBgColor] = useState<string>(initialBgColor);
   const router = useRouter();
 
   const handleColorChange = (color: string) => {
-    bgImageRef.current = color;
+    colorRef.current = color;
+    setBgColor(color);
   };
 
   const handleCategoryChange = (category: string) => {
@@ -21,7 +23,7 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
     const content = contentRef.current?.value;
     const category = categoryRef.current;
     const nickname = nicknameRef.current?.value;
-    const bgImage = bgImageRef.current;
+    const bgImage = colorRef.current;
 
     if (!content) {
       alert("내용을 입력해주세요.");
@@ -68,8 +70,9 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
     handleCategoryChange,
     contentRef,
     nicknameRef,
-    bgImageRef,
+    colorRef,
     categoryRef,
+    bgColor,
   };
 };
 
