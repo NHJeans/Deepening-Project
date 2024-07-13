@@ -1,7 +1,7 @@
 "use client";
 
 import LoadingSpinner from "@/app/(main)/guests/_components/LoadingSpinner";
-import { useQueries, UseQueryOptions, UseQueryResult } from "@tanstack/react-query";
+import useQueriesClubAndComment from "@/store/queries/useQueriesClubAndComments";
 
 type Comment = {
   content: string;
@@ -19,44 +19,18 @@ type Club = {
 const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: string } }) => {
   const { commentId, clubId } = params;
 
-  const queryOptions: UseQueryOptions<any, Error, any>[] = [
-    {
-      queryKey: ["club", clubId],
-      queryFn: async () => {
-        const response = await fetch(`/api/guests/${clubId}`); //이상한점-경로를 clubs로 하면 에러남.
-        if (!response.ok) {
-          throw new Error("네트워크가 불안정합니다");
-        }
-        return response.json();
-      },
-    },
-    {
-      queryKey: ["comment", commentId],
-      queryFn: async () => {
-        const response = await fetch(`/api/clubs/${clubId}/comments/${commentId}`);
-        if (!response.ok) {
-          throw new Error("네트워크가 불안정합니다");
-        }
-        return response.json();
-      },
-    },
-  ];
+  const { commentResult, clubResult } = useQueriesClubAndComment(commentId, clubId);
 
-  const results = useQueries({ queries: queryOptions });
-
-  const [clubResult, commentResult] = results as UseQueryResult<any, Error>[];
-
-  if (clubResult.isPending || commentResult.isPending) {
+  if (commentResult.isLoading || clubResult.isLoading) {
     return <LoadingSpinner />;
   }
 
-  const comment: Comment = commentResult.data[0];
-
-  const club: Club = clubResult.data[0];
-
-  if (!comment || !club) {
-    return <div>게시글이나 모임 정보가 없습니다.</div>;
+  if (commentResult.error || clubResult.error) {
+    return <p>정보를 읽어올 수 없습니다 {commentResult.error?.message || clubResult.error?.message}</p>;
   }
+
+  const comment: Comment = commentResult.data[0];
+  const club: Club = clubResult.data[0];
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen pb-10">
