@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import LargeButton from "@/components/Button/LargeButton";
+import { useUserStore } from "@/store";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import DragDrop from "../create/_components/DragDrop";
-import LargeButton from "@/components/Button/LargeButton";
 import CreateClubSection from "./_components/CreateClubSection";
 
 const CreateClub = () => {
@@ -12,6 +13,7 @@ const CreateClub = () => {
   const [file, setFile] = useState<File>();
   const supabase = createClient();
   const router = useRouter();
+  const { user } = useUserStore();
 
   const defaultImgUrl =
     "https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/DefaultCardImage.png";
@@ -32,13 +34,13 @@ const CreateClub = () => {
       {
         title: club,
         thumbnail: file ? imageUrl.publicUrl : defaultImgUrl,
-        user_id: "d5dca952-6c07-4f54-9fe7-bc587b5f9c46",
+        user_id: user?.id,
       },
     ]);
     if (data) alert("모임 등록에 실패하였습니다.");
     else {
       alert("모임이 성공적으로 등록되었습니다.");
-      router.push("/clubs");
+      router.replace("/clubs");
     }
   };
 

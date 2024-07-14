@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import gridImg from "../../../../../../../public/icons/grid-filled.png";
 import listImg from "../../../../../../../public/icons/list-lined.png";
 import ClubTitle from "./ClubTitle";

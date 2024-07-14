@@ -6,7 +6,7 @@ interface ModalProps {
   children: ReactNode;
 }
 
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+const ShareModal = ({ isOpen, onClose, children }: ModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -25,4 +25,4 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   );
 };
 
-export default Modal;
+export default ShareModal;

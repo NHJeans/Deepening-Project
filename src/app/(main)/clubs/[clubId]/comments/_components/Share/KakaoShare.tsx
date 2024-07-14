@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect } from "react";
 import Image from "next/image";
+import { useEffect } from "react";
 
 interface KakaoShareButtonProps {
   id: string;
@@ -37,7 +37,7 @@ const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
   };
 
   return (
-    <div onClick={handleShare} className="relative w-[75px] h-[75px] items-center">
+    <div onClick={handleShare} className="relative w-[65px] h-[65px] items-center">
       <Image
         src="https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/kakaologo1.png"
         alt="이미지 없음"
