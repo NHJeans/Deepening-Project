@@ -8,7 +8,7 @@ interface KakaoShareButtonProps {
 
 const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const shareUrl = `${baseUrl}/guests/${id}}/createPost`;
+  const shareUrl = `${baseUrl}/guests/${id}/createPost`;
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.Kakao) {
@@ -28,11 +28,14 @@ const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
 
     window.Kakao.Link.sendDefault({
       objectType: "feed",
-      text: "마음을 전할 수 있는 롤링페이퍼 사이트",
-      imageUrl: "https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/logo.png",
-      link: {
-        mobileWebUrl: shareUrl,
-        webUrl: shareUrl,
+      content: {
+        title: "마음을 전할 수 있는 롤링페이퍼 사이트",
+        description: "당신의 소중한 마음을 전하세요",
+        imageUrl: "https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/logo.png",
+        link: {
+          mobileWebUrl: shareUrl,
+          webUrl: shareUrl,
+        },
       },
     });
   };
