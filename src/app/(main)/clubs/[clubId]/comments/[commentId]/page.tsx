@@ -34,7 +34,7 @@ const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: st
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen pb-10">
-      <h1 className="font-black text-xl self-start ml-10 pb-3">{`${club.title}님의 모임`}</h1>
+      <h1 className="font-extrabold text-2xl self-start ml-10 pb-3">{`${club.title}님의 모임`}</h1>
       <section className="my-4 flex items-start mr-12 pl-9 pb-4">
         <input
           id="nickname"
@@ -48,7 +48,7 @@ const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: st
         </div>
       </section>
       <div
-        style={{ backgroundColor: comment.bg_image ?? "white", backgroundImage: 'url("/logo.png")' }}
+        style={{ backgroundColor: comment.bg_image ?? "white", backgroundImage: 'url("/logos/logo.png")' }}
         className="w-4/5 p-2 border border-gray-300 rounded-md min-h-[35rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
       >
         <h2 className="text-base mb-4">{comment.content}</h2>

@@ -35,7 +35,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen pb-10">
-      <h1 className="text-2xl self-start ml-10 pb-3">{`${club.title}님의 모임`}</h1>
+      <h1 className="font-extrabold text-2xl self-start ml-10 pb-3">{`${club.title}님의 모임`}</h1>
       <section className="my-4 flex items-start mr-12 pl-9 pb-4">
         <input
           id="nickname"
@@ -47,7 +47,7 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
         <span className="w-1/5 bg-customGreen border rounded-md text-white shadow-md text-center">{post.category}</span>
       </section>
       <section
-        style={{ backgroundColor: post.bg_image ?? "transparent", backgroundImage: 'url("/logo.png")' }}
+        style={{ backgroundColor: post.bg_image ?? "transparent", backgroundImage: 'url("/logos/logo.png")' }}
         className="w-4/5 p-2 border border-gray-300 rounded-md min-h-[35rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
       >
         <span className="text-base mb-4">{post.content}</span>
