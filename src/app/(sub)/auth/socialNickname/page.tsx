@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import { useUserStore } from "@/store";
+import LoadingFloater from "@/components/Loading/LoadingFloater";
 
 const SocialNicknamePage = () => {
   const router = useRouter();
@@ -111,7 +112,11 @@ const SocialNicknamePage = () => {
   };
 
   if (loading) {
-    return <div className="font-semibold">로딩 중...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <LoadingFloater>로딩 중입니다. 잠시만 기다려주세요...</LoadingFloater>
+      </div>
+    );
   }
 
   return (

@@ -2,6 +2,7 @@
 
 import { updateUserNickname } from "@/apis/updateUserNickname";
 import SmallButton from "@/components/Button/SmallButton";
+import { useModal } from "@/context/modal.context";
 import { useRef } from "react";
 
 interface EditNicknameProps {
@@ -12,13 +13,17 @@ interface EditNicknameProps {
 
 const EditNickname = ({ currentNickname, onChangeNickname, onCancel }: EditNicknameProps) => {
   const nicknameRef = useRef<HTMLInputElement>(null);
+  const modal = useModal();
 
   const handleNicknameSubmit = async () => {
     if (nicknameRef.current) {
       const newNickname = nicknameRef.current.value;
 
       if (newNickname.length < 2 || newNickname.length > 6) {
-        alert("닉네임은 최소 2글자 이상이어야 합니다.");
+        modal.open({
+          title: "알림",
+          content: "닉네임은 최소 2글자 이상, 6글자 이하로 입력해주세요.",
+        });
         return;
       }
       try {
@@ -26,9 +31,15 @@ const EditNickname = ({ currentNickname, onChangeNickname, onCancel }: EditNickn
         onChangeNickname(newNickname);
       } catch (error) {
         if (error instanceof Error) {
-          alert(error.message);
+          modal.open({
+            title: "오류",
+            content: error.message,
+          });
         } else {
-          alert("닉네임 업데이트 중 오류가 발생했습니다.");
+          modal.open({
+            title: "오류",
+            content: "닉네임 업데이트 중 오류가 발생했습니다.",
+          });
         }
       }
     }

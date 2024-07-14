@@ -5,7 +5,7 @@ import { useUserStore } from "@/store";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import SmallButton from "../Button/SmallButton";
 import EditNickname from "./EditNickname";
 import HeaderSection from "./HeaderSection";
@@ -13,8 +13,7 @@ import SkeletonHeader from "./SkeletonHeader";
 
 const ClubsHeader = () => {
   useUserProfile();
-  const { user, isLoggedIn, setUser, clearUser } = useUserStore();
-  // const { data, isLoading, error } = useUserProfile();
+  const { user, isLoggedIn } = useUserStore();
   const [isEditing, setIsEditing] = useState(false);
   const [nickname, setNickname] = useState("");
   const router = useRouter();
