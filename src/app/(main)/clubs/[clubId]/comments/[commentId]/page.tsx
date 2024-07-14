@@ -40,10 +40,10 @@ const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: st
           id="nickname"
           value={comment.nickname}
           readOnly
-          className="w-1/5 mr-2  bg-customYellow border-b border-gray-300 outline-none text-black-500 "
+          className="w-1/5 mr-2 bg-customYellow border-b border-gray-300 outline-none"
         />
         <span className="mr-2 font-bold">님의</span>
-        <div className="w-1/5  bg-customGreen border rounded-md text-white shadow-md text-center">
+        <div className="w-1/5 bg-customGreen border rounded-md text-white shadow-md text-center">
           {comment.category}
         </div>
       </section>
@@ -51,7 +51,7 @@ const CommentDetailPage = ({ params }: { params: { clubId: string; commentId: st
         style={{ backgroundColor: comment.bg_image ?? "white", backgroundImage: 'url("/logo.png")' }}
         className="w-4/5 p-2 border border-gray-300 rounded-md min-h-[35rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
       >
-        <h2 className="text-2xl  mb-4">{comment.content}</h2>
+        <h2 className="text-base mb-4">{comment.content}</h2>
       </div>
     </main>
   );

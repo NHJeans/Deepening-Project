@@ -1,11 +1,13 @@
 "use client";
 
-import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
+import LargeButton from "@/components/Button/LargeButton";
+import LargeInput from "@/components/Input/LargeInput";
+import ButtonInput from "@/components/Input/ButtonInput";
+import BackButton from "@/components/Button/BackButton";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -16,7 +18,6 @@ const SignUpPage = () => {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [signUpError, setSignUpError] = useState<string | null>(null);
   const [emailChecked, setEmailChecked] = useState<boolean | null>(null);
-
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -79,51 +80,29 @@ const SignUpPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-customYellow">
-      <button onClick={() => router.back()} className="self-start m-4">
-        <Image src="/back.png" alt="Back" width={24} height={24} />
-      </button>
-      <Image src="/logo.png" alt="Logo" width={96} height={96} className="mb-8" />
-      <h1 className="text-4xl font-semibold mb-8">어땠어?</h1>
-      <div className="flex items-center mb-2 w-full">
-        <input
-          type="email"
-          placeholder="이메일"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 p-2 border rounded"
-        />
-        <button onClick={handleEmailCheck} className="ml-2 bg-customGreen text-white px-4 py-2 rounded font-semibold">
-          중복확인
-        </button>
-      </div>
-      {emailChecked === false && emailError && <p className="text-red-500 mb-2">{emailError}</p>}
-      {emailChecked === true && <p className="text-green-500 mb-2">사용 가능한 이메일입니다.</p>}
-      <input
-        type="text"
-        placeholder="닉네임"
-        value={nickname}
-        onChange={(e) => setNickname(e.target.value)}
-        className="mb-2 p-2 border rounded w-full"
+      <BackButton />
+      <Image src="/logos/logo.png" alt="Logo" width={150} height={150} className="mb-8" />
+      <ButtonInput
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        buttonText="중복확인"
+        onButtonClick={handleEmailCheck}
+        label="이메일"
       />
-      <input
+      {emailChecked === false && emailError && <p className="text-red-500 mb-2 mt-2">{emailError}</p>}
+      {emailChecked === true && <p className="text-green-500 mt-2">사용 가능한 이메일입니다.</p>}
+      <LargeInput type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} label="닉네임" />
+      <LargeInput type="password" value={password} onChange={(e) => setPassword(e.target.value)} label="비밀번호" />
+      <LargeInput
         type="password"
-        placeholder="비밀번호"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="mb-2 p-2 border rounded w-full"
-      />
-      <input
-        type="password"
-        placeholder="비밀번호 확인"
         value={passwordConfirm}
         onChange={(e) => setPasswordConfirm(e.target.value)}
-        className="mb-4 p-2 border rounded w-full"
+        label="비밀번호 확인"
       />
-      {signUpError && <p className="text-red-500 mb-4">{signUpError}</p>}
-      <button onClick={handleSignUp} className="bg-customGreen text-white px-4 py-2 rounded mb-4">
-        회원가입
-      </button>
-      <Link href="/auth/login" className="text-lightgrey-500">
+      {signUpError && <p className="text-red-500 mb-4 mt-2">{signUpError}</p>}
+      <LargeButton onClick={handleSignUp}>회원가입</LargeButton>
+      <Link href="/auth/login" className="underline text-gray-500 py-3">
         이미 회원이신가요?
       </Link>
     </div>
