@@ -30,7 +30,7 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
     if (!content) {
       modal.open({
         title: "알림",
-        content: <h1 className="text-center ">글 내용은 필수입니다</h1>,
+        content: <p className="text-center ">글 내용은 필수입니다</p>,
       });
       return;
     }
@@ -39,7 +39,7 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
         title: "알림",
         content: (
           <div className="text-center ">
-            <h1>글이 너무 짧습니다</h1>
+            <p>글이 너무 짧습니다</p>
             <p> 다섯 글자 이상</p>
             <p>입력해주세요.</p>
           </div>
@@ -53,24 +53,8 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
         title: "알림",
         content: (
           <div className="text-center">
-            <h1>닉네임은</h1>
+            <p>닉네임은</p>
             <p>필수입니다.</p>
-            <p>세 글자 이상 적어주세요</p>
-          </div>
-        ),
-      });
-      return;
-    }
-
-    if (nickname.length < 3 || nickname.length > 10) {
-      modal.open({
-        title: "알림",
-        content: (
-          <div className="text-center">
-            <h1>닉네임이</h1>
-            <h2>현재 너무 짧거나 길어요.</h2>
-            <p>세 글자 이상 열 글자 이하로 </p>
-            <p>작성해주세요.</p>
           </div>
         ),
       });
@@ -97,20 +81,21 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
           title: "오류",
           content: (
             <div className="text-center">
-              <h1>글 작성 중</h1>
+              <p>글 작성 중</p>
               <p>오류가 발생했습니다.</p>
               <p>데이터가 올바르게</p>
               <p>전송되지 않았습니다.</p>
             </div>
           ),
         });
+        return;
       }
       const { data } = await response.json();
       modal.open({
-        title: "오류",
+        title: "알림",
         content: (
           <div className="text-center">
-            <h1>글이 성공적으로</h1>
+            <p>글이 성공적으로</p>
             <p>작성되었습니다!</p>
           </div>
         ),
@@ -120,14 +105,15 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
       console.error("Error creating post:", error);
 
       modal.open({
-        title: "",
+        title: "오류",
         content: (
           <div className="text-center">
-            <h1>글 작성 중</h1>
+            <p>글 작성 중</p>
             <p>오류가 발생했습니다.</p>
           </div>
         ),
       });
+      return;
     }
   };
 

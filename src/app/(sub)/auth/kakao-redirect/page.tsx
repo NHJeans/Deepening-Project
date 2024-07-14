@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 
 import { useUserStore } from "@/store";
@@ -63,6 +64,12 @@ const KakaoRedirectPage = () => {
   }
 
   return null;
+=======
+import SocialRedirectPage from "@/components/Social/RedirectPage";
+
+const KakaoRedirectPage = () => {
+  return <SocialRedirectPage provider="kakao" />;
+>>>>>>> 03a71c963ecf56a45663f3aaaa2375bc7e9ea18b
 };
 
 export default KakaoRedirectPage;

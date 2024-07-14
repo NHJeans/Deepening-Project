@@ -1,9 +1,12 @@
-import logoIcon from "@/public/logo.png";
+import logoIcon from "@/public/logos/logo.png";
 import Image from "next/image";
 
 const NotFound = () => {
   return (
-    <section className="flex flex-col justify-center items-center h-screen bg-customYellow gap-y-4">
+    <section
+      className="flex flex-col justify-center items-center bg-customYellow gap-y-4"
+      style={{ height: "calc(100vh - 260px)" }}
+    >
       <Image
         src={logoIcon}
         alt="logo"

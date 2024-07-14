@@ -35,7 +35,10 @@ const CommentGridItem = ({ comment, position, handleMouseDown }: CommentItemProp
           priority
         />
       </div>
-      <h3 className="w-full absolute bottom-0 text-center text-sm pointer-events-none">{`${comment.nickname}의 ${comment.category}`}</h3>
+      <h3 className="w-full absolute bottom-0 text-center text-sm pointer-events-none">
+        <span className="font-semibold">{comment.nickname}</span>
+        {`의 ${comment.category}`}
+      </h3>
     </section>
   );
 };
