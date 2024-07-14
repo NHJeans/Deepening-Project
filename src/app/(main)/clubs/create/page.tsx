@@ -28,7 +28,7 @@ const CreateClub = () => {
 
   const createClubHandler = async () => {
     if (!club) {
-      setClubError("모임명을 입력해 해주세요.");
+      setClubError("모임명을 입력 해주세요.");
       return;
     }
     let imageUrl = { publicUrl: "" };
