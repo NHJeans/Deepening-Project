@@ -34,7 +34,6 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
         <input
           id="nickname"
           ref={nicknameRef}
-          required
           className="w-1/6 bg-customYellow border-b border-gray-300 outline-none text-black-500"
         />
         <span className="mr-1 font-bold">님의</span>
@@ -46,7 +45,6 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
           <textarea
             id="content"
             ref={contentRef}
-            required
             className="w-full p-2 text-2xl  border border-gray-300 rounded-md min-h-[30rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
             style={{ backgroundColor: bgColor, backgroundImage: 'url("/logo.png")' }}
           />
