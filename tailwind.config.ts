@@ -21,9 +21,14 @@ const config: Config = {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
         },
+        bounce: {
+          "0%, 100%": { transform: "translateY(-25%)" },
+          "50%": { transform: "translateY(0)" },
+        },
       },
       animation: {
         rotate: "rotate 1s infinite linear",
+        bounce: "bounce 1s infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

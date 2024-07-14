@@ -5,7 +5,7 @@ interface ButtonSmProps {
 
 const SmallButton = ({ children, onClick }: ButtonSmProps) => {
   return (
-    <button onClick={onClick} className="bg-customGreen rounded-lg text-white text-xs px-2 py-1">
+    <button onClick={onClick} className="bg-customGreen rounded-lg text-white text-xs px-2 py-1 w-[65px]">
       {children}
     </button>
   );
