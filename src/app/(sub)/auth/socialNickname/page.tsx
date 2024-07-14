@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import { useUserStore } from "@/store";
+import LoadingFloater from "@/components/Loading/LoadingFloater";
 import LargeButton from "@/components/Button/LargeButton";
 import BackButton from "@/components/Button/BackButton";
 
@@ -112,7 +113,11 @@ const SocialNicknamePage = () => {
   };
 
   if (loading) {
-    return <div className="font-semibold">로딩 중...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <LoadingFloater />
+      </div>
+    );
   }
 
   return (

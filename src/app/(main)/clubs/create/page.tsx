@@ -7,6 +7,7 @@ import { useState } from "react";
 import DragDrop from "../create/_components/DragDrop";
 import CreateClubSection from "./_components/CreateClubSection";
 import { useModal } from "@/context/modal.context";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CreateClub = () => {
   const [club, setClub] = useState("");
@@ -14,7 +15,9 @@ const CreateClub = () => {
   const [clubError, setClubError] = useState<string>("");
   const supabase = createClient();
   const { user } = useUserStore();
-  const modal = useModal();
+  const modal = useModal();  
+  const queryClient = useQueryClient();
+
   const defaultImgUrl =
     "https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/DefaultCardImage.png";
 
@@ -46,7 +49,11 @@ const CreateClub = () => {
       },
     ]);
     if (data) clubRequire("모임 등록에 실패하였습니다.", "/clubs/create");
-    else clubRequire("모임이 성공적으로 등록되었습니다.", "/clubs");
+    else {
+      clubRequire("모임이 성공적으로 등록되었습니다.", "/clubs");
+      // 클럽 목록 쿼리 무효화
+      queryClient.invalidateQueries({ queryKey: ["clubs"] });    
+    }
   };
 
   return (

@@ -48,14 +48,15 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="font-black text-2xl self-start ml-10 pb-5">{`${clubData[0].title}님의 모임`}</h1>
-      <section className="pl-9 flex items-start">
+      <h1 className="font-extrabold text-xl self-start ml-10 pb-5 ">{`${clubData[0].title}님의 모임`}</h1>
+      <section className="w-full pl-11 flex items-center ">
         <input
           id="nickname"
           ref={nicknameRef}
+          required
           className="w-1/6 bg-customYellow border-b border-gray-300 outline-none"
         />
-        <span className="mr-1 font-bold">님의</span>
+        <span className="mr-3 font-bold">님의</span>
         <CategoryButtons handleCategoryChange={handleCategoryChange} />
       </section>
 
@@ -65,11 +66,11 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
             id="content"
             ref={contentRef}
             className="w-full p-2 text-base border border-gray-300 rounded-md min-h-[30rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
-            style={{ backgroundColor: bgColor, backgroundImage: 'url("/logo.png")' }}
+            style={{ backgroundColor: bgColor, backgroundImage: 'url("/logos/logo.png")' }}
             placeholder="여기에 글을 작성해주세요"
           />
         </section>
-        <label className="block mb-2 p-5 font-bold">편지색</label>
+        <label className="block mb-2 p-3 font-bold text-lg text-gray-700">편지지 색상을 선택하세요</label>
         <section>
           <div className="flex space-x-2 mb-12 justify-center pb-7">
             <ColorButtons handleColorChange={handleColorChange} />
