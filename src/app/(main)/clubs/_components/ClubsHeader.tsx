@@ -10,7 +10,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import EditNickname from "./EditNickname";
-import BackButton from "@/components/Button/BackButton";
 
 const ClubsHeader = ({ filterMyClubs }: { filterMyClubs: () => void }) => {
   useUserProfile();
@@ -60,7 +59,6 @@ const ClubsHeader = ({ filterMyClubs }: { filterMyClubs: () => void }) => {
 
   return (
     <HeaderSection>
-      <BackButton />
       <div className="relative w-[60px] h-[60px] rounded-full overflow-hidden bg-white">
         <Image src={profileImg} alt="profile" width={60} height={60} objectFit="cover" className="rounded-full" />
       </div>
