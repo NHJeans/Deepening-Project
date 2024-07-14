@@ -1,5 +1,6 @@
 "use client";
 
+import BackButton from "@/components/Button/BackButton";
 import Link from "next/link";
 import useFetchPostAndClub from "../../../../../../store/queries/UseQueriesPostAndClub";
 import LoadingSpinner from "../../../_components/LoadingSpinner";
@@ -34,20 +35,20 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
   const club: Club = clubResult.data[0];
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen pb-10">
-      <h1 className="text-2xl self-start ml-10 pb-3">{`${club.title}님의 모임`}</h1>
-      <section className="my-4 flex items-start mr-12 pl-9 pb-4">
-        <input
-          id="nickname"
-          value={post.nickname}
-          readOnly
-          className="w-1/5 mr-2 bg-customYellow border-b border-gray-300 outline-none"
-        />
+     <main className="flex flex-col items-center justify-center min-h-screen pb-10">
+      <div className="self-start pb-15">
+        <BackButton />
+        <div>
+          <h1 className="font-extrabold text-xl self-start ml-10 pb-3">{`${club.title}님의 모임`}</h1>
+        </div>
+      </div>
+      <section className="w-full my-4 flex items-center pl-11 pb-4">
+      <h4 className="underline underline-offset-4 decoration-gray-300 mr-1">{post.nickname}</h4>
         <span className="mr-2 font-bold">님의</span>
         <span className="w-1/5 bg-customGreen border rounded-md text-white shadow-md text-center">{post.category}</span>
       </section>
       <section
-        style={{ backgroundColor: post.bg_image ?? "transparent", backgroundImage: 'url("/logo.png")' }}
+        style={{ backgroundColor: post.bg_image ?? "transparent", backgroundImage: 'url("/logos/logo.png")' }}
         className="w-4/5 p-2 border border-gray-300 rounded-md min-h-[35rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
       >
         <span className="text-base mb-4">{post.content}</span>
