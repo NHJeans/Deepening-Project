@@ -10,7 +10,6 @@ import { useCallback, useEffect, useState } from "react";
 import ClubDetailPageHeader from "./_components/ClubDetailPageHeader";
 import CommentGridItem from "./_components/CommentGridItem";
 import CommentListItem from "./_components/CommentListItem";
-import ShareModal from "./_components/Modal/ShareModal";
 import NotFound from "./_components/NotFound";
 import KakaoShareButton from "./_components/Share/KakaoShare";
 import DetailShareBtn from "./_components/Share/Share";
@@ -140,11 +139,15 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
   // }
 
   return (
-    <section className="relative h-full w-full" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
+    <section
+      className="relative w-full h-screen bg-customYellow"
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+    >
       <HeaderSection>
         <ClubDetailPageHeader id={clubId} setViewMode={setViewMode}></ClubDetailPageHeader>
       </HeaderSection>
-      {commentList && commentList.length !== 0 ? (
+      {commentList.length > 0 ? (
         <>
           <section className="relative h-[73%] overflow-y-auto">
             {viewMode === "grid"

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const NotFound = () => {
   return (
-    <section className="flex flex-col justify-center items-center h-[760px] bg-customYellow gap-y-4">
+    <section className="flex flex-col justify-center items-center h-screen bg-customYellow gap-y-4">
       <Image
         src={logoIcon}
         alt="logo"
