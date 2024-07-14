@@ -1,4 +1,4 @@
-import logoIcon from "@/public/logo.png";
+import logoIcon from "@/public/logos/logo.png";
 import Image from "next/image";
 
 const NotFound = () => {
