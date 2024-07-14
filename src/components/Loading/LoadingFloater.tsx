@@ -6,8 +6,7 @@ interface LoadingFloaterProps {
 
 const LoadingFloater = ({ children }: LoadingFloaterProps) => (
   <div className="flex flex-col justify-center items-center">
-    <Image src="/logo.png" alt="Loading..." width={171} height={171} className="mb-4 animate-bounce" />
-    <p className="text-xl font-semibold">{children}</p>
+    <Image src="/logos/logo.png" alt="Loading..." width={150} height={150} className="mb-4 animate-bounce" />
   </div>
 );
 

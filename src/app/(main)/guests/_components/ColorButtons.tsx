@@ -4,41 +4,27 @@ type ColorButtonsProps = {
   handleColorChange: (color: string) => void;
 };
 
+const COLORS = [
+  { bgColor: "#ffcccc", colorCode: "#FFBABA" },
+  { bgColor: "#ccffcc", colorCode: "#8DE8A6" },
+  { bgColor: "#ccccff", colorCode: "#84BBFD" },
+  { bgColor: "#ffccff", colorCode: "#E4AFED" },
+];
+
 const ColorButtons = ({ handleColorChange }: ColorButtonsProps) => {
   return (
-    <div className="flex space-x-6 justify-center ">
-      <button
-        className="transition-transform transform hover:scale-105"
-        type="button"
-        style={{ backgroundColor: "#ffcccc" }}
-        onClick={() => handleColorChange("#FFBABA")}
-      >
-        <div className="w-12 h-12 shadow-md"></div>
-      </button>
-      <button
-        className="transition-transform transform hover:scale-105"
-        type="button"
-        style={{ backgroundColor: "#ccffcc" }}
-        onClick={() => handleColorChange("#8DE8A6")}
-      >
-        <div className="w-12 h-12 shadow-md"></div>
-      </button>
-      <button
-        className="transition-transform transform hover:scale-105"
-        type="button"
-        style={{ backgroundColor: "#ccccff" }}
-        onClick={() => handleColorChange("#84BBFD")}
-      >
-        <div className="w-12 h-12 shadow-md"></div>
-      </button>
-      <button
-        className="transition-transform transform hover:scale-105"
-        type="button"
-        style={{ backgroundColor: "#ffccff" }}
-        onClick={() => handleColorChange("#E4AFED")}
-      >
-        <div className="w-12 h-12 shadow-md"></div>
-      </button>
+    <div className="flex space-x-6 justify-center">
+      {COLORS.map(({ bgColor, colorCode }) => (
+        <button
+          key={colorCode}
+          className="transition-transform transform hover:scale-105"
+          type="button"
+          style={{ backgroundColor: bgColor }}
+          onClick={() => handleColorChange(colorCode)}
+        >
+          <div className="w-12 h-12 shadow-md"></div>
+        </button>
+      ))}
     </div>
   );
 };
