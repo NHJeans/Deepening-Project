@@ -38,7 +38,7 @@ const ClubsHeader = ({ filterMyClubs }: { filterMyClubs: () => void }) => {
         document.cookie = c.replace(/^ +/, "").replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`);
       });
       clearUser();
-      router.push("/");
+      router.push("/auth");
     } else {
       console.error("로그아웃 실패:", error.message);
     }
