@@ -28,7 +28,6 @@ const CategoryButtons = ({ handleCategoryChange }: CategoryButtonsProps) => {
       >
         <option value="">선택해주세요</option>
         <option value="응원글">응원글</option>
-
         <option value="위로글">위로글</option>
         <option value="축하글">축하글</option>
         <option value="의견글">의견글</option>
