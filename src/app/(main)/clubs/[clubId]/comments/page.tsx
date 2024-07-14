@@ -10,10 +10,11 @@ import { useCallback, useEffect, useState } from "react";
 import ClubDetailPageHeader from "./_components/ClubDetailPageHeader";
 import CommentGridItem from "./_components/CommentGridItem";
 import CommentListItem from "./_components/CommentListItem";
-import ShareModal from "./_components/Modal/ShareModal";
+// import ShareModal from "./_components/Modal/ShareModal";
 import NotFound from "./_components/NotFound";
 import KakaoShareButton from "./_components/Share/KakaoShare";
 import DetailShareBtn from "./_components/Share/Share";
+import BackButton from "@/components/Button/BackButton";
 
 const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) => {
   const modal = useModal();
@@ -119,7 +120,7 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
       title: "공유하기",
       content: (
         <div className="flex gap-4 items-center">
-          <DetailShareBtn />
+          <DetailShareBtn id={clubId} />
           <KakaoShareButton id={clubId} />
         </div>
       ),
@@ -140,6 +141,7 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
 
   return (
     <section className="relative h-full w-full" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
+      <BackButton />
       <HeaderSection>
         <ClubDetailPageHeader id={clubId} setViewMode={setViewMode}></ClubDetailPageHeader>
       </HeaderSection>
@@ -190,7 +192,7 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
         </button>
         <ShareModal isOpen={isModalOpen} onClose={handleModalClose}>
           <div className="flex flex-wrap gap-x-10 gap-y-5 justify-center items-center mb-2.5">
-            <DetailShareBtn />
+            <DetailShareBtn id={clubId} />
             <KakaoShareButton id={clubId} />
           </div>
         </ShareModal>
