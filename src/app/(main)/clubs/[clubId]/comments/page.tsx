@@ -11,6 +11,7 @@ import DetailShareBtn from "./_components/Share/Share";
 import KakaoShareButton from "./_components/Share/KakaoShare";
 
 const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) => {
+  console.log("ClubDetailPage clubId:", clubId);
   const [commentList, setCommentList] = useState<Comment[]>([]);
   const [positions, setPositions] = useState<{ [key: string]: { x: number; y: number } }>({});
   const [dragging, setDragging] = useState<{ id: string; isDragging: boolean } | null>(null);
@@ -127,7 +128,7 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
         </button>
         <ShareModal isOpen={isModalOpen} onClose={handleModalClose}>
           <div className="flex flex-wrap gap-x-10 gap-y-5 justify-center items-center mb-2.5">
-            <DetailShareBtn />
+            <DetailShareBtn id={clubId} />
             <KakaoShareButton id={clubId} />
           </div>
         </ShareModal>

@@ -1,14 +1,17 @@
 "use client";
 import React, { useEffect } from "react";
 import Image from "next/image";
+import logoImage from "/logo.png";
 
 interface KakaoShareButtonProps {
   id: string;
 }
 
 const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
-  const baseUrl = process.env.REACT_APP_BASE_URL;
+  console.log("KakaoShareButton id:", id);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const shareUrl = `${baseUrl}/guests/${id}}/createPost`;
+  console.log("shareUrl:", shareUrl);
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.Kakao) {
@@ -25,10 +28,12 @@ const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
       console.error("Kakao SDK가 초기화되지 않았거나 사용할 수 없습니다.");
       return;
     }
+    const logoImage = `/logo.png`;
 
     window.Kakao.Link.sendDefault({
       objectType: "text",
       text: "마음을 전할 수 있는 롤링페이퍼 사이트",
+      // imageUrl: logoImage,
       link: {
         mobileWebUrl: shareUrl,
         webUrl: shareUrl,
@@ -39,7 +44,7 @@ const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
   return (
     <div onClick={handleShare} className="relative w-[75px] h-[75px] items-center">
       <Image
-        src="https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/kakaologo1.png"
+        src="/icons/share-Kakao.png"
         alt="이미지 없음"
         layout="fill"
         className="rounded-lg bg-cover cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110"
