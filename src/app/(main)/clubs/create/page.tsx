@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import DragDrop from "../create/_components/DragDrop";
 import CreateClubSection from "./_components/CreateClubSection";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CreateClub = () => {
   const [club, setClub] = useState("");
@@ -14,6 +15,7 @@ const CreateClub = () => {
   const supabase = createClient();
   const router = useRouter();
   const { user } = useUserStore();
+  const queryClient = useQueryClient();
 
   const defaultImgUrl =
     "https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/DefaultCardImage.png";
@@ -40,7 +42,9 @@ const CreateClub = () => {
     if (data) alert("모임 등록에 실패하였습니다.");
     else {
       alert("모임이 성공적으로 등록되었습니다.");
-      router.replace("/clubs");
+      // 클럽 목록 쿼리 무효화
+      queryClient.invalidateQueries({ queryKey: ["clubs"] });
+      router.push("/clubs");
     }
   };
 
