@@ -29,25 +29,32 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
 
     if (!content) {
       modal.open({
-        title: "글을 써주세요",
-        content: <h1 className="text-center ">내용은 필수입니다</h1>,
+        title: "알림",
+        content: <h1 className="text-center ">글 내용은 필수입니다</h1>,
       });
       return;
     }
     if (content.length < 5) {
       modal.open({
-        title: "글의 내용은",
-        content: <h1 className="text-center ">다섯 글자 이상 입력하세요</h1>,
+        title: "알림",
+        content: (
+          <div className="text-center ">
+            <h1>글이 너무 짧습니다</h1>
+            <p> 다섯 글자 이상</p>
+            <p>입력해주세요.</p>
+          </div>
+        ),
       });
       return;
     }
 
     if (!nickname) {
       modal.open({
-        title: "닉네임은",
+        title: "알림",
         content: (
           <div className="text-center">
-            <h1>필수입니다.</h1>
+            <h1>닉네임은</h1>
+            <p>필수입니다.</p>
             <p>세 글자 이상 적어주세요</p>
           </div>
         ),
@@ -57,10 +64,11 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
 
     if (nickname.length < 3 || nickname.length > 10) {
       modal.open({
-        title: "닉네임이",
+        title: "알림",
         content: (
           <div className="text-center">
-            <h1>현재 너무 짧거나 길어요.</h1>
+            <h1>닉네임이</h1>
+            <h2>현재 너무 짧거나 길어요.</h2>
             <p>세 글자 이상 열 글자 이하로 </p>
             <p>작성해주세요.</p>
           </div>
@@ -86,21 +94,23 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
 
       if (!response.ok) {
         modal.open({
-          title: "",
+          title: "오류",
           content: (
-            <div>
-              <h1 className="text-center ">글 작성 중</h1>
+            <div className="text-center">
+              <h1>글 작성 중</h1>
               <p>오류가 발생했습니다.</p>
+              <p>데이터가 올바르게</p>
+              <p>전송되지 않았습니다.</p>
             </div>
           ),
         });
       }
       const { data } = await response.json();
       modal.open({
-        title: "",
+        title: "오류",
         content: (
-          <div>
-            <h1 className="text-center ">글이 성공적으로</h1>
+          <div className="text-center">
+            <h1>글이 성공적으로</h1>
             <p>작성되었습니다!</p>
           </div>
         ),
@@ -112,8 +122,8 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
       modal.open({
         title: "",
         content: (
-          <div>
-            <h1 className="text-center ">글 작성 중</h1>
+          <div className="text-center">
+            <h1>글 작성 중</h1>
             <p>오류가 발생했습니다.</p>
           </div>
         ),
