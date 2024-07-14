@@ -1,5 +1,6 @@
 "use client";
 
+import BackButton from "@/components/Button/BackButton";
 import Link from "next/link";
 import useFetchPostAndClub from "../../../../../../store/queries/UseQueriesPostAndClub";
 import LoadingSpinner from "../../../_components/LoadingSpinner";
@@ -34,14 +35,19 @@ const PostDetailPage = ({ params }: { params: { id: string; postId: string } }) 
   const club: Club = clubResult.data[0];
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen pb-10">
-      <h1 className="font-extrabold text-2xl self-start ml-10 pb-3">{`${club.title}님의 모임`}</h1>
+    <main className="flex flex-col items-center justify-center min-h-screen pb-4">
+      <div className="self-start pb-15">
+        <BackButton />
+        <div>
+          <h1 className="font-extrabold text-2xl self-start ml-10">{`${club.title}님의 모임`}</h1>
+        </div>
+      </div>
       <section className="my-4 flex items-start mr-12 pl-9 pb-4">
         <input
           id="nickname"
           value={post.nickname}
           readOnly
-          className="w-1/5 mr-2 bg-customYellow border-b border-gray-300 outline-none"
+          className="w-1/5 mr-3 bg-customYellow border-b border-gray-300 outline-none"
         />
         <span className="mr-2 font-bold">님의</span>
         <span className="w-1/5 bg-customGreen border rounded-md text-white shadow-md text-center">{post.category}</span>
