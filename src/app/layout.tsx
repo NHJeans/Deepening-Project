@@ -25,7 +25,6 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script src="https://developers.kakao.com/sdk/js/kakao.js" strategy="beforeInteractive" />
-        <meta property="og:image" content="http://localhost:3000/logos/logo.png" />
       </head>
 
       <body className={inter.className}>
