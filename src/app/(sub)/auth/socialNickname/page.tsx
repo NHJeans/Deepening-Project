@@ -115,7 +115,7 @@ const SocialNicknamePage = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <LoadingFloater>로딩 중입니다. 잠시만 기다려주세요...</LoadingFloater>
+        <LoadingFloater />
       </div>
     );
   }

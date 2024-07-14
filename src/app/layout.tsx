@@ -25,7 +25,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" />
         <Script src="https://developers.kakao.com/sdk/js/kakao.js" strategy="beforeInteractive" />
       </head>
 
