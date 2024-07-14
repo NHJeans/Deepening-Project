@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import BackButton from "@/components/Button/BackButton";
+import LargeButton from "@/components/Button/LargeButton";
+import LoadingFloater from "@/components/Loading/LoadingFloater";
+import { useUserStore } from "@/store";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
-import { useUserStore } from "@/store";
-import LoadingFloater from "@/components/Loading/LoadingFloater";
-import LargeButton from "@/components/Button/LargeButton";
-import BackButton from "@/components/Button/BackButton";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const SocialNicknamePage = () => {
   const router = useRouter();

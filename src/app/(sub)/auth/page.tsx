@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { createClient } from "@/utils/supabase/client";
 import BackButton from "@/components/Button/BackButton";
+import { createClient } from "@/utils/supabase/client";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const AuthSelectionPage = () => {
   const router = useRouter();

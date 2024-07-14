@@ -16,7 +16,7 @@ interface CommentItemProps {
 
 const CommentGridItem = ({ comment, position, handleMouseDown }: CommentItemProps) => {
   return (
-    <div
+    <section
       className="absolute flex flex-col items-center justify-center w-[150px] h-[170px] cursor-pointer"
       style={{
         left: `${position.x}px`,
@@ -35,8 +35,11 @@ const CommentGridItem = ({ comment, position, handleMouseDown }: CommentItemProp
           priority
         />
       </div>
-      <h3 className="w-full absolute bottom-0 text-center text-sm pointer-events-none">{`${comment.nickname}의 ${comment.category}`}</h3>
-    </div>
+      <h3 className="w-full absolute bottom-0 text-center text-sm pointer-events-none">
+        <span className="font-semibold">{comment.nickname}</span>
+        {`의 ${comment.category}`}
+      </h3>
+    </section>
   );
 };
 

@@ -1,13 +1,13 @@
 "use client";
 
 import LargeButton from "@/components/Button/LargeButton";
+import { useModal } from "@/context/modal.context";
 import { useUserStore } from "@/store";
 import { createClient } from "@/utils/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import DragDrop from "../create/_components/DragDrop";
 import CreateClubSection from "./_components/CreateClubSection";
-import { useModal } from "@/context/modal.context";
-import { useQueryClient } from "@tanstack/react-query";
 
 const CreateClub = () => {
   const [club, setClub] = useState("");
@@ -15,7 +15,7 @@ const CreateClub = () => {
   const [clubError, setClubError] = useState<string>("");
   const supabase = createClient();
   const { user } = useUserStore();
-  const modal = useModal();  
+  const modal = useModal();
   const queryClient = useQueryClient();
 
   const defaultImgUrl =
@@ -23,8 +23,8 @@ const CreateClub = () => {
 
   const clubRequire = (message: string, link: string) => {
     modal.open({
-      title: message,
-      content: <></>,
+      title: "알림",
+      content: message,
       path: link,
     });
   };
@@ -52,7 +52,7 @@ const CreateClub = () => {
     else {
       clubRequire("모임이 성공적으로 등록되었습니다.", "/clubs");
       // 클럽 목록 쿼리 무효화
-      queryClient.invalidateQueries({ queryKey: ["clubs"] });    
+      queryClient.invalidateQueries({ queryKey: ["clubs"] });
     }
   };
 

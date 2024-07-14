@@ -1,5 +1,3 @@
-import React from "react";
-
 interface LargeInputProps {
   type: string;
   value: string;

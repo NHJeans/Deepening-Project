@@ -2,7 +2,6 @@
 
 import HeaderSection from "@/components/Header/HeaderSection";
 import { useModal } from "@/context/modal.context";
-import shareIcon from "@/public/icons/share.png";
 import { Comment } from "@/types/comment.type";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -10,11 +9,10 @@ import { useCallback, useEffect, useState } from "react";
 import ClubDetailPageHeader from "./_components/ClubDetailPageHeader";
 import CommentGridItem from "./_components/CommentGridItem";
 import CommentListItem from "./_components/CommentListItem";
-// import ShareModal from "./_components/Modal/ShareModal";
 import NotFound from "./_components/NotFound";
+import RelocationAndShareButtons from "./_components/RelocationAndShareButtons";
 import KakaoShareButton from "./_components/Share/KakaoShare";
 import DetailShareBtn from "./_components/Share/Share";
-import BackButton from "@/components/Button/BackButton";
 
 const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) => {
   const modal = useModal();
@@ -26,8 +24,6 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
   const [initialStickerPosition, setInitialStickerPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [viewMode, setViewMode] = useState<string>("grid");
   const [isRelocating, setIsRelocating] = useState(false);
-  // 종섭님 코드 -> 전역 관리로 변경 예정
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchCommentData = async () => {
@@ -127,18 +123,6 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
     });
   };
 
-  // const handleModalOpen = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // const handleModalClose = () => {
-  //   setIsModalOpen(false);
-  // };
-
-  // if (!commentList || commentList.length === 0) {
-  //   return <NotFound />;
-  // }
-
   const goToClubsPage = () => {
     router.push("/clubs");
   };
@@ -151,7 +135,7 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
         </button>
         <ClubDetailPageHeader id={clubId} setViewMode={setViewMode}></ClubDetailPageHeader>
       </HeaderSection>
-      {commentList && commentList.length !== 0 ? (
+      {commentList.length > 0 ? (
         <>
           <section className="relative h-[73%] overflow-y-auto">
             {viewMode === "grid"
@@ -171,38 +155,25 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
                   />
                 ))}
           </section>
-          <div className="flex h-[9%] items-center justify-center gap-2">
-            <button
-              className="cursor-pointer rounded bg-customGreen px-16 py-2 font-semibold text-white hover:opacity-90"
-              onClick={handleRelocationToggle}
-            >
-              {isRelocating ? "배치 완료" : "재배치(pc 전용)"}
-            </button>
-            <button
-              className="cursor-pointer rounded bg-customGreen p-2 font-semibold text-white hover:opacity-90"
-              onClick={handleClickShareButton}
-            >
-              <Image src={shareIcon} alt="공유하기" />
-            </button>
-          </div>
+          <RelocationAndShareButtons
+            isRelocating={isRelocating}
+            handleRelocate={true}
+            viewMode={viewMode}
+            handleRelocationToggle={handleRelocationToggle}
+            handleClickShareButton={handleClickShareButton}
+          />
         </>
       ) : (
-        <NotFound />
+        <>
+          <NotFound />
+          <RelocationAndShareButtons
+            isRelocating={isRelocating}
+            handleRelocate={false}
+            handleRelocationToggle={handleRelocationToggle}
+            handleClickShareButton={handleClickShareButton}
+          />
+        </>
       )}
-      {/* <div className="flex h-[10%] items-center justify-center">
-        <button
-          className="cursor-pointer rounded bg-customGreen px-24 py-2 font-semibold text-white hover:opacity-90"
-          onClick={handleModalOpen}
-        >
-          공유하기
-        </button>
-        <ShareModal isOpen={isModalOpen} onClose={handleModalClose}>
-          <div className="flex flex-wrap gap-x-10 gap-y-5 justify-center items-center mb-2.5">
-            <DetailShareBtn id={clubId} />
-            <KakaoShareButton id={clubId} />
-          </div>
-        </ShareModal>
-      </div> */}
     </section>
   );
 };

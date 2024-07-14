@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
-import gridImg from "../../../../../../../public/icons/grid-filled.png";
-import listImg from "../../../../../../../public/icons/list-lined.png";
+import gridIcon from "../../../../../../../public/icons/grid-filled.png";
+import listIcon from "../../../../../../../public/icons/list-lined.png";
 import ClubTitle from "./ClubTitle";
 
 interface ClubDetailPageHeaderProps {
@@ -19,14 +19,14 @@ const ClubDetailPageHeader = ({ id, setViewMode }: ClubDetailPageHeaderProps) =>
           type="button"
           onClick={() => setViewMode("grid")}
         >
-          <Image src={gridImg} alt="grid" priority />
+          <Image src={gridIcon} alt="grid" priority />
         </button>
         <button
           className="w-6 h-6 rounded bg-customGreen cursor-pointer hover:brightness-95 active:opacity-85"
           type="button"
           onClick={() => setViewMode("list")}
         >
-          <Image src={listImg} alt="list" priority />
+          <Image src={listIcon} alt="list" priority />
         </button>
       </div>
     </>
