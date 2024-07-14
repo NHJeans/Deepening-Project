@@ -139,10 +139,16 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
   //   return <NotFound />;
   // }
 
+  const goToClubsPage = () => {
+    router.push("/clubs");
+  };
+
   return (
     <section className="relative h-full w-full" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
-      <BackButton />
       <HeaderSection>
+        <button onClick={goToClubsPage} className="absolute self-start top-[0] left-[0] m-4">
+          <Image src="/icons/back.png" alt="Back" width={24} height={24} />
+        </button>
         <ClubDetailPageHeader id={clubId} setViewMode={setViewMode}></ClubDetailPageHeader>
       </HeaderSection>
       {commentList && commentList.length !== 0 ? (

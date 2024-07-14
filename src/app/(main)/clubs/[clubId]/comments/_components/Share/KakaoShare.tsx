@@ -44,7 +44,7 @@ const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
     <div onClick={handleShare} className="relative w-[65px] h-[65px] items-center">
       <Image
         src="/icons/share-Kakao.png"
-        alt="이미지 없음"
+        alt="Kakao 공유 아이콘"
         layout="fill"
         className="rounded-lg bg-cover cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110"
       />
