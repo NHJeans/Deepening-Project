@@ -1,17 +1,13 @@
 "use client";
 
+import BackButton from "@/components/Button/BackButton";
+import LargeButton from "@/components/Button/LargeButton";
+import LoadingFloater from "@/components/Loading/LoadingFloater";
 import { useUserStore } from "@/store";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
-<<<<<<< HEAD
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-=======
-import { useUserStore } from "@/store";
-import LoadingFloater from "@/components/Loading/LoadingFloater";
-import LargeButton from "@/components/Button/LargeButton";
-import BackButton from "@/components/Button/BackButton";
->>>>>>> 03a71c963ecf56a45663f3aaaa2375bc7e9ea18b
 
 const SocialNicknamePage = () => {
   const router = useRouter();
@@ -126,26 +122,6 @@ const SocialNicknamePage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-customYellow">
-<<<<<<< HEAD
-      <button onClick={() => router.back()} className="self-start m-4">
-        <Image src="/back.png" alt="Back" width={24} height={24} />
-      </button>
-      <Image src="/logo.png" alt="Logo" width={96} height={96} className="mb-8" />
-      <h1 className="text-xl font-semibold mb-4">
-        <span className="text-customGreen">‘어땠어’</span>에서 사용하실 닉네임을 입력해주세요!
-      </h1>
-      <label htmlFor="nickname" className="text-lg font-semibold mb-2">
-        닉네임
-      </label>
-      <input
-        id="nickname"
-        type="text"
-        placeholder="닉네임"
-        value={nickname}
-        onChange={(e) => setNickname(e.target.value)}
-        className="pr-4 mb-4 p-2 border rounded w-full bg-white"
-      />
-=======
       <BackButton />
       <Image src="/logo.png" alt="Logo" width={150} height={150} className="mb-8" />
       <h1 className="text-xl font-semibold mb-4">
@@ -163,7 +139,6 @@ const SocialNicknamePage = () => {
           className="w-full h-[40px] p-2 border border-customGreen rounded focus:ring-2 focus:ring-customGreen focus:outline-none"
         />
       </div>
->>>>>>> 03a71c963ecf56a45663f3aaaa2375bc7e9ea18b
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <LargeButton onClick={handleNicknameSubmit}>닉네임 설정</LargeButton>
     </div>
