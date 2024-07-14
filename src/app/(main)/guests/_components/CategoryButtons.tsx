@@ -23,7 +23,7 @@ const CategoryButtons = ({ handleCategoryChange }: CategoryButtonsProps) => {
         ref={categoryRef}
         defaultValue="응원글"
         onChange={(e) => handleCategoryChange(e.target.value)}
-        className="w-3/5 p-1 bg-customGreen border rounded-md text-white shadow-md text-center "
+        className="w-20 py-1 bg-customGreen border rounded-md text-white shadow-md text-center "
         required
       >
         <option value="">선택해주세요</option>
