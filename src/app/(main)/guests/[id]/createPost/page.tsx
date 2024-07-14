@@ -120,7 +120,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
             style={{ backgroundColor: colorRef.current, backgroundImage: 'url("/logo.png")' }}
           />
         </section>
-        <label className="block mb-2 p-5 font-bold">편지색</label>
+        <label className="block mb-2 p-3 font-bold text-lg text-gray-700">편지지 색상을 선택하세요</label>
         <section>
           <div className="flex space-x-2 mb-12 justify-center pb-7">
             <ColorButtons handleColorChange={handleColorChange} />
