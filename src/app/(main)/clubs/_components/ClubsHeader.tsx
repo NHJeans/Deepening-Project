@@ -29,7 +29,7 @@ const ClubsHeader = ({ filterMyClubs }: { filterMyClubs: () => void }) => {
   if (!isLoggedIn) {
     return <SkeletonHeader />;
   }
-  const profileImg = user?.profile_img || "/logo.png";
+  const profileImg = user?.profile_img || "/logos/logo.png";
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();

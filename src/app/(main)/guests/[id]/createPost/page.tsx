@@ -48,7 +48,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="font-black text-xl self-start ml-10 pb-5 ">{`${clubData[0].title}님의 모임`}</h1>
+      <h1 className="font-extrabold text-xl self-start ml-10 pb-5 ">{`${clubData[0].title}님의 모임`}</h1>
       <section className="w-full pl-11 flex items-center ">
         <input
           id="nickname"
@@ -66,7 +66,7 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
             id="content"
             ref={contentRef}
             className="w-full p-2 text-base border border-gray-300 rounded-md min-h-[30rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
-            style={{ backgroundColor: bgColor, backgroundImage: 'url("/logo.png")' }}
+            style={{ backgroundColor: bgColor, backgroundImage: 'url("/logos/logo.png")' }}
             placeholder="여기에 글을 작성해주세요"
           />
         </section>
