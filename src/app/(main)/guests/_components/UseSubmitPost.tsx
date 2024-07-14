@@ -55,22 +55,6 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
           <div className="text-center">
             <h1>닉네임은</h1>
             <p>필수입니다.</p>
-            <p>세 글자 이상 적어주세요</p>
-          </div>
-        ),
-      });
-      return;
-    }
-
-    if (nickname.length < 3 || nickname.length > 10) {
-      modal.open({
-        title: "알림",
-        content: (
-          <div className="text-center">
-            <h1>닉네임이</h1>
-            <h2>현재 너무 짧거나 길어요.</h2>
-            <p>세 글자 이상 열 글자 이하로 </p>
-            <p>작성해주세요.</p>
           </div>
         ),
       });
@@ -107,7 +91,7 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
       }
       const { data } = await response.json();
       modal.open({
-        title: "오류",
+        title: "알림",
         content: (
           <div className="text-center">
             <h1>글이 성공적으로</h1>
@@ -120,7 +104,7 @@ const useSubmitPost = (id: string, initialBgColor: string, initialCategory: stri
       console.error("Error creating post:", error);
 
       modal.open({
-        title: "",
+        title: "오류",
         content: (
           <div className="text-center">
             <h1>글 작성 중</h1>
