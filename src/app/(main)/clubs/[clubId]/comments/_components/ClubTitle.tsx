@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
+import ClubDetailHeaderSkeleton from "./ClubDetailHeaderSkeleton";
 
 interface ClubTitleProps {
   clubId: string;
@@ -34,9 +35,8 @@ const ClubTitle = ({ clubId }: ClubTitleProps) => {
   }
 
   if (!clubData) {
-    return <div>Loading...</div>;
+    return <ClubDetailHeaderSkeleton />;
   }
-
   return (
     <div className="flex">
       <div className="relative w-[60px] h-[60px] items-center">
