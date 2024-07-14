@@ -36,7 +36,7 @@ const EditNickname = ({ currentNickname, onChangeNickname, onCancel }: EditNickn
 
   return (
     <div>
-      <input type="text" defaultValue={currentNickname} ref={nicknameRef} className=" mb-2" />
+      <input type="text" defaultValue={currentNickname} ref={nicknameRef} className=" mb-2 p-2" />
       <div className="space-x-2">
         <SmallButton onClick={handleNicknameSubmit}>저장</SmallButton>
         <SmallButton onClick={onCancel}>취소</SmallButton>

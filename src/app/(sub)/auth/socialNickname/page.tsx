@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useUserStore } from "@/store";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
-import { useUserStore } from "@/store";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const SocialNicknamePage = () => {
   const router = useRouter();
@@ -120,7 +120,7 @@ const SocialNicknamePage = () => {
         <Image src="/back.png" alt="Back" width={24} height={24} />
       </button>
       <Image src="/logo.png" alt="Logo" width={96} height={96} className="mb-8" />
-      <h1 className="text-2xl font-semibold mb-4">
+      <h1 className="text-xl font-semibold mb-4">
         <span className="text-customGreen">‘어땠어’</span>에서 사용하실 닉네임을 입력해주세요!
       </h1>
       <label htmlFor="nickname" className="text-lg font-semibold mb-2">
@@ -132,7 +132,7 @@ const SocialNicknamePage = () => {
         placeholder="닉네임"
         value={nickname}
         onChange={(e) => setNickname(e.target.value)}
-        className="pr-4 mb-4 p-2 border rounded w-full"
+        className="pr-4 mb-4 p-2 border rounded w-full bg-white"
       />
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <button onClick={handleNicknameSubmit} className="bg-customGreen text-white px-4 py-2 rounded mb-4">
