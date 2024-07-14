@@ -68,13 +68,8 @@ const LoginPage = () => {
     <div className="flex flex-col items-center justify-center h-screen bg-customYellow">
       <BackButton />
       <Image src="/logos/logo.png" alt="Logo" width={150} height={150} className="mb-8" />
-      <LargeInput type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <LargeInput
-        type="password"
-        placeholder="비밀번호"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <LargeInput type="email" value={email} onChange={(e) => setEmail(e.target.value)} label="이메일" />
+      <LargeInput type="password" value={password} onChange={(e) => setPassword(e.target.value)} label="비밀번호" />
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <LargeButton onClick={handleLogin}>로그인</LargeButton>
       <Link href="/auth/sign-up" className="underline text-gray-500 py-3">

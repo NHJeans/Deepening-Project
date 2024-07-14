@@ -5,7 +5,7 @@ interface ButtonLgProps {
 
 const LargeButton = ({ children, onClick }: ButtonLgProps) => {
   return (
-    <button className="font-bold rounded-lg bg-customGreen text-white w-[270px] h-[34px] mt-3" onClick={onClick}>
+    <button className="font-bold rounded-lg bg-customGreen text-white w-[270px] h-[34px] mt-5" onClick={onClick}>
       {children}
     </button>
   );

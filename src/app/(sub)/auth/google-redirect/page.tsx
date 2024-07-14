@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { useUserStore } from "@/store";
@@ -9,7 +9,7 @@ const GoogleRedirectPage = () => {
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
   const [loading, setLoading] = useState(true);
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
     const handleGoogleLogin = async () => {

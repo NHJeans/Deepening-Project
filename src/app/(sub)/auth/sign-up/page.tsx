@@ -85,28 +85,23 @@ const SignUpPage = () => {
       <Image src="/logos/logo.png" alt="Logo" width={150} height={150} className="mb-8" />
       <ButtonInput
         type="email"
-        placeholder="이메일"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         buttonText="중복확인"
         onButtonClick={handleEmailCheck}
+        label="이메일"
       />
-      {emailChecked === false && emailError && <p className="text-red-500 mb-2">{emailError}</p>}
-      {emailChecked === true && <p className="text-green-500 mb-2">사용 가능한 이메일입니다.</p>}
-      <LargeInput type="text" placeholder="닉네임" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+      {emailChecked === false && emailError && <p className="text-red-500 mb-2 mt-2">{emailError}</p>}
+      {emailChecked === true && <p className="text-green-500 mt-2">사용 가능한 이메일입니다.</p>}
+      <LargeInput type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} label="닉네임" />
+      <LargeInput type="password" value={password} onChange={(e) => setPassword(e.target.value)} label="비밀번호" />
       <LargeInput
         type="password"
-        placeholder="비밀번호"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <LargeInput
-        type="password"
-        placeholder="비밀번호 확인"
         value={passwordConfirm}
         onChange={(e) => setPasswordConfirm(e.target.value)}
+        label="비밀번호 확인"
       />
-      {signUpError && <p className="text-red-500 mb-4">{signUpError}</p>}
+      {signUpError && <p className="text-red-500 mb-4 mt-2">{signUpError}</p>}
       <LargeButton onClick={handleSignUp}>회원가입</LargeButton>
       <Link href="/auth/login" className="underline text-gray-500 py-3">
         이미 회원이신가요?

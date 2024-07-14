@@ -21,11 +21,10 @@ const AuthSelectionPage = () => {
 
       if (error) {
         console.error(`${method} login error:`, error.message);
-        return;
       }
-      return;
+    } else {
+      router.push(`/auth/${method}`);
     }
-    router.push(`/auth/${method}`);
   };
 
   return (
