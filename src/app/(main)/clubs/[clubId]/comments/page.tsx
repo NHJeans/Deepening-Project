@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import ClubDetailPageHeader from "./_components/ClubDetailPageHeader";
 import CommentGridItem from "./_components/CommentGridItem";
 import CommentListItem from "./_components/CommentListItem";
+import Modal from "@/components/modal/Modal";
+import DetailShareBtn from "@/components/share/share";
+import KakaoShareButton from "@/components/share/kakao/Kakaoshare";
 
 const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) => {
   const [commentList, setCommentList] = useState<Comment[]>([]);
@@ -14,6 +17,7 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
   const [initialMousePosition, setInitialMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [initialStickerPosition, setInitialStickerPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [viewMode, setViewMode] = useState<string>("grid");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchCommentData = async () => {
@@ -87,10 +91,18 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
     alert(`클릭: ${clubId}`);
   };
 
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <section className="relative h-full w-full " onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
       <HeaderSection>
-        <ClubDetailPageHeader id={clubId} setViewMode={setViewMode} />
+        <ClubDetailPageHeader id={clubId} setViewMode={setViewMode}></ClubDetailPageHeader>
       </HeaderSection>
       <section className="relative h-[75%] overflow-y-auto">
         {viewMode === "grid"
@@ -107,9 +119,18 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
             ))}
       </section>
       <div className="flex h-[10%] items-center justify-center">
-        <button className="cursor-pointer rounded bg-customGreen px-24 py-2 font-semibold text-white hover:opacity-90">
+        <button
+          className="cursor-pointer rounded bg-customGreen px-24 py-2 font-semibold text-white hover:opacity-90"
+          onClick={handleModalOpen}
+        >
           공유하기
         </button>
+        <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+          <div className="flex flex-wrap gap-x-10 gap-y-5 justify-center items-center mb-2.5">
+            <DetailShareBtn />
+            <KakaoShareButton id={clubId} />
+          </div>
+        </Modal>
       </div>
     </section>
   );

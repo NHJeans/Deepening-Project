@@ -10,16 +10,16 @@ const AuthSelectionPage = () => {
   const supabase = createClient();
 
   const handleLogin = async (method: string) => {
-    if (method === "kakao") {
+    if (method === "kakao" || method === "google") {
       const { error } = await supabase.auth.signInWithOAuth({
-        provider: "kakao",
+        provider: method,
         options: {
           redirectTo: `${window.location.origin}/api/auth/callback`,
         },
       });
 
       if (error) {
-        console.error("Kakao login error:", error.message);
+        console.error(`${method} login error:`, error.message);
         return;
       }
       return;
@@ -38,7 +38,7 @@ const AuthSelectionPage = () => {
       <div className="flex space-x-6 mb-8">
         <button onClick={() => handleLogin("login")} className="flex flex-col items-center">
           <div className="w-12 h-12 flex items-center justify-center mb-2">
-            <Image src="/email.png" alt="Email" width={48} height={48} />
+            <Image src="/logos/email.png" alt="Email" width={48} height={48} />
           </div>
           <span>Email</span>
         </button>

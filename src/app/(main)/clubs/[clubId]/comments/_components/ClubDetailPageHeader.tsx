@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import gridImg from "../../../../../../../public/icons/grid-filled.png";
 import listImg from "../../../../../../../public/icons/list-lined.png";
+import ClubTitle from "./ClubTitle";
 
 interface ClubDetailPageHeaderProps {
   id: string;
@@ -11,7 +12,7 @@ interface ClubDetailPageHeaderProps {
 const ClubDetailPageHeader = ({ id, setViewMode }: ClubDetailPageHeaderProps) => {
   return (
     <>
-      <h1 className="text-xl font-bold">모임 상세페이지</h1>
+      <ClubTitle clubId={id} />
       <div className="absolute flex gap-1 bottom-0 right-0 m-4">
         <button
           className="w-6 h-6 rounded bg-customGreen cursor-pointer hover:brightness-90 active:opacity-85"

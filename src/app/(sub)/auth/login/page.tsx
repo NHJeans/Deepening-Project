@@ -13,6 +13,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const supabase = createClient();
 
   const handleLogin = async () => {
     setError(null);
