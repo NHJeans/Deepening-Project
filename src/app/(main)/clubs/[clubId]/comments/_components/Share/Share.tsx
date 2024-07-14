@@ -1,14 +1,21 @@
 "use client";
 
 import Image from "next/image";
+import { useModal } from "@/context/modal.context";
+
 interface DetailShareBtnProps {
   id: string;
 }
 
 export default function DetailShareBtn({ id }: DetailShareBtnProps) {
+  const modal = useModal();
+
   const copyToClipboard = async (text: string) => {
     await navigator.clipboard.writeText(text);
-    alert(`http://localhost:3000/guests/${id}/createPost : 클립보드에 복사되었습니다.`);
+    modal.open({
+      title: "알림",
+      content: `마음을 전달받을 주소가 복사되었습니다.`,
+    });
   };
 
   const handleCopyClick = () => {
@@ -16,10 +23,11 @@ export default function DetailShareBtn({ id }: DetailShareBtnProps) {
     const textToCopy = `${baseUrl}/guests/${id}/createPost`;
     copyToClipboard(textToCopy);
   };
+
   return (
     <>
       <div onClick={handleCopyClick}>
-        <div className="relative w-[60px] h-[60px] items-center">
+        <div className="relative w-[50px] h-[50px] items-center mb-1">
           <Image
             src="/icons/share-Link.png"
             alt="이미지 없음"

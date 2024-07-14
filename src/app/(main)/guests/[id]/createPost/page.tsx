@@ -1,110 +1,59 @@
 "use client";
 
-import { Club } from "@/types/club.type";
-import { useQuery } from "@tanstack/react-query";
-
-import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useModal } from "@/context/modal.context";
+import useQueryClubs from "../../../../../store/queries/UseQueryClubs";
 import CategoryButtons from "../../_components/CategoryButtons";
 import ColorButtons from "../../_components/ColorButtons";
 import CustomButton from "../../_components/CustomButton";
 import LoadingSpinner from "../../_components/LoadingSpinner";
+import useSubmitPost from "../../_Hooks/UseSubmitPost";
 
 const CreatePostPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
+  const modal = useModal();
 
-  const contentRef = useRef<HTMLTextAreaElement>(null);
-  const colorRef = useRef<string>("white");
-  const categoryRef = useRef<string>("응원글");
-  const nicknameRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
+  const { handleSubmit, handleColorChange, handleCategoryChange, contentRef, nicknameRef, bgColor, categoryRef } =
+    useSubmitPost(id, "white", "응원글");
 
-  const {
-    data: clubData,
-    isPending,
-    error,
-  } = useQuery<Club[], Error, Club[]>({
-    queryKey: ["clubs", id],
-    queryFn: async () => {
-      const response = await fetch(`/api/guests/${id}`);
-      if (!response.ok) {
-        throw new Error("데이터를 불러올 수 없습니다");
-      }
-      return response.json();
-    },
-  });
+  const { clubData, isPending, error } = useQueryClubs(id);
   if (isPending) {
     return <LoadingSpinner />;
   }
 
   if (error) {
-    return <h1>에러가 발생했습니다: {error.message}</h1>;
+    modal.open({
+      title: "오류",
+      content: (
+        <div className="text-center ">
+          <p>에러가 발생했습니다</p>
+          <p>{error.message}</p>
+        </div>
+      ),
+    });
+
+    return;
   }
 
-  const handleColorChange = (color: string) => {
-    colorRef.current = color;
-    if (contentRef.current) {
-      contentRef.current.style.backgroundColor = color;
-    }
-  };
-  const handleCategoryChange = (category: string) => {
-    categoryRef.current = category;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const content = contentRef.current?.value;
-    const category = categoryRef.current;
-    const nickname = nicknameRef.current?.value;
-
-    if (!content) {
-      alert("내용을 입력해주세요.");
-      return;
-    }
-
-    if (!nickname) {
-      alert("닉네임을 설정해주세요");
-      return;
-    }
-
-    try {
-      const response = await fetch(`/api/guests/${id}/createpost`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nickname,
-          content,
-          category,
-          bg_image: colorRef.current,
-          club_id: id,
-        }),
-      });
-
-      if (!response.ok) {
-        alert("글 작성 중 오류가 발생했습니다.");
-        return;
-      }
-      const { data } = await response.json();
-
-      alert("글이 성공적으로 작성되었습니다!");
-      router.push(`/guests/${id}/postDetail/${data.id}`);
-    } catch (error) {
-      console.error("Error creating post:", error);
-      alert("글 작성 중 오류가 발생했습니다.");
-    }
-  };
+  if (!clubData || clubData.length === 0) {
+    modal.open({
+      title: "오류",
+      content: (
+        <div className="text-center ">
+          <p>클럽 데이터를 불러올 수 없습니다</p>
+        </div>
+      ),
+    });
+    return;
+  }
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="font-black text-xl self-start ml-10 pb-5 ">{`${clubData[0].title}님의 모임`}</h1>
-      <section className="pl-9 flex items-start ">
+      <h1 className="font-black text-2xl self-start ml-10 pb-5">{`${clubData[0].title}님의 모임`}</h1>
+      <section className="pl-9 flex items-start">
         <input
           id="nickname"
           ref={nicknameRef}
-          required
-          className="w-1/6 bg-customYellow border-b border-gray-300 outline-none text-black-500"
+          className="w-1/6 bg-customYellow border-b border-gray-300 outline-none"
         />
         <span className="mr-1 font-bold">님의</span>
         <CategoryButtons handleCategoryChange={handleCategoryChange} />
@@ -115,9 +64,9 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
           <textarea
             id="content"
             ref={contentRef}
-            required
-            className="w-full p-2 text-2xl  border border-gray-300 rounded-md min-h-[30rem] resize-none shadow-xl  bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
-            style={{ backgroundColor: colorRef.current, backgroundImage: 'url("/logo.png")' }}
+            className="w-full p-2 text-base border border-gray-300 rounded-md min-h-[30rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
+            style={{ backgroundColor: bgColor, backgroundImage: 'url("/logo.png")' }}
+            placeholder="여기에 글을 작성해주세요"
           />
         </section>
         <label className="block mb-2 p-5 font-bold">편지색</label>

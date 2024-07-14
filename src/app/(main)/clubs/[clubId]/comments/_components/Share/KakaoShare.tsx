@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect } from "react";
 import Image from "next/image";
-import logoImage from "/logo.png";
+import { useEffect } from "react";
 
 interface KakaoShareButtonProps {
   id: string;
@@ -33,7 +32,7 @@ const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
     window.Kakao.Link.sendDefault({
       objectType: "text",
       text: "마음을 전할 수 있는 롤링페이퍼 사이트",
-      // imageUrl: logoImage,
+
       link: {
         mobileWebUrl: shareUrl,
         webUrl: shareUrl,
@@ -42,7 +41,7 @@ const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
   };
 
   return (
-    <div onClick={handleShare} className="relative w-[75px] h-[75px] items-center">
+    <div onClick={handleShare} className="relative w-[65px] h-[65px] items-center">
       <Image
         src="/icons/share-Kakao.png"
         alt="이미지 없음"
