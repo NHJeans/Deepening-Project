@@ -122,6 +122,7 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
           <KakaoShareButton id={clubId} />
         </div>
       ),
+      path: "/",
     });
   };
 
