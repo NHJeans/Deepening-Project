@@ -28,7 +28,7 @@ const ClubsList = ({ myClubs }: { myClubs: boolean }) => {
   );
   const allClubs = data?.pages.flatMap((page) => page.data) || [];
   const filteredClubs = myClubs ? allClubs.filter((club) => club.user_id === user?.id) : allClubs;
-  console.log("filteredClubs", filteredClubs);
+
   return (
     <div className="max-h-full overflow-y-auto p-4">
       <div className="grid grid-cols-2 gap-4">

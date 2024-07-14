@@ -48,7 +48,6 @@ const KakaoRedirectPage = () => {
           nickname: userData.nickname,
           profile_img: userData.profile_img,
         });
-        console.log("유저 데이터 설정 완료:", userData);
         router.push("/clubs");
         return;
       }
