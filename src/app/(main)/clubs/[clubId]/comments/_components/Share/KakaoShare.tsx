@@ -27,8 +27,9 @@ const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
     }
 
     window.Kakao.Link.sendDefault({
-      objectType: "text",
+      objectType: "feed",
       text: "마음을 전할 수 있는 롤링페이퍼 사이트",
+      imageUrl: "https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/logo.png",
       link: {
         mobileWebUrl: shareUrl,
         webUrl: shareUrl,
