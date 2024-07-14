@@ -3,24 +3,35 @@
 import LargeButton from "@/components/Button/LargeButton";
 import { useUserStore } from "@/store";
 import { createClient } from "@/utils/supabase/client";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import DragDrop from "../create/_components/DragDrop";
 import CreateClubSection from "./_components/CreateClubSection";
+import { useModal } from "@/context/modal.context";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CreateClub = () => {
   const [club, setClub] = useState("");
   const [file, setFile] = useState<File>();
+  const [clubError, setClubError] = useState<string>("");
   const supabase = createClient();
-  const router = useRouter();
   const { user } = useUserStore();
+  const modal = useModal();  
+  const queryClient = useQueryClient();
 
   const defaultImgUrl =
     "https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/DefaultCardImage.png";
 
+  const clubRequire = (message: string, link: string) => {
+    modal.open({
+      title: message,
+      content: <></>,
+      path: link,
+    });
+  };
+
   const createClubHandler = async () => {
     if (!club) {
-      alert("모임명을 입력해주세요");
+      setClubError("모임명을 입력 해주세요.");
       return;
     }
     let imageUrl = { publicUrl: "" };
@@ -37,15 +48,16 @@ const CreateClub = () => {
         user_id: user?.id,
       },
     ]);
-    if (data) alert("모임 등록에 실패하였습니다.");
+    if (data) clubRequire("모임 등록에 실패하였습니다.", "/clubs/create");
     else {
-      alert("모임이 성공적으로 등록되었습니다.");
-      router.replace("/clubs");
+      clubRequire("모임이 성공적으로 등록되었습니다.", "/clubs");
+      // 클럽 목록 쿼리 무효화
+      queryClient.invalidateQueries({ queryKey: ["clubs"] });    
     }
   };
 
   return (
-    <CreateClubSection club={club} setClub={setClub}>
+    <CreateClubSection club={club} setClub={setClub} clubError={clubError}>
       <DragDrop setFile={setFile} />
       <LargeButton onClick={createClubHandler}>모임 등록</LargeButton>
     </CreateClubSection>
