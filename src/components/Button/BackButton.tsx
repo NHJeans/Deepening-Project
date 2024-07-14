@@ -1,8 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import Image from "next/image";
-import React from "react";
+import { useRouter } from "next/navigation";
 
 const BackButton = () => {
   const router = useRouter();

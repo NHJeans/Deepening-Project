@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState, useMemo } from "react";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/utils/supabase/client";
 import { useUserStore } from "@/store";
+import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 interface SocialRedirectPageProps {
   provider: "kakao" | "google";
@@ -54,7 +54,6 @@ const SocialRedirectPage = ({ provider }: SocialRedirectPageProps) => {
             nickname: userData.nickname,
             profile_img: userData.profile_img,
           });
-          console.log("유저 데이터 설정 완료:", userData);
           router.push("/clubs");
           return;
         }

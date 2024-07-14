@@ -42,7 +42,7 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // 이 부분 수정함. 현재 로그인 상태이면서 경로가 /login 인 경우 홈화면으로 리다이렉트.
+  // 이 부분 수정함. 현재 로그인 상태이면서 경로가 /auth 인 경우 홈화면으로 리다이렉트.
   if (user && request.nextUrl.pathname.startsWith("/auth")) {
     return NextResponse.redirect(new URL("/clubs", request.url));
   }
