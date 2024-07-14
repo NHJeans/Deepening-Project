@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
-import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script src="https://developers.kakao.com/sdk/js/kakao.js" strategy="beforeInteractive" />
+        <meta property="og:image" content="http://localhost:3000/logos/logo.png" />
       </head>
 
       <body className={inter.className}>
