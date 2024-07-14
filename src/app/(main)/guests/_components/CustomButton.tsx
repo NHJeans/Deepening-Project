@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 interface CustomButtonProps {
   onClick?: (e: React.FormEvent) => void;
   type?: "button" | "submit" | "reset";

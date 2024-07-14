@@ -8,7 +8,7 @@ interface KakaoShareButtonProps {
 
 const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const shareUrl = `${baseUrl}/guests/${id}}/createPost`;
+  const shareUrl = `${baseUrl}/guests/${id}/createPost`;
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.Kakao) {
@@ -25,15 +25,17 @@ const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
       console.error("Kakao SDK가 초기화되지 않았거나 사용할 수 없습니다.");
       return;
     }
-    const logoImage = `/logo.png`;
 
     window.Kakao.Link.sendDefault({
-      objectType: "text",
-      text: "마음을 전할 수 있는 롤링페이퍼 사이트",
-
-      link: {
-        mobileWebUrl: shareUrl,
-        webUrl: shareUrl,
+      objectType: "feed",
+      content: {
+        title: "마음을 전할 수 있는 롤링페이퍼 사이트",
+        description: "당신의 소중한 마음을 전하세요",
+        imageUrl: "https://saayznmhcfprtrehndli.supabase.co/storage/v1/object/public/DeepeningProject/logo.png",
+        link: {
+          mobileWebUrl: shareUrl,
+          webUrl: shareUrl,
+        },
       },
     });
   };
@@ -42,7 +44,7 @@ const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
     <div onClick={handleShare} className="relative w-[65px] h-[65px] items-center">
       <Image
         src="/icons/share-Kakao.png"
-        alt="이미지 없음"
+        alt="Kakao 공유 아이콘"
         layout="fill"
         className="rounded-lg bg-cover cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110"
       />

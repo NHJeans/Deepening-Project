@@ -1,20 +1,13 @@
 "use client";
 
-<<<<<<< HEAD
-=======
-import { useRouter } from "next/navigation";
->>>>>>> 03a71c963ecf56a45663f3aaaa2375bc7e9ea18b
+import BackButton from "@/components/Button/BackButton";
+import LargeButton from "@/components/Button/LargeButton";
+import ButtonInput from "@/components/Input/ButtonInput";
+import LargeInput from "@/components/Input/LargeInput";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-<<<<<<< HEAD
-=======
-import LargeButton from "@/components/Button/LargeButton";
-import LargeInput from "@/components/Input/LargeInput";
-import ButtonInput from "@/components/Input/ButtonInput";
-import BackButton from "@/components/Button/BackButton";
->>>>>>> 03a71c963ecf56a45663f3aaaa2375bc7e9ea18b
 
 const SignUpPage = () => {
   const router = useRouter();

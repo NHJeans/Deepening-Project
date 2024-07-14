@@ -24,7 +24,7 @@ const ConfirmModal = ({ title, content, path }: ConfirmModalProps) => {
   return (
     <BackDrop>
       <section className="flex flex-col justify-center items-center max-w-72 w-full p-8 gap-4 rounded-lg bg-white">
-        <h2 className="text-2xl font-semibold mb-2">{title}</h2>
+        <h2 className="text-2xl font-semibold mb-2 text-center">{title}</h2>
         <div className="modal-content">{content}</div>
         <button
           className="px-4 py-1 bg-customGreen text-white font-semibold border border-gray-200 rounded hover:opacity-85 active:opacity-75"

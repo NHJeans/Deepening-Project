@@ -3,6 +3,7 @@
 import HeaderSection from "@/components/Header/HeaderSection";
 import { useModal } from "@/context/modal.context";
 import { Comment } from "@/types/comment.type";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import ClubDetailPageHeader from "./_components/ClubDetailPageHeader";
@@ -119,13 +120,19 @@ const ClubDetailPage = ({ params: { clubId } }: { params: { clubId: string } }) 
           <KakaoShareButton id={clubId} />
         </div>
       ),
-      path: "/",
     });
   };
 
+  const goToClubsPage = () => {
+    router.push("/clubs");
+  };
+
   return (
-    <section className="relative w-full h-full" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
+    <section className="relative h-full w-full" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
       <HeaderSection>
+        <button onClick={goToClubsPage} className="absolute self-start top-[0] left-[0] m-4">
+          <Image src="/icons/back.png" alt="Back" width={24} height={24} />
+        </button>
         <ClubDetailPageHeader id={clubId} setViewMode={setViewMode}></ClubDetailPageHeader>
       </HeaderSection>
       {commentList.length > 0 ? (
