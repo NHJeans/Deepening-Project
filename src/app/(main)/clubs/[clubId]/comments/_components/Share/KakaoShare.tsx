@@ -7,10 +7,8 @@ interface KakaoShareButtonProps {
 }
 
 const KakaoShareButton = ({ id }: KakaoShareButtonProps) => {
-  console.log("KakaoShareButton id:", id);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const shareUrl = `${baseUrl}/guests/${id}}/createPost`;
-  console.log("shareUrl:", shareUrl);
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.Kakao) {

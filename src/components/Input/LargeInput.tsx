@@ -15,7 +15,7 @@ const LargeInput = ({ type, value, onChange, label }: LargeInputProps) => {
         type={type}
         value={value}
         onChange={onChange}
-        className="w-full p-2 border border-customGreen rounded focus:ring-2 focus:ring-customGreen focus:outline-none"
+        className="border-2 border-gray outline-customGreen w-[270px] h-[35px] p-3 text-sm rounded-lg"
       />
     </div>
   );

@@ -1,11 +1,11 @@
-interface ButtonSmProps {
+interface SmallButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
 }
 
-const SmallButton = ({ children, onClick }: ButtonSmProps) => {
+const SmallButton = ({ children, onClick }: SmallButtonProps) => {
   return (
-    <button onClick={onClick} className="bg-customGreen rounded-lg text-white text-xs px-2 py-1 w-[65px]">
+    <button onClick={onClick} className="bg-customGreen font-bold rounded-lg text-white text-xs px-2 py-1">
       {children}
     </button>
   );
