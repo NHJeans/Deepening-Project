@@ -1,15 +1,16 @@
 "use client";
 
+import { useModal } from "@/context/modal.context";
 import useQueryClubs from "../../../../../store/queries/UseQueryClubs";
 import CategoryButtons from "../../_components/CategoryButtons";
 import ColorButtons from "../../_components/ColorButtons";
 import CustomButton from "../../_components/CustomButton";
 import LoadingSpinner from "../../_components/LoadingSpinner";
-
-import useSubmitPost from "../../_components/UseSubmitPost";
+import useSubmitPost from "../../_Hooks/UseSubmitPost";
 
 const CreatePostPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
+  const modal = useModal();
 
   const { handleSubmit, handleColorChange, handleCategoryChange, contentRef, nicknameRef, bgColor, categoryRef } =
     useSubmitPost(id, "white", "응원글");
@@ -20,21 +21,39 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
   }
 
   if (error) {
-    return <h1>에러가 발생했습니다: {error.message}</h1>;
+    modal.open({
+      title: "오류",
+      content: (
+        <div className="text-center ">
+          <p>에러가 발생했습니다</p>
+          <p>{error.message}</p>
+        </div>
+      ),
+    });
+
+    return;
   }
 
   if (!clubData || clubData.length === 0) {
-    return <h1>클럽 데이터를 불러올 수 없습니다</h1>;
+    modal.open({
+      title: "오류",
+      content: (
+        <div className="text-center ">
+          <p>클럽 데이터를 불러올 수 없습니다</p>
+        </div>
+      ),
+    });
+    return;
   }
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="font-black text-xl self-start ml-10 pb-5">{`${clubData[0].title}님의 모임`}</h1>
-      <section className="pl-9 flex items-start ">
+      <h1 className="font-black text-2xl self-start ml-10 pb-5">{`${clubData[0].title}님의 모임`}</h1>
+      <section className="pl-9 flex items-start">
         <input
           id="nickname"
           ref={nicknameRef}
-          className="w-1/6 bg-customYellow border-b border-gray-300 outline-none text-black-500"
+          className="w-1/6 bg-customYellow border-b border-gray-300 outline-none"
         />
         <span className="mr-1 font-bold">님의</span>
         <CategoryButtons handleCategoryChange={handleCategoryChange} />
@@ -45,8 +64,9 @@ const CreatePostPage = ({ params }: { params: { id: string } }) => {
           <textarea
             id="content"
             ref={contentRef}
-            className="w-full p-2 text-2xl  border border-gray-300 rounded-md min-h-[30rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
+            className="w-full p-2 text-base border border-gray-300 rounded-md min-h-[30rem] resize-none shadow-xl bg-no-repeat bg-[length:4rem_4rem] bg-right-bottom"
             style={{ backgroundColor: bgColor, backgroundImage: 'url("/logo.png")' }}
+            placeholder="여기에 글을 작성해주세요"
           />
         </section>
         <label className="block mb-2 p-5 font-bold">편지색</label>
