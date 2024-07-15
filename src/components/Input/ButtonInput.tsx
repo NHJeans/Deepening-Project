@@ -1,10 +1,10 @@
 interface ButtonInputProps {
   type: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label: string;
   buttonText: string;
   onButtonClick: () => void;
-  label: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ButtonInput = ({ type, value, onChange, buttonText, onButtonClick, label }: ButtonInputProps) => {
@@ -16,9 +16,12 @@ const ButtonInput = ({ type, value, onChange, buttonText, onButtonClick, label }
           type={type}
           value={value}
           onChange={onChange}
-          className="flex-1 p-2 h-full outline-none rounded-lg text-sm"
+          className="flex-1 p-2 w-full h-full outline-none rounded-l-lg text-sm"
         />
-        <button onClick={onButtonClick} className="bg-customGreen text-xs text-white px-4 py-1 mr-1 rounded-lg">
+        <button
+          onClick={onButtonClick}
+          className="shrink-0 h-4/5 font-semibold bg-customGreen text-xs text-white px-4 mr-1 my-1 rounded-lg"
+        >
           {buttonText}
         </button>
       </div>
