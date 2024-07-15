@@ -25,10 +25,10 @@
   </tr>
   <tr>
     <td align="center">모임 전체 목록,<br/>닉네임 수정 & 로그아웃 기능,<br/>프로젝트 환경 셋팅</td>
-    <td align="center">모임생성,<br/>이미지 drag&drop 방식 추가 기능,<br/></td>
+    <td align="center">모임생성,<br/>이미지 drag&drop <br/>방식 추가 기능,</td>
     <td align="center">회원가입 & 로그인 <br/>소셜로그인(google, kakao)</td>
-    <td align="center">모임 목록 페이지 리스트(기본순, 모아보기) <br/>모임 재배치 기능 </td>
-    <td align="center">모임 후기 글쓰기 및 편지지 색상 변경 기능<br/>후기 상세페이지</td>
+    <td align="center">모임 목록 페이지 리스트<br/>(기본순, 모아보기) <br/>모임 재배치 기능 </td>
+    <td align="center">모임 후기 글쓰기 및 <br/>편지지 색상 변경 기능<br/>후기 상세페이지</td>
     <td align="center">디테일 페이지 헤더<br/>카카오톡 공유하기</td>
   </tr>
 </table>
@@ -93,53 +93,52 @@ Supabase를 백엔드로 사용하여 실시간 데이터베이스를 사용했�
 
 ### 1. Supabase Auth를 사용하여 로그인 회원가입 페이지를 구현
 
-<img width="640" src=""/><br/>
+<img width="640" src="https://github.com/user-attachments/assets/544f3f57-54a0-4e85-8586-1255eebbad28"/><br/>
 
 - Supabase Auth를 사용하여 로그인 및 회원가입 페이지를 구현했어요.
 - 이메일 회원가입 및 소셜 로그인(구글, 카카오) 기능을 구현하여 편리하게 인증할 수 있어요<br/><br/>
 
 ### 2. 내가 생성한 모임과 닉네임 변경 기능
 
-<img width="640" src=""/><br/>
+<img width="640" src="https://github.com/user-attachments/assets/f1763467-fe41-46cf-b777-81daff769ab5"/><br/>
 
 - 나의 모임을 통해 내가 생성한 모임을 빠르게 찾아볼 수 있어요.
 - 닉네임 변경을 통해 나만의 닉네임을 가질 수 있어요.<br/><br/>
 
 ### 3. 모임 리스트 페이지 구현
 
-<img width="640" align="top" src=""/><br /><br />
+<img width="640" align="top" src="https://github.com/user-attachments/assets/85491077-b76a-4f7b-a43a-0b8bebff81a0"/><br /><br />
 
 - 유저들이 생성한 모임들을 볼 수 있어요.
 - 무한 스크롤을 구현하였어요. 무한 스크롤시 로딩은 로딩 스피너를 통해 로딩중임을 알 수 있어요.
 
+### 4. 모임 생성 페이지 구현
+<img width="640" align="top" src="https://github.com/user-attachments/assets/81267bb0-31b2-4a97-b535-b24263c789a1"/><br /><br />
+- 드래그 방식으로 이미지를 넣어 모임을 생성할수 있어요.
+
 ### 4. 모임 상세페이지
 
-<img width="640" src=""/><br/>
+<img width="640" src="https://github.com/user-attachments/assets/cddc1b28-9bee-4f15-b42d-4d02a68126ce"/><br/>
 
-- 내가 생성한 모임에 다른 사람들이 써준 글을 볼 수 있어요.
+- 내가 생성한 모임에 다른 사람들이 써준
 - 버튼을 통해 보기 방식을 변경 할 수 있어요.
 - 다른 사람이 쓴 글을 마우스를 통해 배치할 수 있어요.
 
-<img width="640" src=""/><br/>
+<img width="640" src="https://github.com/user-attachments/assets/71a963d3-3163-420b-891f-030b2cd7e170"/><br/>
 
 - URL 공유하기와 카카오톡 공유하기 기능으로 비회원도 링크를 통해 글을 남길 수 있어요
 
-<img width="640" src=""/><br/>
-
-- 작성할때 입력했던 비밀번호를 입력해야 볼 수 있어요
-- 수정과 삭제는 본인만 할 수 있어요
-
-<img width="640" src=""/><br/>
+<img width="640" src="https://github.com/user-attachments/assets/ad186408-5fe4-4f3b-9ab4-7f519a607605"/><br/>
 
 - 아이콘을 클릭해 글의 내용을 볼 수 있어요
 
-<img width="640" src=""/><br/>
-<img width="640" src=""/><br/>
-
+<img width="640" src="https://github.com/user-attachments/assets/1b0424f0-463b-4f69-9bc5-96b100442bac"/><br/>
+<img width="640" src="https://github.com/user-attachments/assets/1b6eaeb2-936e-4cba-96ff-88d47d596a61"/><br/>
 - 잘못된 경로로 접근한 경우 Not-Found UI를 보여줬어요<br/>
 - 에러 발생시 Error UI를 보여줬어요<br/><br/>
 
-<img width="640" align="top" src=""/><br /><br />
+<img width="640" align="top" src="https://github.com/user-attachments/assets/c822949f-2b23-4cb6-9b9b-cbe4fa1f5152"/><br /><br />
+
 
 - 공유 받은 URL이나 카카오톡 공유를 통해 글을 작성할 수 있어요.
 - 카테고리별 선택과 배경색을 바꿀 수 있어요.<br/><br/>
